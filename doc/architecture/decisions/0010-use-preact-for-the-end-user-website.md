@@ -87,6 +87,8 @@ No decision yet. I believe using Preact will be beneficial.
 
 Switching to Preact would most likely result in significant performance gains for the link-user site.
 
+The process of switching from a `create-react-app` based application to Preact is not very labor-intensive and is well-documented in Preact's [docs](https://preactjs.com/guide/switching-to-preact).
+
 We could lose out on compatibility with some React libraries. It appears that there is a lot of support for Preact in libraries we currently use/ might use.
 
 - For CSS-in-JSS there is
