@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2018_07_11_233021) do
   enable_extension "plpgsql"
 
   create_table "link_instances", force: :cascade do |t|
-    t.string "name"
-    t.string "subdomain"
-    t.string "email"
+    t.string "name", null: false
+    t.string "subdomain", null: false
+    t.string "email", null: false
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
