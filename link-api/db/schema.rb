@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2018_06_20_214229) do
   enable_extension "plpgsql"
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "alternate_name"
-    t.string "description"
+    t.string "description", null: false
     t.string "email"
     t.string "url"
     t.string "tax_status"

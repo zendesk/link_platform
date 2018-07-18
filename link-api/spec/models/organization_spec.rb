@@ -16,8 +16,7 @@ RSpec.describe Organization, type: :model do
     expect(org.errors[:description]).to include("can't be blank")
   end
 
-  it "is invalid with a duplicate name"
-  it "is invalid with a location"
-  it "is valid with a duplicate email address"
+  # This test must be implemented once the link_platform model is implemented
+  #it "is invalid with a duplicate name"
 end
 
