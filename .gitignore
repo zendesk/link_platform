@@ -51,4 +51,3 @@ bower.json
 node_modules/
 
 .generators
-spec/
