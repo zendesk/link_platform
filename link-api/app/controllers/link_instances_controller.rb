@@ -1,0 +1,2 @@
+class LinkInstancesController < ApplicationController
+end
