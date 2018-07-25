@@ -4,4 +4,6 @@ class PhysicalAddress < ApplicationRecord
   validates :state_province, presence: true
   validates :postal_code, presence: true
   validates :country, presence: true
+
+  belongs_to :location
 end
