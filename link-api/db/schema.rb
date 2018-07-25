@@ -50,4 +50,17 @@ ActiveRecord::Schema.define(version: 2018_07_25_202902) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "physical_addresses", force: :cascade do |t|
+    t.string "location_id"
+    t.string "attention"
+    t.string "address_1", null: false
+    t.string "city", null: false
+    t.string "region"
+    t.string "state_province", null: false
+    t.string "postal_code", null: false
+    t.string "country", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
