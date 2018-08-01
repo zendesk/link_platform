@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_214557) do
+ActiveRecord::Schema.define(version: 2018_08_01_214729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "organization_id"
+    t.string "service_id"
+    t.string "service_at_location_id"
+    t.string "name"
+    t.string "title"
+    t.string "department"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "link_instances", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +79,33 @@ ActiveRecord::Schema.define(version: 2018_07_25_214557) do
     t.string "organization_id", null: false
     t.string "name", null: false
     t.string "alternate_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "service_at_locations", force: :cascade do |t|
+    t.string "service_id", null: false
+    t.string "location_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "organization_id", null: false
+    t.string "program_id"
+    t.string "name", null: false
+    t.string "alternate_name"
+    t.string "description"
+    t.string "url"
+    t.string "email"
+    t.string "status", null: false
+    t.string "interpretation_services"
+    t.string "application_services"
+    t.string "wait_time"
+    t.string "fees"
+    t.string "accreditations"
+    t.string "licenses"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
