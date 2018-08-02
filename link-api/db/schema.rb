@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_01_214729) do
+ActiveRecord::Schema.define(version: 2018_08_01_215855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,21 @@ ActiveRecord::Schema.define(version: 2018_08_01_214729) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.string "location_id"
+    t.string "service_id"
+    t.string "organization_id"
+    t.string "contact_id"
+    t.string "service_at_location_id"
+    t.string "number"
+    t.integer "extension"
+    t.string "type"
+    t.string "language"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "physical_addresses", force: :cascade do |t|
     t.string "location_id"
     t.string "attention"
@@ -79,6 +94,17 @@ ActiveRecord::Schema.define(version: 2018_08_01_214729) do
     t.string "organization_id", null: false
     t.string "name", null: false
     t.string "alternate_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regular_schedules", force: :cascade do |t|
+    t.string "service_id"
+    t.string "location_id"
+    t.string "service_at_location_id"
+    t.integer "weekday", null: false
+    t.time "opens_at"
+    t.time "closes_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
