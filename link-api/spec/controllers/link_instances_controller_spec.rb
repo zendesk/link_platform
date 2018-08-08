@@ -83,7 +83,8 @@ RSpec.describe LinkInstancesController, type: :controller do
       it "updates the requested link_instance" do
         put :update, params: {id: link_instance.to_param, link_instance: new_attributes}, session: valid_session
         link_instance.reload
-        skip("Add assertions for updated state")
+
+        expect(link_instance.name).to eq("New Name")
       end
 
       it "renders a JSON response with the link_instance" do
