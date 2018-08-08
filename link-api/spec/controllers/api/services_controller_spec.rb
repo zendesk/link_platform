@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ServicesController, type: :controller do
+RSpec.describe Api::ServicesController, type: :controller do
   let(:organization) { create(:organization) }
 
   # This should return the minimal set of attributes required to create a valid
@@ -57,7 +57,7 @@ RSpec.describe ServicesController, type: :controller do
         post :create, params: {service: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(service_url(Service.last))
+        expect(response.location).to eq(api_service_url(Service.last))
       end
     end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ContactsController, type: :controller do
+RSpec.describe Api::ContactsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Contact. As you add validations to Contact, be sure to
@@ -47,7 +47,7 @@ RSpec.describe ContactsController, type: :controller do
         post :create, params: {contact: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(contact_url(Contact.last))
+        expect(response.location).to eq(api_contact_url(Contact.last))
       end
     end
   end

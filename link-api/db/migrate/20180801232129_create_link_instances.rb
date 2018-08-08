@@ -1,4 +1,4 @@
-class CreateLinkInstance < ActiveRecord::Migration[5.2]
+class CreateLinkInstances < ActiveRecord::Migration[5.2]
   def change
     create_table :link_instances do |t|
       t.string :name, null: false

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ServiceAtLocationsController, type: :controller do
+RSpec.describe Api::ServiceAtLocationsController, type: :controller do
   let(:service) { create(:service) }
   let(:location) { create(:location) }
 
@@ -57,7 +57,7 @@ RSpec.describe ServiceAtLocationsController, type: :controller do
         post :create, params: {service_at_location: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(service_at_location_url(ServiceAtLocation.last))
+        expect(response.location).to eq(api_service_at_location_url(ServiceAtLocation.last))
       end
     end
 
