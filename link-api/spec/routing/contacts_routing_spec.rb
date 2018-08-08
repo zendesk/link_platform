@@ -1,32 +1,32 @@
 require "rails_helper"
 
-RSpec.describe ContactsController, type: :routing do
+RSpec.describe Api::ContactsController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/contacts").to route_to("contacts#index")
+      expect(:get => "/api/contacts").to route_to("api/contacts#index")
     end
 
 
     it "routes to #show" do
-      expect(:get => "/contacts/1").to route_to("contacts#show", :id => "1")
+      expect(:get => "/api/contacts/1").to route_to("api/contacts#show", :id => "1")
     end
 
 
     it "routes to #create" do
-      expect(:post => "/contacts").to route_to("contacts#create")
+      expect(:post => "/api/contacts").to route_to("api/contacts#create")
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/contacts/1").to route_to("contacts#update", :id => "1")
+      expect(:put => "/api/contacts/1").to route_to("api/contacts#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/contacts/1").to route_to("contacts#update", :id => "1")
+      expect(:patch => "/api/contacts/1").to route_to("api/contacts#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/contacts/1").to route_to("contacts#destroy", :id => "1")
+      expect(:delete => "/api/contacts/1").to route_to("api/contacts#destroy", :id => "1")
     end
 
   end
