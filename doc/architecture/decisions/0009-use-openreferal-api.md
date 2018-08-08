@@ -6,6 +6,8 @@ Date: 2018-06-13
 
 Proposed
 
+Amended by [17. Use strings for all model id fields](0017-use-strings-for-all-model-id-fields.md)
+
 ## Context
 
 [Open Referral](https://openreferral.org/) is non-profit who develops a public API spec for health, human and social services data. Part of their mission is to standardize these civic services data.
