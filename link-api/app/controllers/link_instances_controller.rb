@@ -12,7 +12,7 @@ class LinkInstancesController < ApplicationController
   end
 
   def create
-    @link_instance = LinkInstance.new(params)
+    @link_instance = LinkInstance.new(link_instance_params)
 
     if @link_instance.save
       render json: @link_instance, status: :created, location: @link_instance
@@ -22,7 +22,7 @@ class LinkInstancesController < ApplicationController
   end
 
   def update
-    if @link_instance.update(params)
+    if @link_instance.update(link_instance_params)
       render json: @link_instance
     else
       render json: @link_instance.errors, status: :unprocessable_entity
