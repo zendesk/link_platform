@@ -15,7 +15,7 @@ RSpec.describe LinkInstancesController, type: :controller do
 
   let(:invalid_attributes) {
     {
-      name: "Invalid"
+      name: "Invalid",
       email: nil
     }
   }
