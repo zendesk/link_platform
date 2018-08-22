@@ -4,7 +4,7 @@ Date: 2018-08-01
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -14,7 +14,7 @@ Redux is a state container for JavaScript applications. It helps to manage state
 
 ## Decision
 
-No decision yet.
+We will use Redux in `link_platform` for state management.
 
 ## Consequences
 
