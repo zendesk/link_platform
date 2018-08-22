@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_230220) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name", default: "", null: false
+    t.string "link_instance_id", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_230220) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
+    t.index ["email", "link_instance_id"], name: "index_admins_on_email_and_link_instance_id", unique: true
     t.index ["email"], name: "index_admins_on_email"
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_230220) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "owner_id"
   end
 
   create_table "locations", force: :cascade do |t|

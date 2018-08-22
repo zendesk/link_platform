@@ -34,7 +34,7 @@ module LinkApi
 
     if ['development', 'test'].include?(Rails.env)
       require 'dotenv'
-      Dotenv.load(".env.#{Rails.env}")
+      Dotenv.load
     end
   end
 end
