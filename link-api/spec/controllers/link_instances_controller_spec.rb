@@ -72,6 +72,7 @@ RSpec.describe LinkInstancesController, type: :controller do
 
   describe "PUT #update" do
     let(:link_instance) { create(:link_instance) }
+
     context "with valid params" do
       let(:new_attributes) {
         {
@@ -88,8 +89,8 @@ RSpec.describe LinkInstancesController, type: :controller do
       end
 
       it "renders a JSON response with the link_instance" do
-
         put :update, params: {id: link_instance.to_param, link_instance: valid_attributes}, session: valid_session
+
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -97,7 +98,6 @@ RSpec.describe LinkInstancesController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the link_instance" do
-
         put :update, params: {id: link_instance.to_param, link_instance: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
@@ -107,6 +107,7 @@ RSpec.describe LinkInstancesController, type: :controller do
 
   describe "DELETE #destroy" do
     let!(:link_instance) { create(:link_instance) }
+
     it "destroys the requested link_instance" do
       expect {
         delete :destroy, params: {id: link_instance.to_param}, session: valid_session

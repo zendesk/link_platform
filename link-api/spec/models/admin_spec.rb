@@ -21,7 +21,7 @@ RSpec.describe Admin, type: :model do
 
       it "doesn't allow duplicate emails within link_instances" do
         a1 = FactoryBot.create(:admin)
-        a2 = FactoryBot.build(:admin, link_instance_id: a1.link_instance_id)
+        a2 = FactoryBot.build(:admin, email: a1.email, link_instance_id: a1.link_instance_id)
 
         a2.valid?
         expect(a2.errors[:email]).to include("has already been taken")

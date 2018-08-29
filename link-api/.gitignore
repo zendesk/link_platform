@@ -20,4 +20,4 @@
 /config/master.key
 
 spec/requests
-.env*
+.env

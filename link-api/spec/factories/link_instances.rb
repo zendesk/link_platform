@@ -5,8 +5,7 @@ FactoryBot.define do
     subdomain "example"
 
     after(:build) do |link_instance|
-      # link_instance.owner ||= FactoryBot.build(:owner, link_instance: link_instance)
-      # link_instance.id = link_instance.owner.link_instance_id
+      link_instance.owner ||= FactoryBot.build(:owner, link_instance: link_instance)
     end
   end
 end
