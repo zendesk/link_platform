@@ -1,22 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe Setting, type: :model do
-  let(:setting) { build(:setting) }
+RSpec.describe Settings, type: :model do
+  let(:settings) { build(:settings) }
 
   context "with valid attributes" do
     it "saves" do
-      assert setting.save!
+      assert settings.save!
     end
   end
 
   context "without a feedback email" do
-    before { setting.feedback_email = nil }
+    before { settings.feedback_email = nil }
 
     it "fails validations" do
       expect {
-        setting.save!
+        settings.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
-
 end
