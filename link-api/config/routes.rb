@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :phones
   resources :link_instances
   devise_for :admins
 
@@ -6,5 +7,6 @@ Rails.application.routes.draw do
     resources :service_at_locations
     resources :services
     resources :contacts
+    resources :phones
   end
 end
