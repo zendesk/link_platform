@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 2018_09_12_204953) do
   create_table "settings", force: :cascade do |t|
     t.string "theme_color"
     t.string "button_color"
-    t.string "feedback_email"
-    t.string "link_instance_id"
+    t.string "feedback_email", null: false
+    t.string "link_instance_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

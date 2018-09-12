@@ -3,6 +3,6 @@ FactoryBot.define do
     theme_color "#00000"
     button_color "#CCCCCC"
     feedback_email "linksf@zendesk.com"
-    link_instance_id "1"
+    link_instance
   end
 end
