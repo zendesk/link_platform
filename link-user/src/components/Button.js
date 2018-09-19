@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { createComponent } from 'react-fela';
+import { createComponent } from 'preact-fela';
 
 const ButtonContainer = createComponent(
 	() => ({

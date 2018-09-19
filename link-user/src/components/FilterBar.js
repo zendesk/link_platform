@@ -1,40 +1,57 @@
-import { h } from 'preact'
-import ToggleButton from './ToggleButton'
+import { h } from 'preact';
+import { createComponent } from 'react-fela';
 
-import s from './FilterBar.css'
-import Link from './Link'
+import ToggleButton from './ToggleButton';
+import Link from './Link';
 
-const getNewFilterQueryString = (queryString, showOpen) => (
-  showOpen ? `${queryString}&hours=open` : queryString.replace('&hours=open', '')
-)
+// Styles
+const Container = createComponent(() => ({
+	display: 'flex',
+	alignItems: 'flex-end',
+	borderBottom: '1px solid #DCDCDC',
+	padding: '10px',
+	backgroundColor: 'rgb(238, 238, 238)'
+}));
 
-const getNewSortQueryString = (queryString, sortDist) => (
-  sortDist ? `${queryString}&sort=dist` : queryString.replace('&sort=dist', '')
-)
+const FilterOption = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column'
+}));
 
-const FilterBar = (props) => (
-  <div className={s.row}>
-    <div className={s.filterOption}>
-      <Link to="/locations" replaceState queryString={getNewFilterQueryString(props.queryString, !props.showOpen)}>
-        <ToggleButton
-          visualOnly={true} // <span> instead of <button> as we're in a <Link>
-          label="Open now"
-          enabled={props.showOpen}
-        />
-      </Link>
-    </div>
-    <div className={s.filterOption}>
-      <Link to="/locations" replaceState queryString={getNewSortQueryString(props.queryString, !props.sortDist)}>
-        <ToggleButton
-          visualOnly={true}
-          label="Sort by distance"
-          enabled={props.sortDist}
-        />
-      </Link>
-    </div>
-  </div>
-)
+// Helpers
+const getNewFilterQueryString = (queryString, showOpen) =>
+	showOpen
+		? `${queryString}&hours=open`
+		: queryString.replace('&hours=open', '');
 
-FilterBar.propTypes = {}
+const getNewSortQueryString = (queryString, sortDist) =>
+	sortDist ? `${queryString}&sort=dist` : queryString.replace('&sort=dist', '');
 
-export default FilterBar
+const FilterBar = ({ queryString, showOpen, sortDist }) => (
+	<Container>
+		<FilterOption>
+			<Link
+				to="/locations"
+				replaceState
+				queryString={getNewFilterQueryString(queryString, !showOpen)}
+			>
+				<ToggleButton
+					visualOnly // <span> instead of <button> as we're in a <Link>
+					label="Open now"
+					enabled={showOpen}
+				/>
+			</Link>
+		</FilterOption>
+		<FilterOption>
+			<Link
+				to="/locations"
+				replaceState
+				queryString={getNewSortQueryString(queryString, !sortDist)}
+			>
+				<ToggleButton visualOnly label="Sort by distance" enabled={sortDist} />
+			</Link>
+		</FilterOption>
+	</Container>
+);
+
+export default FilterBar;

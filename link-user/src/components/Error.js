@@ -1,14 +1,13 @@
-import { h } from 'preact'
-import s from './Error.css'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
 
-const Error = (props) => (
-  <div className={s.error}>
-    {props.message}
-  </div>
-)
+const Container = createComponent(() => ({
+	background: '#FFFFBA',
+	height: '15px',
+	textAlign: 'center',
+	paddingTop: '3px'
+}));
 
-Error.propTypes = {
-  message: PropTypes.string.isRequired,
-}
+const Error = ({ message }) => <Container>{message}</Container>;
 
-export default Error
+export default Error;

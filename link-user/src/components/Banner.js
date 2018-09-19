@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import { createComponent } from 'react-fela'
+import { createComponent } from 'preact-fela'
 
 const goodTitle = 'Success!'
 const badTitle = 'Something went wrong!'
