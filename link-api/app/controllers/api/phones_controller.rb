@@ -1,6 +1,5 @@
 module Api
   class PhonesController < ApplicationController
-    before_action :assert_link_instance
     before_action :set_phone, only: [:show, :update, :destroy]
 
     # GET /phones
