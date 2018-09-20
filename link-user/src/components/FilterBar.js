@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { createComponent } from 'react-fela';
+import { createComponent } from 'preact-fela';
 
 import ToggleButton from './ToggleButton';
 import Link from './Link';

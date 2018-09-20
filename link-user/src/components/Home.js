@@ -1,16 +1,40 @@
-import { h } from 'preact'
-import s from './Home.css'
-import CategoryList from './CategoryList'
-import icons from '../../icons/css/fontello.css'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
 
-const Home = (props) => (
-  <div>
-    <div className={s.spacer}></div>
-    <div className={s.taxonomyList}>
-      <p className={s.title}>What service are you looking for?</p>
-      <CategoryList categories={props.categories} />
-    </div>
-  </div>
-)
+import CategoryList from './CategoryList';
+import icons from '../../icons/css/fontello.css';
 
-export default Home
+const Spacer = createComponent(() => ({
+	height: '10px'
+}));
+
+const TaxonomyListContainer = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap',
+	padding: '0 14px'
+}));
+
+const Title = createComponent(
+	() => ({
+		textAlign: 'center',
+		fontSize: '15px',
+		letterSpacing: '0.6pt',
+		color: 'rgb(51, 51, 51)',
+		margin: '0',
+		marginBottom: '20pt'
+	}),
+	'p'
+);
+
+const Home = ({ categories }) => (
+	<div>
+		<Spacer />
+		<TaxonomyListContainer>
+			<Title>What service are you looking for?</Title>
+			<CategoryList categories={categories} />
+		</TaxonomyListContainer>
+	</div>
+);
+
+export default Home;

@@ -1,23 +1,60 @@
-import { h } from 'preact'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
 
-import { currentUser } from '../../lib/session'
+import { currentUser } from '../../lib/session';
+import Navigation from './Navigation';
+import Footer from './Footer';
 
-import s from './Layout.css'
-import Navigation from './Navigation'
-import Footer from './Footer'
+// Styles
+const Body = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap',
+	width: '100%'
+}));
 
-function Layout({ admin, children }) {
-  return (
-    <div className={s.body}>
-      <Navigation currentUser={admin && currentUser()} />
-      <div className={s.center}>
-        <div className={admin ? s.adminContent : s.content}>
-          {children}
-        </div>
-      </div>
-      <Footer />
-    </div>
-  )
-}
+const Body = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap',
+	width: '100%'
+}));
 
-export default Layout
+const CenterContent = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap',
+	justifyContent: 'space-around',
+	alignItems: 'center',
+	maxWidth: '900px',
+	margin: '0 auto',
+	width: '100%'
+}));
+
+const AdminContent = createComponent(() => ({
+	width: '100%',
+	minWidth: '768px'
+}));
+
+const Content = createComponent(() => ({
+	maxWidth: '768px',
+	width: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap'
+}));
+
+const Layout = ({ admin, children }) => {
+	const ContentComponent = admin ? AdminContent : Content;
+	return (
+		<Body>
+			<Navigation currentUser={admin && currentUser()} />
+			<CenterContent>
+				<ContentComponent>{children}</ContentComponent>
+			</CenterContent>
+			<Footer />
+		</Body>
+	);
+};
+
+export default Layout;
