@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_03_223932) do
+ActiveRecord::Schema.define(version: 2018_10_03_231912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,15 +55,6 @@ ActiveRecord::Schema.define(version: 2018_10_03_223932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "link_instance_id", null: false
-  end
-
-  create_table "languages", force: :cascade do |t|
-    t.string "link_instance_id", null: false
-    t.string "service_id"
-    t.string "location_id"
-    t.string "language"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "link_instance_settings", force: :cascade do |t|
@@ -175,6 +166,15 @@ ActiveRecord::Schema.define(version: 2018_10_03_223932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "link_instance_id", null: false
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "theme_color"
+    t.string "button_color"
+    t.string "feedback_email", null: false
+    t.string "link_instance_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
