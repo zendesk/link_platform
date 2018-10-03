@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::ServicesController, type: :controller do
+  let(:link_instance) { create(:link_instance) }
   let(:organization) { create(:organization) }
 
   # This should return the minimal set of attributes required to create a valid
@@ -26,8 +27,12 @@ RSpec.describe Api::ServicesController, type: :controller do
   # ServicesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
+  end
+
   describe "GET #index" do
-    before { create(:service) }
+    before { create(:service, link_instance: link_instance) }
 
     it "returns a success response" do
       get :index, params: {}, session: valid_session
@@ -36,7 +41,7 @@ RSpec.describe Api::ServicesController, type: :controller do
   end
 
   describe "GET #show" do
-    let(:service) { create(:service) }
+    let(:service) { create(:service, link_instance: link_instance) }
 
     it "returns a success response" do
       get :show, params: {id: service.to_param}, session: valid_session
@@ -72,7 +77,7 @@ RSpec.describe Api::ServicesController, type: :controller do
   end
 
   describe "PUT #update" do
-    let(:service) { create(:service) }
+    let(:service) { create(:service, link_instance: link_instance) }
 
     context "with valid params" do
       let(:new_attributes) {
@@ -107,7 +112,7 @@ RSpec.describe Api::ServicesController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:service) { create(:service) }
+    let!(:service) { create(:service, link_instance: link_instance) }
 
     it "destroys the requested service" do
       expect {

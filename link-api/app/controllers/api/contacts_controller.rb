@@ -4,7 +4,7 @@ module Api
 
     # GET /api/contacts
     def index
-      @contacts = Contact.all
+      @contacts = current_link_instance.contacts
 
       render json: @contacts
     end
@@ -16,7 +16,7 @@ module Api
 
     # POST /api/contacts
     def create
-      @contact = Contact.new(contact_params)
+      @contact = current_link_instance.contacts.build(contact_params)
 
       if @contact.save
         render json: @contact, status: :created, location: api_contact_url(@contact)
@@ -42,7 +42,7 @@ module Api
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = current_link_instance.contacts.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
