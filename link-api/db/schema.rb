@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(version: 2018_10_04_225420) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "languages", force: :cascade do |t|
+    t.string "link_instance_id", null: false
+    t.string "service_id"
+    t.string "location_id"
+    t.string "language"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "link_instance_settings", force: :cascade do |t|
     t.string "link_instance_id", null: false
     t.string "name", null: false
