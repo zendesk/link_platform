@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_05_201838) do
+ActiveRecord::Schema.define(version: 2018_09_12_204953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,15 @@ ActiveRecord::Schema.define(version: 2018_09_05_201838) do
     t.string "fees"
     t.string "accreditations"
     t.string "licenses"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "theme_color"
+    t.string "button_color"
+    t.string "feedback_email", null: false
+    t.string "link_instance_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
