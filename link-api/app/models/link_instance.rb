@@ -7,4 +7,12 @@ class LinkInstance < ApplicationRecord
   validates :email, presence: true
   validates :subdomain, presence: true
   validates :owner, presence: true, on: :update
+
+  property_set :settings do
+    property :theme_color
+    property :button_color
+    property :feedback_email
+    property :link_instance_id
+  end
+
 end
