@@ -5,7 +5,7 @@ RSpec.describe Api::PhonesController, type: :controller do
   let(:phone) { create(:phone, link_instance: link_instance) }
 
   before do
-    ApplicationController.any_instance.stub(:current_link_instance).and_return(link_instance)
+    allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -41,14 +41,14 @@ RSpec.describe Api::PhonesController, type: :controller do
   describe "GET #index" do
     it "returns a success response" do
       get :index, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
   describe "GET #show" do
     it "returns a success response" do
       get :show, params: {id: phone.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe Api::PhonesController, type: :controller do
         post :create, params: {phone: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(phone_url(Phone.last))
+        expect(response.location).to eq(api_phone_url(Phone.last))
       end
     end
 

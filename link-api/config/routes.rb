@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :phones
   resources :link_instances
   devise_for :admins
 

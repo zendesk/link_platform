@@ -4,7 +4,7 @@ module Api
 
     # GET /phones
     def index
-      @phones = Phone.all
+      @phones = current_link_instance.phones
 
       render json: @phones
     end
@@ -16,12 +16,10 @@ module Api
 
     # POST /phones
     def create
-      @phone = Phone.new(phone_params)
-
-      @phone.link_instance = current_link_instance
+      @phone = current_link_instance.phones.build(phone_params)
 
       if @phone.save
-        render json: @phone, status: :created, location: @phone
+        render json: @phone, status: :created, location: api_phone_url(@phone)
       else
         render json: @phone.errors, status: :unprocessable_entity
       end
