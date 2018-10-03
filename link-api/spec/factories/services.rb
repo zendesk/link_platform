@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :service do
+    link_instance
     organization
     program
     name "Service Name"

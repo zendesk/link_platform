@@ -4,7 +4,7 @@ module Api
 
     # GET /api/services
     def index
-      @services = Service.all
+      @services = current_link_instance.services
 
       render json: @services
     end
@@ -16,7 +16,7 @@ module Api
 
     # POST /api/services
     def create
-      @service = Service.new(service_params)
+      @service = current_link_instance.services.build(service_params)
 
       if @service.save
         render json: @service, status: :created, location: api_service_url(@service)
@@ -42,7 +42,7 @@ module Api
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_service
-        @service = Service.find(params[:id])
+        @service = current_link_instance.services.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.
