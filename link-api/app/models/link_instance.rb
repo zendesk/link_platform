@@ -2,6 +2,7 @@ class LinkInstance < ApplicationRecord
   belongs_to :owner, class_name: "Admin", optional: true
 
   has_many :phones
+  has_many :contacts
 
   validates :name, presence: true
   validates :email, presence: true

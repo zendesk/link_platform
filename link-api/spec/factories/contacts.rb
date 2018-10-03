@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :contact do
+    link_instance
     organization
     service
     service_at_location
