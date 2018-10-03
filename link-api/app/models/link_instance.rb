@@ -3,6 +3,7 @@ class LinkInstance < ApplicationRecord
 
   has_many :phones
   has_many :contacts
+  has_many :service_at_locations
 
   validates :name, presence: true
   validates :email, presence: true
