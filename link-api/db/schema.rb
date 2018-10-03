@@ -92,6 +92,22 @@ ActiveRecord::Schema.define(version: 2018_09_12_204953) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.string "link_instance_id", null: false
+    t.string "location_id"
+    t.string "service_id"
+    t.string "organization_id"
+    t.string "contact_id"
+    t.string "service_at_location_id"
+    t.string "number", null: false
+    t.integer "extension"
+    t.string "phone_type"
+    t.string "language"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "physical_addresses", force: :cascade do |t|
     t.string "location_id"
     t.string "attention"

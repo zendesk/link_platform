@@ -1,16 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe SettingsController, type: :controller do
-
-end
-
-
   let(:valid_attributes) {
     {
       theme_color: "#00000",
       button_color: "#CCCCCC",
       feedback_email: "linksf@zendesk.com",
-      link_instance_id: "1"
     }
   }
 
@@ -20,24 +15,23 @@ end
       feedback_email: nil
     }
   }
+
+  let(:link_instance) { create(:link_instance) }
+  let(:settings) { create(:settings, link_instance: link_instance) }
+
+  before do
+    link_instance.settings = settings
+    ApplicationController.any_instance.stub(:current_link_instance).and_return(link_instance)
+  end
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication)
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    before { create(:settings) }
-
-    it "returns a success response" do
-      settings = Settings.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_success
-    end
-  end
 
   describe "GET #show" do
     let (:settings) { create(:settings) }
     it "returns a success response" do
-      settings = Settings.create! valid_attributes
       get :show, params: {id: settings.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -56,7 +50,7 @@ end
         post :create, params: {settings: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(settings_url(Settings.last))
+        expect(response.location).to eq(setting_url(Settings.last))
       end
     end
 
@@ -71,7 +65,6 @@ end
   end
 
   describe "PUT #update" do
-    let(:settings) { create(:settings) }
     context "with valid params" do
       let(:new_attributes) {
         {
@@ -106,7 +99,6 @@ end
   end
 
   describe "DELETE #destroy" do
-    let!(:settings) { create(:settings) }
     it "destroys the requested settings" do
       expect {
         delete :destroy, params: {id: settings.to_param}, session: valid_session
