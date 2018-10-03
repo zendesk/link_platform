@@ -1,4 +1,6 @@
 class LinkInstancesController < ApplicationController
+  skip_before_action :assert_link_instance
+
   before_action :set_link_instance, only: [:show, :update, :destroy]
 
   def index
