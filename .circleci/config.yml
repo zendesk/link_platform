@@ -28,6 +28,7 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+      - run: cp .env.example .env
       - run: bundle exec rake db:create db:schema:load
       - run:
           name: run unit tests
