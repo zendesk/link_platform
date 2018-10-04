@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  api:
+  link-api:
     working_directory: ~/link_platform/link-api
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
@@ -34,7 +34,7 @@ jobs:
           name: run unit tests
           command: bundle exec rspec
 
-  # admin:
+  # link-admin:
   #   working_directory: ~/link_platform/link-admin
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
@@ -57,7 +57,7 @@ jobs:
   #         name: run javascript tests
   #         command: npm test
 
-  # user:
+  # link-user:
   #   working_directory: ~/link_platform/link-user
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
@@ -84,6 +84,6 @@ workflows:
   version: 2
   test_suite:
     jobs:
-      - api
-      # - admin
-      # - user
+      - link-api
+      # - link-admin
+      # - link-user
