@@ -1,0 +1,85 @@
+version: 2
+jobs:
+  api:
+    working_directory: link-api
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          RAILS_ENV: test
+          # https://discuss.circleci.com/t/rails-app-cant-connect-to-postgres-server/13059
+          PGHOST: 127.0.0.1
+          PGUSER: root
+      - image: circleci/postgres:10.3
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: link-api_test
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-ruby-dependencies-
+      - run:
+          name: install dependencies
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+      - run: bundle exec rake db:create db:schema:load
+      - run:
+          name: run unit tests
+          command: bundle exec rspec
+
+  # admin:
+  #   working_directory: link-admin
+  #   docker:
+  #     - image: circleci/node:8-stretch-browsers
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         # fallback to using the latest cache if no exact match is found
+  #         - v1-js-dependencies-
+  #     - run:
+  #         name: install dependencies
+  #         command: npm install
+  #     - save_cache:
+  #         paths:
+  #           - ./node_modules
+  #         key: v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #     - run:
+  #         name: run javascript tests
+  #         command: npm test
+
+  # user:
+  #   working_directory: link-user
+  #   docker:
+  #     - image: circleci/node:8-stretch-browsers
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         # fallback to using the latest cache if no exact match is found
+  #         - v1-js-dependencies-
+  #     - run:
+  #         name: install dependencies
+  #         command: npm install
+  #     - save_cache:
+  #         paths:
+  #           - ./node_modules
+  #         key: v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #     - run:
+  #         name: run javascript tests
+  #         command: npm test
+
+workflows:
+  version: 2
+  test_suite:
+    jobs:
+      - api
+      # - admin
+      # - user
