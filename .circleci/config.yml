@@ -39,12 +39,13 @@ jobs:
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
-  #     - checkout
+  #     - checkout:
+  #         path: ~/link_platform
   #     - restore_cache:
   #         keys:
-  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         - v1-js-admin-dependencies-{{ checksum "package-lock.json" }}
   #         # fallback to using the latest cache if no exact match is found
-  #         - v1-js-dependencies-
+  #         - v1-js-admin-dependencies-
   #     - run:
   #         name: install dependencies
   #         command: npm install
@@ -61,12 +62,13 @@ jobs:
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
-  #     - checkout
+  #     - checkout:
+  #         - path: ~/link_platform
   #     - restore_cache:
   #         keys:
-  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         - v1-js-user-dependencies-{{ checksum "package-lock.json" }}
   #         # fallback to using the latest cache if no exact match is found
-  #         - v1-js-dependencies-
+  #         - v1-js-user-dependencies-
   #     - run:
   #         name: install dependencies
   #         command: npm install
