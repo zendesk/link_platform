@@ -1,7 +1,7 @@
 version: 2
 jobs:
-  api:
-    working_directory: link-api
+  link-api:
+    working_directory: ~/link_platform/link-api
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
         environment:
@@ -14,7 +14,8 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: link-api_test
     steps:
-      - checkout
+      - checkout:
+          path: ~/link_platform
       - restore_cache:
           keys:
           - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
@@ -27,22 +28,24 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+      - run: cp .env.example .env
       - run: bundle exec rake db:create db:schema:load
       - run:
           name: run unit tests
           command: bundle exec rspec
 
-  # admin:
-  #   working_directory: link-admin
+  # link-admin:
+  #   working_directory: ~/link_platform/link-admin
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
-  #     - checkout
+  #     - checkout:
+  #         path: ~/link_platform
   #     - restore_cache:
   #         keys:
-  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         - v1-js-admin-dependencies-{{ checksum "package-lock.json" }}
   #         # fallback to using the latest cache if no exact match is found
-  #         - v1-js-dependencies-
+  #         - v1-js-admin-dependencies-
   #     - run:
   #         name: install dependencies
   #         command: npm install
@@ -54,17 +57,18 @@ jobs:
   #         name: run javascript tests
   #         command: npm test
 
-  # user:
-  #   working_directory: link-user
+  # link-user:
+  #   working_directory: ~/link_platform/link-user
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
-  #     - checkout
+  #     - checkout:
+  #         - path: ~/link_platform
   #     - restore_cache:
   #         keys:
-  #         - v1-js-dependencies-{{ checksum "package-lock.json" }}
+  #         - v1-js-user-dependencies-{{ checksum "package-lock.json" }}
   #         # fallback to using the latest cache if no exact match is found
-  #         - v1-js-dependencies-
+  #         - v1-js-user-dependencies-
   #     - run:
   #         name: install dependencies
   #         command: npm install
@@ -80,6 +84,6 @@ workflows:
   version: 2
   test_suite:
     jobs:
-      - api
-      # - admin
-      # - user
+      - link-api
+      # - link-admin
+      # - link-user
