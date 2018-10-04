@@ -1,7 +1,7 @@
 version: 2
 jobs:
   api:
-    working_directory: link-api
+    working_directory: ~/link_platform/link-api
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
         environment:
@@ -14,7 +14,8 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: link-api_test
     steps:
-      - checkout
+      - checkout:
+          path: ~/link_platform
       - restore_cache:
           keys:
           - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
@@ -33,7 +34,7 @@ jobs:
           command: bundle exec rspec
 
   # admin:
-  #   working_directory: link-admin
+  #   working_directory: ~/link_platform/link-admin
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
@@ -55,7 +56,7 @@ jobs:
   #         command: npm test
 
   # user:
-  #   working_directory: link-user
+  #   working_directory: ~/link_platform/link-user
   #   docker:
   #     - image: circleci/node:8-stretch-browsers
   #   steps:
