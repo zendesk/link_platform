@@ -12,6 +12,7 @@ class LinkInstance < ApplicationRecord
   has_many :postal_addresses
   has_many :physical_addresses
   has_many :organizations
+  has_many :regular_schedules
 
   validates :name, presence: true
   validates :email, presence: true

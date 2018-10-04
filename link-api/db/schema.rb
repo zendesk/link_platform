@@ -187,6 +187,18 @@ ActiveRecord::Schema.define(version: 2018_12_19_233221) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "regular_schedules", force: :cascade do |t|
+    t.string "link_instance_id", null: false
+    t.string "service_id"
+    t.string "location_id"
+    t.string "service_at_location_id"
+    t.integer "weekday", null: false
+    t.datetime "opens_at"
+    t.datetime "closes_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "service_at_locations", force: :cascade do |t|
     t.string "service_id", null: false
     t.string "location_id", null: false
