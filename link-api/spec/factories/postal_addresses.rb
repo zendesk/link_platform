@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :postal_address do
-    id "MyString"
-    link_instance_id "MyString"
-    location_id "MyString"
+    location
+    link_instance
     attention "MyString"
     address_1 "MyString"
     city "MyString"
