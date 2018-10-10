@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_03_223932) do
+ActiveRecord::Schema.define(version: 2018_10_03_231912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,13 @@ ActiveRecord::Schema.define(version: 2018_10_03_223932) do
     t.string "link_instance_id", null: false
   end
 
-  create_table "languages", force: :cascade do |t|
+  create_table "link_instance_settings", force: :cascade do |t|
     t.string "link_instance_id", null: false
-    t.string "service_id"
-    t.string "location_id"
-    t.string "language"
+    t.string "name", null: false
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["link_instance_id", "name"], name: "index_link_instance_settings_on_link_instance_id_and_name", unique: true
   end
 
   create_table "link_instances", force: :cascade do |t|

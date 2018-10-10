@@ -10,4 +10,11 @@ class LinkInstance < ApplicationRecord
   validates :email, presence: true
   validates :subdomain, presence: true
   validates :owner, presence: true, on: :update
+
+  property_set :settings do
+    property :theme_color, default: "#f8f8f8"
+    property :button_color, default: "#007aff"
+    property :feedback_email
+  end
+
 end
