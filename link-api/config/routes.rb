@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resources :contacts
     resources :phones
     resources :holiday_schedules
+    resources :languages
   end
 end
