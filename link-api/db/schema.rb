@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2018_10_03_231912) do
   end
 
   create_table "link_instance_settings", force: :cascade do |t|
-    t.integer "link_instance_id", null: false
+    t.string "link_instance_id", null: false
     t.string "name", null: false
     t.string "value"
     t.datetime "created_at", null: false
@@ -166,15 +166,6 @@ ActiveRecord::Schema.define(version: 2018_10_03_231912) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "link_instance_id", null: false
-  end
-
-  create_table "settings", force: :cascade do |t|
-    t.string "theme_color"
-    t.string "button_color"
-    t.string "feedback_email", null: false
-    t.string "link_instance_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

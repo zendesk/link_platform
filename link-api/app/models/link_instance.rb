@@ -12,10 +12,9 @@ class LinkInstance < ApplicationRecord
   validates :owner, presence: true, on: :update
 
   property_set :settings do
-    property :theme_color
-    property :button_color
+    property :theme_color, default: "#f8f8f8"
+    property :button_color, default: "#007aff"
     property :feedback_email
-    property :link_instance_id
   end
 
 end
