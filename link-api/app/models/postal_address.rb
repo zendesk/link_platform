@@ -5,6 +5,8 @@ class PostalAddress < ApplicationRecord
   validates :postal_code, presence: true
   validates :country, presence: true
 
+  validates :country, length: { minimum: 2, too_short: "%{count} minimum characters are required" }
+
   belongs_to :location
   belongs_to :link_instance
 end

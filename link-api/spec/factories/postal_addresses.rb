@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :postal_address do
-    location
     link_instance
-    attention "MyString"
-    address_1 "MyString"
-    city "MyString"
-    region "MyString"
-    state_province "MyString"
-    postal_code "MyString"
-    country "MyString"
+    location
+    attention "Wilma Flintstone"
+    address_1 "1019 Bedrock Blvd"
+    city "Bedrock City"
+    region "Greater Crater Lake"
+    state_province "CA"
+    postal_code "12345"
+    country "Gaia"
   end
 end

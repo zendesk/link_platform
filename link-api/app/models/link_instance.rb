@@ -7,6 +7,7 @@ class LinkInstance < ApplicationRecord
   has_many :services
   has_many :holiday_schedules
   has_many :languages
+  has_many :postal_addresses
 
   validates :name, presence: true
   validates :email, presence: true

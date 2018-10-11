@@ -4,7 +4,8 @@ module Api
 
     # GET /postal_addresses
     def index
-      @postal_addresses = PostalAddress.all
+      # @postal_addresses = PostalAddress.all
+      @postal_addresses = current_link_instance.postal_addresses
 
       render json: @postal_addresses
     end
@@ -16,7 +17,7 @@ module Api
 
     # POST /postal_addresses
     def create
-      @postal_address = PostalAddress.new(postal_address_params)
+      @postal_address = current_link_instance.postal_addresses.build(postal_address_params)
 
       if @postal_address.save
         render json: @postal_address, status: :created, location: api_postal_address_url(@postal_address)
@@ -43,12 +44,12 @@ module Api
 
     # Use callbacks to share common setup or constraints between actions.
     def set_postal_address
-      @postal_address = PostalAddress.find(params[:id])
+      @postal_address = current_link_instance.postal_addresses.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def postal_address_params
-      params.require(:postal_address).permit(:id, :link_instance_id, :location_id, :attention, :address_1, :city, :region, :state_province, :postal_code, :country)
+      params.require(:postal_address).permit(:location_id, :attention, :address_1, :city, :region, :state_province, :postal_code, :country)
     end
   end
 end
