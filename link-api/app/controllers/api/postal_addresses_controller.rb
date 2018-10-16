@@ -4,7 +4,6 @@ module Api
 
     # GET /postal_addresses
     def index
-      # @postal_addresses = PostalAddress.all
       @postal_addresses = current_link_instance.postal_addresses
 
       render json: @postal_addresses
