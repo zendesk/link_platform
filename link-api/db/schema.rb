@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_225420) do
+ActiveRecord::Schema.define(version: 2018_10_10_213709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,20 @@ ActiveRecord::Schema.define(version: 2018_10_04_225420) do
   end
 
   create_table "physical_addresses", force: :cascade do |t|
+    t.string "location_id"
+    t.string "attention"
+    t.string "address_1", null: false
+    t.string "city", null: false
+    t.string "region"
+    t.string "state_province", null: false
+    t.string "postal_code", null: false
+    t.string "country", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "postal_addresses", force: :cascade do |t|
+    t.string "link_instance_id", null: false
     t.string "location_id"
     t.string "attention"
     t.string "address_1", null: false
