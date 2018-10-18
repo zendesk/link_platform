@@ -14,7 +14,7 @@ const BannerContainer = createComponent(({ show, isGood }) => ({
   background: '#f3f3f3',
   borderRadius: '3px',
   borderColor: '#dbdbdb',
-  padding: 8px 8px,
+  padding: '8px 8px',
   minWidth: '200px',
   fontSize: '16px',
 }))
