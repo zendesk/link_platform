@@ -81,6 +81,7 @@ RSpec.describe Api::ContactsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested contact" do
+      contact.save!
       expect {
         delete :destroy, params: {id: contact.to_param}, session: valid_session
       }.to change(Contact, :count).by(-1)
