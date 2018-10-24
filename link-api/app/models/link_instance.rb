@@ -1,6 +1,8 @@
 class LinkInstance < ApplicationRecord
   belongs_to :owner, class_name: "Admin", optional: true
 
+  has_many :contacts
+  has_many :locations
   has_many :phones
   has_many :contacts
   has_many :service_at_locations

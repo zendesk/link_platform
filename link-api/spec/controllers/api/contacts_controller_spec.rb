@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::ContactsController, type: :controller do
   let(:link_instance) { create(:link_instance) }
+  let(:contact) { create(:contact, link_instance: link_instance) }
 
   # This should return the minimal set of attributes required to create a valid
   # Contact. As you add validations to Contact, be sure to
@@ -22,8 +23,6 @@ RSpec.describe Api::ContactsController, type: :controller do
   end
 
   describe "GET #index" do
-    before { create(:contact, link_instance: link_instance) }
-
     it "returns a success response" do
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
@@ -31,8 +30,6 @@ RSpec.describe Api::ContactsController, type: :controller do
   end
 
   describe "GET #show" do
-    let(:contact) { create(:contact, link_instance: link_instance) }
-
     it "returns a success response" do
       get :show, params: {id: contact.to_param}, session: valid_session
       expect(response).to be_successful
@@ -58,8 +55,6 @@ RSpec.describe Api::ContactsController, type: :controller do
   end
 
   describe "PUT #update" do
-    let(:contact) { create(:contact, link_instance: link_instance) }
-
     context "with valid params" do
       let(:new_attributes) {
         {
@@ -85,13 +80,11 @@ RSpec.describe Api::ContactsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:contact) { create(:contact, link_instance: link_instance) }
-
     it "destroys the requested contact" do
+      contact.save!
       expect {
         delete :destroy, params: {id: contact.to_param}, session: valid_session
       }.to change(Contact, :count).by(-1)
     end
   end
-
 end
