@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     resources :languages
     resources :service_at_locations
     resources :services
+    resources :organizations
   end
 end
