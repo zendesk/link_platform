@@ -1,32 +1,30 @@
 require 'rails_helper'
 
-RSpec.describe Api::ServiceAtLocationsController, type: :controller do
+RSpec.describe Api::HolidaySchedulesController, type: :controller do
   let(:link_instance) { create(:link_instance) }
-  let(:service_at_location) { create(:service_at_location, link_instance: link_instance) }
-  let(:service) { create(:service) }
-  let(:location) { create(:location) }
+  let(:holiday_schedule) { create(:holiday_schedule, link_instance: link_instance) }
   let(:admin) { create(:admin, link_instance: link_instance) }
 
   # This should return the minimal set of attributes required to create a valid
-  # ServiceAtLocation. As you add validations to ServiceAtLocation, be sure to
+  # HolidaySchedule. As you add validations to HolidaySchedule, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-      service_id: service.id,
-      location_id: location.id
+      closed: false,
+      start_date: "2018-01-01",
+      end_date: "2018-12-31"
     }
   }
 
   let(:invalid_attributes) {
     {
-      service_id: nil,
-      location_id: nil
+      start_date: "foo"
     }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # ServiceAtLocationsController. Be sure to keep this updated too.
+  # HolidaySchedulesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   before do
@@ -34,7 +32,6 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
   end
 
   describe "GET #index" do
-    before { create(:service_at_location, link_instance: link_instance) }
 
     it "returns a success response" do
       get :index, params: {}, session: valid_session
@@ -44,7 +41,7 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      get :show, params: {id: service_at_location.to_param}, session: valid_session
+      get :show, params: {id: holiday_schedule.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -52,7 +49,7 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
   describe "POST #create" do
     context "when not logged in" do
       it "redirects to login" do
-        post :create, params: {service_at_location: valid_attributes}, session: valid_session
+        post :create, params: {holiday_schedule: valid_attributes}, session: valid_session
         expect(response).to have_http_status(302)
       end
     end
@@ -63,25 +60,25 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
       end
 
       context "with valid params" do
-        it "creates a new ServiceAtLocation" do
+        it "creates a new HolidaySchedule" do
           expect {
-            post :create, params: {service_at_location: valid_attributes}, session: valid_session
-          }.to change(ServiceAtLocation, :count).by(1)
+            post :create, params: {holiday_schedule: valid_attributes}, session: valid_session
+          }.to change(HolidaySchedule, :count).by(1)
         end
 
-        it "renders a JSON response with the new service_at_location" do
+        it "renders a JSON response with the new holiday_schedule" do
 
-          post :create, params: {service_at_location: valid_attributes}, session: valid_session
+          post :create, params: {holiday_schedule: valid_attributes}, session: valid_session
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
-          expect(response.location).to eq(api_service_at_location_url(ServiceAtLocation.last))
+          expect(response.location).to eq(api_holiday_schedule_url(HolidaySchedule.last))
         end
       end
 
       context "with invalid params" do
-        it "renders a JSON response with errors for the new service_at_location" do
+        it "renders a JSON response with errors for the new holiday_schedule" do
 
-          post :create, params: {service_at_location: invalid_attributes}, session: valid_session
+          post :create, params: {holiday_schedule: invalid_attributes}, session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
@@ -92,13 +89,13 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
   describe "PUT #update" do
     let(:new_attributes) {
       {
-        description: "Helpful!"
+        closed: true
       }
     }
 
     context "when not logged in" do
       it "redirects to login" do
-        put :update, params: {id: service_at_location.to_param, service_at_location: new_attributes}, session: valid_session
+        put :update, params: {id: holiday_schedule.to_param, holiday_schedule: new_attributes}, session: valid_session
         expect(response).to have_http_status(302)
       end
     end
@@ -109,23 +106,23 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
       end
 
       context "with valid params" do
-        it "updates the requested service_at_location" do
-          put :update, params: {id: service_at_location.to_param, service_at_location: new_attributes}, session: valid_session
-          service_at_location.reload
+        it "updates the requested holiday_schedule" do
+          put :update, params: {id: holiday_schedule.to_param, holiday_schedule: new_attributes}, session: valid_session
+          holiday_schedule.reload
 
-          expect(service_at_location.description).to eq("Helpful!")
+          expect(holiday_schedule.closed).to eq(true)
         end
 
-        it "renders a JSON response with the service_at_location" do
-          put :update, params: {id: service_at_location.to_param, service_at_location: valid_attributes}, session: valid_session
+        it "renders a JSON response with the holiday_schedule" do
+          put :update, params: {id: holiday_schedule.to_param, holiday_schedule: valid_attributes}, session: valid_session
           expect(response).to have_http_status(:ok)
           expect(response.content_type).to eq('application/json')
         end
       end
 
       context "with invalid params" do
-        it "renders a JSON response with errors for the service_at_location" do
-          put :update, params: {id: service_at_location.to_param, service_at_location: invalid_attributes}, session: valid_session
+        it "renders a JSON response with errors for the holiday_schedule" do
+          put :update, params: {id: holiday_schedule.to_param, holiday_schedule: invalid_attributes}, session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
@@ -136,7 +133,7 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
   describe "DELETE #destroy" do
     context "when not logged in" do
       it "redirects to login" do
-        delete :destroy, params: {id: service_at_location.to_param}, session: valid_session
+        delete :destroy, params: {id: holiday_schedule.to_param}, session: valid_session
         expect(response).to have_http_status(302)
       end
     end
@@ -146,12 +143,13 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
         sign_in admin
       end
 
-      it "destroys the requested service_at_location" do
-        service_at_location.save!
+      it "destroys the requested holiday_schedule" do
+        holiday_schedule.save!
         expect {
-          delete :destroy, params: {id: service_at_location.to_param}, session: valid_session
-        }.to change(ServiceAtLocation, :count).by(-1)
+          delete :destroy, params: {id: holiday_schedule.to_param}, session: valid_session
+        }.to change(HolidaySchedule, :count).by(-1)
       end
     end
   end
+
 end
