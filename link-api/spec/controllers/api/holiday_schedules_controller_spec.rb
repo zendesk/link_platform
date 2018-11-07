@@ -54,6 +54,15 @@ RSpec.describe Api::HolidaySchedulesController, type: :controller do
       end
     end
 
+    context "when logged in to another instance" do
+      it "returns not found" do
+        sign_in create(:admin)
+
+        post :create, params: {holiday_schedule: valid_attributes}, session: valid_session
+        expect(response).to have_http_status(404)
+      end
+    end
+
     context "when logged in" do
       before do
         sign_in admin
