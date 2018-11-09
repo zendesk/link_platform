@@ -1,11 +1,18 @@
-import { h } from 'preact'
-import s from './LocationList.css'
-import LocationRow from './LocationRow'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
 
-const LocationList = (props) => (
-  <div className={s.column}>
-    {props.locations.map(LocationRow)}
-  </div>
-)
+// Local imports
+import LocationRow from './LocationRow';
 
-export default LocationList
+// Styles
+const FlexColumn = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'flex-start'
+}));
+
+const LocationList = props => (
+	<FlexColumn>{props.locations.map(LocationRow)}</FlexColumn>
+);
+
+export default LocationList;
