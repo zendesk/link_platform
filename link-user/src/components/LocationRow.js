@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { createComponent } from 'preact-fela';
+import { createComponent, createComponentWithProxy } from 'preact-fela';
 
 // Local imports
 import s from './LocationRow.css';
