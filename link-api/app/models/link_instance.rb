@@ -11,6 +11,7 @@ class LinkInstance < ApplicationRecord
   has_many :languages
   has_many :postal_addresses
   has_many :physical_addresses
+  has_many :programs
   has_many :organizations
 
   validates :name, presence: true
