@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::PhonesController, type: :controller do
   let(:link_instance) { create(:link_instance) }
   let(:phone) { create(:phone, link_instance: link_instance) }
+  let(:admin) { create(:admin, link_instance: link_instance) }
 
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
@@ -53,68 +54,117 @@ RSpec.describe Api::PhonesController, type: :controller do
   end
 
   describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Phone" do
-        expect {
-          post :create, params: {phone: valid_attributes}, session: valid_session
-        }.to change(Phone, :count).by(1)
-      end
-
-      it "renders a JSON response with the new phone" do
-
+    context "when not logged in" do
+      it "redirects to login" do
         post :create, params: {phone: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(api_phone_url(Phone.last))
+        expect(response).to have_http_status(302)
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new phone" do
+    context "when logged in to another instance" do
+      it "returns not found" do
+        sign_in create(:admin)
 
-        post :create, params: {phone: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        post :create, params: {phone: valid_attributes}, session: valid_session
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context "when logged in" do
+      before do
+        sign_in admin
+      end
+
+      context "with valid params" do
+        it "creates a new Phone" do
+          expect {
+            post :create, params: {phone: valid_attributes}, session: valid_session
+          }.to change(Phone, :count).by(1)
+        end
+
+        it "renders a JSON response with the new phone" do
+
+          post :create, params: {phone: valid_attributes}, session: valid_session
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to eq('application/json')
+          expect(response.location).to eq(api_phone_url(Phone.last))
+        end
+      end
+
+      context "with invalid params" do
+        it "renders a JSON response with errors for the new phone" do
+
+          post :create, params: {phone: invalid_attributes}, session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
       end
     end
   end
 
   describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        {
-          extension: 55
-        }
+    let(:new_attributes) {
+      {
+        extension: 55
       }
+    }
 
-      it "updates the requested phone" do
+    context "when not logged in" do
+      it "redirects to login" do
         put :update, params: {id: phone.to_param, phone: new_attributes}, session: valid_session
-        phone.reload
-        expect(phone.extension).to eq(55)
-      end
-
-      it "renders a JSON response with the phone" do
-        put :update, params: {id: phone.to_param, phone: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        expect(response).to have_http_status(302)
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the phone" do
-        put :update, params: {id: phone.to_param, phone: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+    context "when logged in" do
+      before do
+        sign_in admin
+      end
+
+      context "with valid params" do
+        it "updates the requested phone" do
+          put :update, params: {id: phone.to_param, phone: new_attributes}, session: valid_session
+          phone.reload
+          expect(phone.extension).to eq(55)
+        end
+
+        it "renders a JSON response with the phone" do
+          put :update, params: {id: phone.to_param, phone: valid_attributes}, session: valid_session
+          expect(response).to have_http_status(:ok)
+          expect(response.content_type).to eq('application/json')
+        end
+      end
+
+      context "with invalid params" do
+        it "renders a JSON response with errors for the phone" do
+          put :update, params: {id: phone.to_param, phone: invalid_attributes}, session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
       end
     end
   end
 
+
   describe "DELETE #destroy" do
-    it "destroys the requested phone" do
-      phone.save!
-      expect {
+    context "when not logged in" do
+      it "redirects to login" do
         delete :destroy, params: {id: phone.to_param}, session: valid_session
-      }.to change(Phone, :count).by(-1)
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context "when logged in" do
+      before do
+        sign_in admin
+      end
+
+      it "destroys the requested phone" do
+        phone.save!
+        expect {
+          delete :destroy, params: {id: phone.to_param}, session: valid_session
+        }.to change(Phone, :count).by(-1)
+      end
     end
   end
 

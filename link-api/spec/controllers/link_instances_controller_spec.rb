@@ -30,7 +30,7 @@ RSpec.describe LinkInstancesController, type: :controller do
     it "returns a success response" do
       link_instance = LinkInstance.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe LinkInstancesController, type: :controller do
     it "returns a success response" do
       link_instance = LinkInstance.create! valid_attributes
       get :show, params: {id: link_instance.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
