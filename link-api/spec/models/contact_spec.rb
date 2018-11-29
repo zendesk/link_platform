@@ -5,6 +5,6 @@ RSpec.describe Contact, type: :model do
   let(:contact) { Contact.new(link_instance: link_instance) }
 
   it "only requires a link_instance" do
-    assert contact.save!
+    assert contact.save
   end
 end
