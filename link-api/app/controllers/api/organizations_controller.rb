@@ -15,11 +15,10 @@ class Api::OrganizationsController < ApplicationController
 
   # POST /organizations
   def create
-    @organization = Organization.new(organization_params)
-    @organization.link_instance = current_link_instance
+    @organization = current_link_instance.organizations.build(organization_params)
 
     if @organization.save
-      render json: @organization, status: :created, location: @organization
+      render json: @organization, status: :created, location: api_organization_url(@organization)
     else
       render json: @organization.errors, status: :unprocessable_entity
     end

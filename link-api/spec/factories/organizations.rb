@@ -9,5 +9,6 @@ FactoryBot.define do
     tax_id "123456789"
     year_incorporated "2018-06-20"
     legal_status "Non-profit"
+    link_instance
   end
 end

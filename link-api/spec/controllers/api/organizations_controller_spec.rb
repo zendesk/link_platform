@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::OrganizationsController, type: :controller do
   let(:link_instance) { create(:link_instance) }
   let(:organization) { create(:organization, link_instance: link_instance) }
+  let(:admin) { create(:admin, link_instance: link_instance) }
 
   # This should return the minimal set of attributes required to create a valid
   # Organization. As you add validations to Organization, be sure to
@@ -25,8 +26,9 @@ RSpec.describe Api::OrganizationsController, type: :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # OrganizationsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-  
+
   before do
+    sign_in admin
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
   end
 
@@ -57,7 +59,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         post :create, params: {organization: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(organization_url(Organization.last))
+        expect(response.location).to eq(api_organization_url(Organization.last))
       end
     end
 
@@ -92,19 +94,15 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         expect(response.content_type).to eq('application/json')
       end
     end
-
-    context "with invalid params" do
-      it "renders a JSON response with errors for the organization" do
-
-        put :update, params: {id: organization.to_param, organization: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
-      end
-    end
   end
 
   describe "DELETE #destroy" do
+    before do
+      sign_in admin
+    end
+
     it "destroys the requested organization" do
+      organization.save!
       expect {
         delete :destroy, params: {id: organization.to_param}, session: valid_session
       }.to change(Organization, :count).by(-1)

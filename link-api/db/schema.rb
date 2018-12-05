@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 2018_10_31_235244) do
     t.string "link_instance_id", null: false
   end
 
+  create_table "eligibilities", force: :cascade do |t|
+    t.string "link_instance_id", null: false
+    t.string "service_id"
+    t.string "eligibility"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "holiday_schedules", force: :cascade do |t|
     t.string "link_instance_id", null: false
     t.string "service_id"

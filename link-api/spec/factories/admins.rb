@@ -5,6 +5,7 @@ FactoryBot.define do
     password "123abc"
     encrypted_password Devise::Encryptor.digest(Admin, "123abc")
     link_instance
+    confirmed_at Time.now
   end
 
   sequence :email do |n|
