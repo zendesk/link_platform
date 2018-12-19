@@ -6,4 +6,5 @@ class PhysicalAddress < ApplicationRecord
   validates :country, presence: true
 
   belongs_to :location
+  belongs_to :link_instance
 end

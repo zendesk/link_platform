@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :service_at_locations
     resources :services
     resources :organizations
+    resources :physical_addresses
   end
 end
