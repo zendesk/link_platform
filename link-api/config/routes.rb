@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :link_instances
-  devise_for :admins
 
   namespace :api do
     resources :contacts

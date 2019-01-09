@@ -52,7 +52,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Add a default url for the Devise mailer
   config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
 
   # Without this in development, request.subdomain will always be nil
