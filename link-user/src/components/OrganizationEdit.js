@@ -1,424 +1,609 @@
-import React, { Component, PropTypes } from 'react'
-import R from 'ramda'
-import s from './OrganizationEdit.css'
-import icons from '../../icons/css/fontello.css'
-import history from '../../core/history'
+import { h, Component } from 'preact';
+import { createComponent } from 'preact-fela';
+import R from 'ramda';
+import s from './OrganizationEdit.css';
+import history from '../../core/history';
 
-import { taxonomiesWithIcons } from '../../lib/taxonomies'
-import { redirectTo } from '../../lib/navigation'
-import { uuid } from '../../lib/uuid'
+import { taxonomiesWithIcons } from '../../lib/taxonomies';
+import { redirectTo } from '../../lib/navigation';
+import { uuid } from '../../lib/uuid';
 import {
-  fetchLocations,
-  updateLocation,
-  deleteLocation,
-  updateOrganization,
-  deleteOrganization,
-  fetchTaxonomies
-} from '../../core/firebaseRestAPI'
+	fetchLocations,
+	updateLocation,
+	deleteLocation,
+	updateOrganization,
+	deleteOrganization,
+	fetchTaxonomies
+} from '../../core/firebaseRestAPI';
 
-import Banner from '../Banner'
-import LocationEdit from '../LocationEdit'
-import ToggleButton from '../ToggleButton'
-import PhoneEdit from '../PhoneEdit'
+import Banner from '../Banner';
+import LocationEdit from '../LocationEdit';
+import ToggleButton from '../ToggleButton';
+import PhoneEdit from '../PhoneEdit';
 
-const changesMessage = "There are unsaved changes. Are you sure you want to discard them?"
+// Constants
+const changesMessage =
+	'There are unsaved changes. Are you sure you want to discard them?';
 
+// Helper functions
 const blankPhone = () => ({
-  department: "",
-  number: ""
-})
+	department: '',
+	number: ''
+});
 
-const blankLocation = (organization) => ({
-  id: uuid(),
-  description: "",
-  latitude: 0,
-  longitude: 0,
-  name: "",
-  organizationId: organization.id || "",
-  physicalAddress: {
-    address1: "",
-    city: ""
-  }
-})
+const blankLocation = organization => ({
+	id: uuid(),
+	description: '',
+	latitude: 0,
+	longitude: 0,
+	name: '',
+	organizationId: organization.id || '',
+	physicalAddress: {
+		address1: '',
+		city: ''
+	}
+});
+
+// Styles
+const OrganizationEditBox = createComponent(() => ({
+	paddingTop: '20px'
+}));
+
+const SubmitBanner = createComponent(() => ({
+	paddingBottom: '20px'
+}));
+
+const commonInputStyles = {
+	padding: '3px',
+	borderRadius: '2px',
+	border: '1px solid #ccc',
+	color: '#333',
+	width: 'calc(100% - 10px)',
+	resize: 'vertical'
+};
+
+const InputField = createComponent(() => commonInputStyles, 'input');
+
+const DescriptionInput = createComponent(
+	() => ({
+		...commonInputStyles,
+		height: '72px'
+	}),
+	'textarea'
+);
+
+const BaseOrganizationProperties = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'row',
+	flexWrap: 'nowrap',
+	justifyContent: 'space-between'
+}));
+
+const BaseOrganizationItem = createComponent(() => ({
+	flexBasis: '50%'
+}));
+
+const MainInputGroup = createComponent(() => ({
+	display: 'inline-block',
+	marginBottom: '20px',
+	width: '100%'
+}));
+
+const Description = createComponent(() => ({
+	height: '72px'
+}));
+
+const MainLabel = createComponent(() => ({
+	display: 'block'
+}));
+
+const SectionLabel = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center'
+}));
+
+const SubsectionLabel = createComponent(() => ({
+	fontWeight: 'bold',
+	margin: '25px 0 10px',
+	borderBottom: '1px solid #555'
+}));
+
+const BaseButton = createComponent(
+	() => ({
+		border: 'solid 1px #777',
+		cursor: 'pointer',
+		background: '#f3f3f3',
+		borderRadius: '3px',
+		borderColor: '#dbdbdb',
+		padding: '8px 20px',
+		minWidth: '200px',
+		marginRight: '10px',
+		fontSize: '16px'
+	}),
+	'button'
+);
+
+const DeleteButton = createComponent(
+	() => ({
+		float: 'right',
+		color: 'white',
+		backgroundColor: '#e05050'
+	}),
+	BaseButton
+);
+
+const SubmitButton = createComponent(
+	() => ({
+		color: 'white',
+		backgroundColor: 'rgb(0, 122, 255)'
+	}),
+	BaseButton
+);
+
+const AddToSubsectionButton = createComponent(
+	() => ({
+		color: '#666',
+		padding: '0',
+		margin: '0 5px',
+		border: 'none',
+		background: 'none',
+		cursor: 'pointer',
+		verticalAlign: 'baseline',
+		':hover': {
+			fontWeight: 'bold'
+		}
+	}),
+	'button'
+);
+
+const PhonesBox = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'row',
+	flexWrap: 'wrap',
+	justifyContent: 'space-between'
+}));
+
+const LocationsEditBox = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'nowrap',
+	justifyContent: 'flex-start'
+}));
+
+const LocationsList = createComponent(() => ({
+	flexBasis: '15%',
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'center',
+	padding: '8px'
+}));
+
+const LocationEditContainer = createComponent(() => ({
+	flexBasis: '85%',
+	padding: '8px'
+}));
+
+const t = {
+	organizationEditBox: {},
+	submitBanner: {},
+	input: {},
+	baseOrganizationProperties: {},
+	baseOrganizationItem: {},
+	mainInputGroup: {},
+	description: {},
+	mainLabel: {},
+	sectionLabel: {},
+	subsectionLabel: {},
+	buttonStyle: {},
+	deleteButton: {},
+	submitButton: {},
+	addToSubsection: {},
+	addToSubsection_hover: {},
+	phonesBox: {},
+	locationsEditBox: {},
+	locationsList: {},
+	locationEdit: {}
+};
 
 class OrganizationEdit extends Component {
-  constructor(props) {
-    const tempProps = Object.assign({}, props)
+	constructor(props) {
+		const tempProps = Object.assign({}, props);
 
-    super(props)
-    this.state = {
-      changesExist: false,
-      hasSubmit: false,
-      submitResult: true,
-      organization: tempProps.organization,
-      locations: [],
-      selectedLocation: null,
-      selectedService: null
-    }
-  }
+		super(props);
+		this.state = {
+			changesExist: false,
+			hasSubmit: false,
+			submitResult: true,
+			organization: tempProps.organization,
+			locations: [],
+			selectedLocation: null,
+			selectedService: null
+		};
+	}
 
-  componentDidMount() {
-    this.refreshLocations()
-    this.refreshTaxonomies()
-    const currentLocation = window.location.pathname
+	componentDidMount() {
+		this.refreshLocations();
+		this.refreshTaxonomies();
+		const currentLocation = window.location.pathname;
 
-    history.listenBeforeUnload(_ => (this.state.changesExist ? changesMessage : null))
+		history.listenBeforeUnload(_ =>
+			this.state.changesExist ? changesMessage : null
+		);
 
-    // If there are changes and the user tries to click the back button, so we
-    // prompt them if it is okay. The caveat is that regardless of the users
-    // answer, the history stack and URL have already been modified. So if we
-    // are executing the back action (action == POP), then push the current page
-    // back onto the stack, otherwise proceed as normal.
-    history.listenBefore((location, callback) => {
-      if (location.action === "POP" && this.state.changesExist) {
-        if (confirm(changesMessage)) {
-          callback()
-        } else {
-          history.push(currentLocation)
-        }
-      } else {
-        callback()
-      }
-    })
-  }
+		// If there are changes and the user tries to click the back button, so we
+		// prompt them if it is okay. The caveat is that regardless of the users
+		// answer, the history stack and URL have already been modified. So if we
+		// are executing the back action (action == POP), then push the current page
+		// back onto the stack, otherwise proceed as normal.
+		history.listenBefore((location, callback) => {
+			if (location.action === 'POP' && this.state.changesExist) {
+				if (confirm(changesMessage)) {
+					callback();
+				}
+				else {
+					history.push(currentLocation);
+				}
+			}
+			else {
+				callback();
+			}
+		});
+	}
 
-  //TODO: only fetch locations for org rather than filter them down after
-  refreshLocations = () => {
-    const { organization } = this.state
+	//TODO: only fetch locations for org rather than filter them down after
+	refreshLocations = () => {
+		const { organization } = this.state;
 
-    fetchLocations()
-      .then(locations => (
-        locations.filter(location => (
-          location.organizationId == organization.id
-        ))
-      ))
-      .then(locations => {
-        this.setState({ locations })
-      })
-  }
+		fetchLocations()
+			.then(locations =>
+				locations.filter(location => location.organizationId == organization.id)
+			)
+			.then(locations => {
+				this.setState({ locations });
+			});
+	}
 
-  refreshTaxonomies = () => {
-    fetchTaxonomies()
-      .then(taxonomies => {
-        this.setState({
-          taxonomies: taxonomiesWithIcons(taxonomies)
-        })
-      })
-  }
+	refreshTaxonomies = () => {
+		fetchTaxonomies().then(taxonomies => {
+			this.setState({
+				taxonomies: taxonomiesWithIcons(taxonomies)
+			});
+		});
+	}
 
-  handleDeleteOrganization = () => {
-    const { organization, locations } = this.state
-    const answer = confirm(`Are you sure you want to delete ${organization.name}? You cannot undo this or recover the data.`)
+	handleDeleteOrganization = () => {
+		const { organization, locations } = this.state;
+		const answer = confirm(
+			`Are you sure you want to delete ${
+				organization.name
+			}? You cannot undo this or recover the data.`
+		);
 
-    if (answer) {
-      deleteOrganization(organization.id)
-      locations.map(location => {
-        deleteLocation(location.id)
-      })
-      redirectTo('/admin')
-    }
-  }
+		if (answer) {
+			deleteOrganization(organization.id);
+			locations.map(location => {
+				deleteLocation(location.id);
+			});
+			redirectTo('/admin');
+		}
+	}
 
-  // Updates our representation of the organization in the state
-  handleChange = (property, event) => {
-    const { organization } = this.state
-    const newOrganization = {}
+	// Updates our representation of the organization in the state
+	handleChange = (property, event) => {
+		const { organization } = this.state;
+		const newOrganization = {};
 
-    newOrganization[property] = event.target.value
+		newOrganization[property] = event.target.value;
 
-    const updatedOrganization = R.merge(organization, newOrganization)
+		const updatedOrganization = R.merge(organization, newOrganization);
 
-    this.setState({
-      organization: updatedOrganization,
-      changesExist: true,
-    })
-  }
+		this.setState({
+			organization: updatedOrganization,
+			changesExist: true
+		});
+	}
 
-  handlePhones = (property, newValue, index) => {
-    const { organization } = this.state
+	handlePhones = (property, newValue, index) => {
+		const { organization } = this.state;
 
-    const newPhone = {}
-    newPhone[property] = newValue
+		const newPhone = {};
+		newPhone[property] = newValue;
 
-    const newPhones = [...organization.phones]
-    newPhones[index] = R.merge(newPhones[index], newPhone)
+		const newPhones = [...organization.phones];
+		newPhones[index] = R.merge(newPhones[index], newPhone);
 
-    const newOrganization = {}
-    newOrganization.phones = newPhones
+		const newOrganization = {};
+		newOrganization.phones = newPhones;
 
-    const updatedOrganization = R.merge(organization, newOrganization)
+		const updatedOrganization = R.merge(organization, newOrganization);
 
-    this.setState({
-      organization: updatedOrganization,
-      changesExist: true,
-    })
-  }
+		this.setState({
+			organization: updatedOrganization,
+			changesExist: true
+		});
+	}
 
-  newPhone = () => {
-    const { organization } = this.state
-    const newPhones = [...organization.phones]
-    const newOrganization = {}
+	newPhone = () => {
+		const { organization } = this.state;
+		const newPhones = [...organization.phones];
+		const newOrganization = {};
 
-    newPhones.push(blankPhone())
-    newOrganization.phones = newPhones
+		newPhones.push(blankPhone());
+		newOrganization.phones = newPhones;
 
-    const updatedOrganization = R.merge(organization, newOrganization)
+		const updatedOrganization = R.merge(organization, newOrganization);
 
-    this.setState({ organization: updatedOrganization })
-  }
+		this.setState({ organization: updatedOrganization });
+	}
 
-  deletePhone = (index) => {
-    const { organization } = this.state
-    const newPhones = [...organization.phones]
-    const newOrganization = {}
+	deletePhone = index => {
+		const { organization } = this.state;
+		const newPhones = [...organization.phones];
+		const newOrganization = {};
 
-    newPhones.splice(index, 1)
-    newOrganization.phones = newPhones
+		newPhones.splice(index, 1);
+		newOrganization.phones = newPhones;
 
-    const updatedOrganization = R.merge(organization, newOrganization)
+		const updatedOrganization = R.merge(organization, newOrganization);
 
-    this.setState({
-      organization: newOrganization,
-      changesExist: true,
-    })
-  }
+		this.setState({
+			organization: newOrganization,
+			changesExist: true
+		});
+	}
 
-  handleStateUpdate = (update) => {
-    this.setState(update)
-  }
+	handleStateUpdate = update => {
+		this.setState(update);
+	}
 
-  handleLocations = (newLocation, index, save) => {
-    const { locations } = this.state
-    const newLocations = [...locations]
+	handleLocations = (newLocation, index, save) => {
+		const { locations } = this.state;
+		const newLocations = [...locations];
 
-    newLocations[index] = newLocation
-    
-    if (save) {
-      updateLocation(newLocation).then(response => {
-        let success = !response.hasOwnProperty('error')
-        this.setState({
-          hasSubmit: true,
-          submitResult: success,
-          changesExist: !success
-        })
-      })
-    }
+		newLocations[index] = newLocation;
 
-    this.setState({
-      locations: newLocations,
-      changesExist: !save,
-    })
-  }
+		if (save) {
+			updateLocation(newLocation).then(response => {
+				let success = !response.hasOwnProperty('error');
+				this.setState({
+					hasSubmit: true,
+					submitResult: success,
+					changesExist: !success
+				});
+			});
+		}
 
-  newLocation = () => {
-    const { organization, locations } = this.state
-    const newLocations = [...locations]
+		this.setState({
+			locations: newLocations,
+			changesExist: !save
+		});
+	}
 
-    const newLocation = blankLocation(organization)
-    newLocations.push(newLocation)
+	newLocation = () => {
+		const { organization, locations } = this.state;
+		const newLocations = [...locations];
 
-    this.setState({
-      locations: newLocations,
-      selectedLocation: newLocation,
-      selectedService: null,
-    })
-  }
+		const newLocation = blankLocation(organization);
+		newLocations.push(newLocation);
 
-  handleDeleteLocation = (index) => {
-    const { locations } = this.state
-    const location = locations[index]
-    const answer = confirm(`Are you sure you want to delete the location: ${location.name}? You cannot undo this or recover the data.`)
+		this.setState({
+			locations: newLocations,
+			selectedLocation: newLocation,
+			selectedService: null
+		});
+	}
 
-    if (answer) {
-      deleteLocation(location.id)
-        .then(response => {
-          let success = !response.hasOwnProperty('error')
-          const newLocations = [...locations]
+	handleDeleteLocation = index => {
+		const { locations } = this.state;
+		const location = locations[index];
+		const answer = confirm(
+			`Are you sure you want to delete the location: ${
+				location.name
+			}? You cannot undo this or recover the data.`
+		);
 
-          if (success) {
-            newLocations.splice(index, 1)
-            this.setState({
-              locations: newLocations,
-              selectedLocation: null,
-              selectedLocationIndex: null,
-              submitResult: success,
-              changesExist: false 
-            })
-          }
+		if (answer) {
+			deleteLocation(location.id).then(response => {
+				let success = !response.hasOwnProperty('error');
+				const newLocations = [...locations];
 
-        })
-    }
-  }
+				if (success) {
+					newLocations.splice(index, 1);
+					this.setState({
+						locations: newLocations,
+						selectedLocation: null,
+						selectedLocationIndex: null,
+						submitResult: success,
+						changesExist: false
+					});
+				}
+			});
+		}
+	}
 
-  handleSubmit = ()  => {
-    const { organization, locations } = this.state
+	handleSubmit = () => {
+		const { organization, locations } = this.state;
 
-    // Clear the banner if you click submit
-    this.setState({
-      hasSubmit: false
-    })
+		// Clear the banner if you click submit
+		this.setState({
+			hasSubmit: false
+		});
 
-    updateOrganization(organization).then(response => {
-      let success = !response.hasOwnProperty('error')
-      this.setState({
-        hasSubmit: true,
-        submitResult: success,
-        changesExist: !success
-      })
-    })
+		updateOrganization(organization).then(response => {
+			let success = !response.hasOwnProperty('error');
+			this.setState({
+				hasSubmit: true,
+				submitResult: success,
+				changesExist: !success
+			});
+		});
 
-    locations.map(location => {
-      updateLocation(location).then(response => {
-        let success = !response.hasOwnProperty('error')
-        this.setState({
-          hasSubmit: true,
-          submitResult: success,
-          changesExist: !success
-        })
-      })
-    })
+		locations.map(location => {
+			updateLocation(location).then(response => {
+				let success = !response.hasOwnProperty('error');
+				this.setState({
+					hasSubmit: true,
+					submitResult: success,
+					changesExist: !success
+				});
+			});
+		});
 
-    redirectTo('/admin')
-  }
+		redirectTo('/admin');
+	}
 
-  handleReset = () => {
-    const { organization } = this.props
+	handleReset = () => {
+		const { organization } = this.props;
 
-    this.setState({
-      organization,
-      locations: [],
-      selectedLocation: null,
-      selectedService: null,
-      changesExist: false,
-    }, _ => {
-      this.refreshLocations()
-      this.refreshTaxonomies()
-    })
-  }
+		this.setState(
+			{
+				organization,
+				locations: [],
+				selectedLocation: null,
+				selectedService: null,
+				changesExist: false
+			},
+			_ => {
+				this.refreshLocations();
+				this.refreshTaxonomies();
+			}
+		);
+	}
 
-  selectLocation = (location, index) => {
-    this.setState({
-      selectedLocation: location,
-      selectedLocationIndex: index,
-      selectedService: null,
-    })
-  }
+	selectLocation = (location, index) => {
+		this.setState({
+			selectedLocation: location,
+			selectedLocationIndex: index,
+			selectedService: null
+		});
+	}
 
-  locationSelected = (location) => {
-    return this.state.selectedLocation && this.state.selectedLocation.id == location.id
-  }
+	locationSelected = location =>
+		this.state.selectedLocation && this.state.selectedLocation.id == location.id
 
-  render() {
-    const {
-      hasSubmit,
-      submitResult,
-      organization,
-      locations,
-      selectedLocation,
-      selectedLocationIndex,
-      selectedService,
-      taxonomies
-    } = this.state
+	render() {
+		const {
+			hasSubmit,
+			submitResult,
+			organization,
+			locations,
+			selectedLocation,
+			selectedLocationIndex,
+			selectedService,
+			taxonomies
+		} = this.state;
 
-    return (
-      <div className={s.organizationEditBox}>
-        <div className={s.submitBanner}>
-          <Banner show={hasSubmit} isGood={submitResult} />
-        </div>
-        <h2>{ organization.name || 'New Organization' }</h2>
+		return (
+			<OrganizationEditBox>
+				<SubmitBanner>
+					<Banner show={hasSubmit} isGood={submitResult} />
+				</SubmitBanner>
+				<h2>{organization.name || 'New Organization'}</h2>
 
-        <div className={s.baseOrganizationProperties}>
-          <div className={s.baseOrganizationItem}>
-            <div className={s.mainInputGroup}>
-              <span className={s.mainLabel}>Name </span>
-              <input
-                className={s.input}
-                type="text"
-                value={organization.name}
-                onChange={(e) => this.handleChange('name', e)}
-              />
-            </div>
-            <div className={s.mainInputGroup}>
-              <span className={s.mainLabel}>Website </span>
-              <input
-                className={s.input}
-                type="text"
-                value={organization.url}
-                onChange={(e) => this.handleChange('url', e)}
-              />
-            </div>
-            <div className={s.mainInputGroup}>
-              <span className={s.mainLabel}>Description </span>
-              <textarea
-                className={s.input + ' ' + s.description}
-                value={organization.longDescription}
-                onChange={(e) => this.handleChange('longDescription', e)}
-              />
-            </div>
-          </div>
-        </div>
+				<BaseOrganizationProperties>
+					<BaseOrganizationItem>
+						<MainInputGroup>
+							<MainLabel>Name </MainLabel>
+							<InputField
+								type="text"
+								value={organization.name}
+								onChange={e => this.handleChange('name', e)}
+							/>
+						</MainInputGroup>
+						<MainInputGroup>
+							<MainLabel>Website </MainLabel>
+							<InputField
+								className={s.input}
+								type="text"
+								value={organization.url}
+								onChange={e => this.handleChange('url', e)}
+							/>
+						</MainInputGroup>
+						<MainInputGroup>
+							<MainLabel>Description </MainLabel>
+							<DescriptionInput
+								value={organization.longDescription}
+								onChange={e => this.handleChange('longDescription', e)}
+							/>
+						</MainInputGroup>
+					</BaseOrganizationItem>
+				</BaseOrganizationProperties>
 
-        <div className={s.subsectionLabel}>
-          Phone Numbers
-          <button
-            className={s.addToSubsection}
-            onClick={this.newPhone}
-            title={`Click to add a new phone`}>
-            + Add
-          </button>
-        </div>
-        <div className={s.phonesBox}>
-          {organization.phones.map((phone, index) => (
-            <PhoneEdit
-              key={`phone-${index}`}
-              phone={phone}
-              index={index}
-              handleChange={this.handlePhones}
-              handleDelete={this.deletePhone} />
-          ))}
-        </div>
-        <div className={s.locationsEditBox}>
-          <div className={s.subsectionLabel}>
-            Locations
-            <button
-              className={s.addToSubsection}
-              onClick={this.newLocation}
-              title={`Click to add a new location`}>
-              + Add
-            </button>
-          </div>
-          <div className={s.locationsList}>
-            {locations.map((location, index) => (
-              <ToggleButton
-                key={`location-${location.id}`}
-                enabled={this.locationSelected(location)}
-                onClick={(e) => this.selectLocation(location, index)}
-                label={location.name || "Location"}
-              />
-            ))}
-          </div>
+				<SubsectionLabel>
+					Phone Numbers
+					<AddToSubsectionButton
+						onClick={this.newPhone}
+						title={`Click to add a new phone`}
+					>
+						+ Add
+					</AddToSubsectionButton>
+				</SubsectionLabel>
+				<PhonesBox>
+					{organization.phones.map((phone, index) => (
+						<PhoneEdit
+							key={`phone-${index}`}
+							phone={phone}
+							index={index}
+							handleChange={this.handlePhones}
+							handleDelete={this.deletePhone}
+						/>
+					))}
+				</PhonesBox>
+				<LocationsEditBox>
+					<SubsectionLabel>
+						Locations
+						<AddToSubsectionButton
+							onClick={this.newLocation}
+							title={`Click to add a new location`}
+						>
+							+ Add
+						</AddToSubsectionButton>
+					</SubsectionLabel>
+					<LocationsList>
+						{locations.map((location, index) => (
+							<ToggleButton
+								key={`location-${location.id}`}
+								enabled={this.locationSelected(location)}
+								onClick={e => this.selectLocation(location, index)}
+								label={location.name || 'Location'}
+							/>
+						))}
+					</LocationsList>
 
-          <div className={s.locationEdit}>
-            {selectedLocation ? <LocationEdit
-                  location={selectedLocation}
-                  index={selectedLocationIndex}
-                  selectedService={selectedService}
-                  handleStateUpdate={this.handleStateUpdate}
-                  handleChange={this.handleLocations}
-                  handleDelete={this.handleDeleteLocation}
-                  taxonomies={taxonomies}
-                /> : null}
-          </div>
-        </div>
+					<LocationEditContainer>
+						{selectedLocation ? (
+							<LocationEdit
+								location={selectedLocation}
+								index={selectedLocationIndex}
+								selectedService={selectedService}
+								handleStateUpdate={this.handleStateUpdate}
+								handleChange={this.handleLocations}
+								handleDelete={this.handleDeleteLocation}
+								taxonomies={taxonomies}
+							/>
+						) : null}
+					</LocationEditContainer>
+				</LocationsEditBox>
 
-        <div className={s.formSubmit}>
-          <button className={`${s.buttonStyle} ${s.submitButton}`} onClick={this.handleSubmit}>Submit</button>
-          <button className={s.buttonStyle} onClick={this.handleReset}>Reset</button>
-          <button className={`${s.buttonStyle} ${s.deleteButton}`} onClick={this.handleDeleteOrganization}>Delete this Organization</button>
-        </div>
-      </div>
-    )
-  }
+				<div>
+					<SubmitButton
+						onClick={this.handleSubmit}
+					>
+						Submit
+					</SubmitButton>
+					<BaseButton onClick={this.handleReset}>
+						Reset
+					</BaseButton>
+					<DeleteButton
+						onClick={this.handleDeleteOrganization}
+					>
+						Delete this Organization
+					</DeleteButton>
+				</div>
+			</OrganizationEditBox>
+		);
+	}
 }
 
-export default OrganizationEdit
+export default OrganizationEdit;
