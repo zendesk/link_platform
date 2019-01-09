@@ -15,7 +15,7 @@ class LinkInstance < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true
-  validates :subdomain, presence: true
+  validates :subdomain, presence: true, uniqueness: true
   validates :owner, presence: true, on: :update
 
   property_set :settings do

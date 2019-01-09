@@ -54,4 +54,7 @@ Rails.application.configure do
 
   # Add a default url for the Devise mailer
   config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
+
+  # Make subdomain use possible
+  config.action_dispatch.tld_length = 0
 end
