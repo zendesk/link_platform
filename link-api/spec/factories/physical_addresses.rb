@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :physical_address do
+    link_instance
     location
     attention "Some Entity"
     address_1 "123 Some Street"
