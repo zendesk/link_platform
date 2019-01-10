@@ -1,83 +1,122 @@
-import { h } from 'preact'
-import s from './TimeRangePicker.css'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
+import s from './TimeRangePicker.css';
 
-const TimeRangePicker = (props) => {
-  const weekdays = [
-    "-",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ]
+// Style
+const Container = createComponent(() => ({
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'space-between'
+}));
 
-  function startLabel() {
-    return props.startLabel || 'Opens at:'
-  }
+const Select = createComponent(
+	() => ({
+		marginTop: '8px'
+	}),
+	'select'
+);
 
-  function endLabel() {
-    return props.endLabel || 'Closes at:'
-  }
+const PickerLabel = createComponent(
+	() => ({
+		marginTop: '8px'
+	}),
+	'span'
+);
 
-  function startTime() {
-    if (props.startTime) {
-      let startTime = props.startTime.toString()
-      if (startTime.length != 4) {
-        startTime = "0" + startTime
-      }
-      return startTime.slice(0, 2) + ":" + startTime.slice(2, 4)
-    } else {
-      return "00:00"
-    }
-  }
+const PickerInput = createComponent(
+	() => ({
+		padding: '3px',
+		borderRadius: '2px',
+		border: '1px solid #ccc',
+		verticalAlign: 'middle',
+		boxShadow: 'inset 0 1px 2px #ddd',
+		color: '#777'
+	}),
+	'input'
+);
 
-  function endTime() {
-    if (props.endTime) {
-      let endTime = props.endTime.toString()
-      if (endTime.length != 4) {
-        endTime = "0" + endTime
-      }
-      return endTime.slice(0, 2) + ":" + endTime.slice(2, 4)
-    } else {
-      return "00:00"
-    }
-  }
+const BaseButton = createComponent(
+	() => ({
+		border: 'solid 1px #777',
+		cursor: 'pointer',
+		background: '#f3f3f3',
+		borderRadius: '3px',
+		borderColor: '#dbdbdb',
+		padding: '10px 22px'
+	}),
+	'button'
+);
 
+// Helper functions
+const TimeRangePicker = props => {
+	const weekdays = [
+		'-',
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday'
+	];
 
-  return (
-    <div className={s.pickerBox}>
-      <select 
-        value={props.weekday}
-        onChange={(e) => props.handleUpdate(e, 'weekday', props.metadata)}
-      >
-        {weekdays.map((day) => (
-          <option value={day}>{day}</option>
-        ))}
-      </select>
-      <span className={s.pickerLabel}>{startLabel()}</span>
-      <input
-        type="time"
-        className={s.pickerInput}
-        value={startTime()}
-        onChange={(e) => props.handleUpdate(e, 'start', props.metadata)}
-      />
-      <span className={s.pickerLabel}>{endLabel()}</span>
-      <input
-        type="time"
-        className={s.pickerInput}
-        value={endTime()}
-        onChange={(e) => props.handleUpdate(e, 'end', props.metadata)}
-      />
-      <button
-        className={s.buttonStyle}
-        onClick={(e) => props.handleDelete(props.metadata.scheduleNum)}
-      >
-      Delete
-      </button>
-    </div>
-  )
-}
+	function startLabel() {
+		return props.startLabel || 'Opens at:';
+	}
 
-export default TimeRangePicker
+	function endLabel() {
+		return props.endLabel || 'Closes at:';
+	}
+
+	function startTime() {
+		if (props.startTime) {
+			let startTime = props.startTime.toString();
+			if (startTime.length !== 4) {
+				startTime = '0' + startTime;
+			}
+			return startTime.slice(0, 2) + ':' + startTime.slice(2, 4);
+		}
+		return '00:00';
+	}
+
+	function endTime() {
+		if (props.endTime) {
+			let endTime = props.endTime.toString();
+			if (endTime.length !== 4) {
+				endTime = '0' + endTime;
+			}
+			return endTime.slice(0, 2) + ':' + endTime.slice(2, 4);
+		}
+		return '00:00';
+	}
+
+	return (
+		<Container>
+			<Select
+				value={props.weekday}
+				onChange={e => props.handleUpdate(e, 'weekday', props.metadata)}
+			>
+				{weekdays.map(day => (
+					<option value={day}>{day}</option>
+				))}
+			</Select>
+			<PickerLabel>{startLabel()}</PickerLabel>
+			<PickerInput
+				type="time"
+				value={startTime()}
+				onChange={e => props.handleUpdate(e, 'start', props.metadata)}
+			/>
+			<PickerLabel>{endLabel()}</PickerLabel>
+			<PickerInput
+				type="time"
+				value={endTime()}
+				onChange={e => props.handleUpdate(e, 'end', props.metadata)}
+			/>
+			<BaseButton onClick={e => props.handleDelete(props.metadata.scheduleNum)}>
+				Delete
+			</BaseButton>
+		</Container>
+	);
+};
+
+export default TimeRangePicker;

@@ -1,15 +1,20 @@
-import { h } from 'preact'
-import s from './ServiceStatus.css'
-import { isOpen } from '../../lib/filterLocations'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
+import { isOpen } from '../../lib/filterLocations';
 
 
-const ServiceStatus = (props) => {
-  const openOrClosed = isOpen(props.services) ? 'open' : 'closed'
-  const statusClassName = openOrClosed === 'open' ? s.open : s.closed
+// Styles
+const ServiceStatusText = createComponent(({ isOpen }) => ({
+	color: isOpen ? '#468847' : '#b94a48'
+}));
 
-  return (
-    <span className={statusClassName}>{openOrClosed}</span>
-  )
-}
+const ServiceStatus = props => {
+	const isServiceOpen = isOpen(props.services);
+	const openOrClosed = isServiceOpen ? 'open' : 'closed';
 
-export default ServiceStatus
+	return (
+		<ServiceStatusText isOpen={isServiceOpen}>{openOrClosed}</ServiceStatusText>
+	);
+};
+
+export default ServiceStatus;

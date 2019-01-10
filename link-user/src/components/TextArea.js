@@ -1,11 +1,18 @@
-import preact from 'preact'
-import s from './TextArea.css'
+import { h } from 'preact';
+import { createComponent } from 'preact-fela';
 
-const TextArea = (props) => (
-  <textarea
-    className={s.input}
-    {...props}
-  />
-)
+const TextareaInput = createComponent(
+	() => ({
+		display: 'block',
+		margin: '3px 0',
+		maxWidth: '150px',
+		width: '100%',
+		border: '1px solid #ccc',
+		padding: '2px'
+	}),
+	'textarea'
+);
 
-export default TextArea
+const TextArea = props => <TextareaInput {...props} />;
+
+export default TextArea;
