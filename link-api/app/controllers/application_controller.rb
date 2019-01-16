@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
+
   before_action :assert_link_instance
   before_action :authenticate_admin!, only: [:create, :update, :destroy]
   before_action :assert_admin_domain, only: [:create, :update, :destroy]

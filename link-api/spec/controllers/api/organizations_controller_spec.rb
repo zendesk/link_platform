@@ -28,7 +28,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
   let(:valid_session) { {} }
 
   before do
-    sign_in admin
+    login admin
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
   end
 
@@ -98,7 +98,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
 
   describe "DELETE #destroy" do
     before do
-      sign_in admin
+      login admin
     end
 
     it "destroys the requested organization" do

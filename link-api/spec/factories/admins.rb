@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :admin, aliases: [:owner] do
     name "Admin Adam"
     email
+    password "1234abcd"
     link_instance
   end
 

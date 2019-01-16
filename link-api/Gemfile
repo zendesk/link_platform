@@ -10,6 +10,9 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 
+gem 'devise_token_auth'
+gem 'omniauth-google-oauth2'
+
 gem 'iso639-validator'
 
 # Use property sets for Link Instance settings
