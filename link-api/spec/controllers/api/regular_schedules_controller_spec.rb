@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::RegularSchedulesController, type: :controller do
   let(:link_instance) { create(:link_instance) }
+  let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance) }
+  let(:admin) { create(:admin, link_instance: link_instance) }
   # This should return the minimal set of attributes required to create a valid
   # RegularSchedule. As you add validations to RegularSchedule, be sure to
   # adjust the attributes here as well.
@@ -24,11 +26,10 @@ RSpec.describe Api::RegularSchedulesController, type: :controller do
 
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
+    sign_in admin
   end
 
   describe "GET #index" do
-    let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance) }
-
     it "returns a success response" do
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
@@ -36,8 +37,6 @@ RSpec.describe Api::RegularSchedulesController, type: :controller do
   end
 
   describe "GET #show" do
-    let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance) }
-
     it "returns a success response" do
       get :show, params: {id: regular_schedule.to_param}, session: valid_session
       expect(response).to be_successful
@@ -72,8 +71,6 @@ RSpec.describe Api::RegularSchedulesController, type: :controller do
   end
 
   describe "PUT #update" do
-    let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance) }
-
     context "with valid params" do
       let(:new_attributes) {
         {
