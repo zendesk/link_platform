@@ -4,6 +4,14 @@ RSpec.describe RegularSchedule, type: :model do
   let(:regular_schedule) { build(:regular_schedule) }
 
   describe 'weekday' do
+    (0..6).each do |weekday|
+      it "`#{weekday}` is valid" do
+        regular_schedule.weekday = weekday
+
+        expect(regular_schedule.valid?).to eq true
+      end
+    end
+
     it 'is invalid when < 0' do
       regular_schedule.weekday = -1
 
