@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { createComponent } from 'preact-fela';
-import s from './TimeRangePicker.css';
 
 // Style
 const Container = createComponent(() => ({
