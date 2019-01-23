@@ -1,9 +1,10 @@
 class Admin < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  include DeviseTokenAuth::Concerns::User
+
+  # Include default devise modules.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable,
-         :confirmable, :lockable, :timeoutable, :omniauthable
+          :recoverable, :rememberable, :trackable, :validatable,
+          :confirmable, :omniauthable
 
   belongs_to :link_instance
 

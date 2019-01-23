@@ -36,7 +36,5 @@ module LinkApi
       require 'dotenv'
       Dotenv.load
     end
-
-    config.middleware.use Warden::Manager
   end
 end

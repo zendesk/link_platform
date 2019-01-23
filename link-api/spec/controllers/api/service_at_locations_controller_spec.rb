@@ -51,15 +51,15 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
 
   describe "POST #create" do
     context "when not logged in" do
-      it "redirects to login" do
+      it "returns unauthorized" do
         post :create, params: {service_at_location: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(401)
       end
     end
 
     context "when logged in to another instance" do
       it "returns not found" do
-        sign_in create(:admin)
+        login create(:admin)
 
         post :create, params: {service_at_location: valid_attributes}, session: valid_session
         expect(response).to have_http_status(404)
@@ -68,7 +68,7 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
 
     context "when logged in" do
       before do
-        sign_in admin
+        login admin
       end
 
       context "with valid params" do
@@ -106,15 +106,15 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
     }
 
     context "when not logged in" do
-      it "redirects to login" do
+      it "returns unauthorized" do
         put :update, params: {id: service_at_location.to_param, service_at_location: new_attributes}, session: valid_session
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(401)
       end
     end
 
     context "when logged in" do
       before do
-        sign_in admin
+        login admin
       end
 
       context "with valid params" do
@@ -144,15 +144,15 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
 
   describe "DELETE #destroy" do
     context "when not logged in" do
-      it "redirects to login" do
+      it "returns unauthorized" do
         delete :destroy, params: {id: service_at_location.to_param}, session: valid_session
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(401)
       end
     end
 
     context "when logged in" do
       before do
-        sign_in admin
+        login admin
       end
 
       it "destroys the requested service_at_location" do
