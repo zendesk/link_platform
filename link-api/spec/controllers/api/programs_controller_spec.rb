@@ -29,6 +29,7 @@ RSpec.describe Api::ProgramsController, type: :controller do
   let(:valid_session) { {} }
 
   before do
+    login admin
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
   end
 
@@ -47,118 +48,61 @@ RSpec.describe Api::ProgramsController, type: :controller do
   end
 
   describe "POST #create" do
-    context "when not logged in" do
-      it "redirects to login" do
-        post :create, params: {program: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context "when logged in to another instance" do
-      it "returns not found" do
-        sign_in create(:admin)
-
-        post :create, params: {program: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(404)
-      end
-    end
-
-    context "when logged in" do
-      before do
-        sign_in admin
-      end
-
-      context "with valid params" do
-        it "creates a new Program" do
-          expect {
-            post :create, params: {program: valid_attributes}, session: valid_session
-          }.to change(Program, :count).by(1)
-        end
-
-        it "renders a JSON response with the new program" do
-
+    context "with valid params" do
+      it "creates a new Program" do
+        expect {
           post :create, params: {program: valid_attributes}, session: valid_session
-          expect(response).to have_http_status(:created)
-          expect(response.content_type).to eq('application/json')
-          expect(response.location).to eq(api_program_url(Program.last))
-        end
+        }.to change(Program, :count).by(1)
       end
 
-      context "with invalid params" do
-        it "renders a JSON response with errors for the new program" do
+      it "renders a JSON response with the new program" do
 
-          post :create, params: {program: invalid_attributes}, session: valid_session
-          expect(response).to have_http_status(:unprocessable_entity)
-          expect(response.content_type).to eq('application/json')
-        end
+        post :create, params: {program: valid_attributes}, session: valid_session
+        expect(response).to have_http_status(:created)
+        expect(response.content_type).to eq('application/json')
+        expect(response.location).to eq(api_program_url(Program.last))
+      end
+    end
+
+    context "with invalid params" do
+      it "renders a JSON response with errors for the new program" do
+
+        post :create, params: {program: invalid_attributes}, session: valid_session
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to eq('application/json')
       end
     end
   end
 
   describe "PUT #update" do
-    let(:new_attributes) {
-      {
-        name: 'St Anthonys program'
+    context "with valid params" do
+      let(:new_attributes) {
+        {
+          name: 'Canonball'
+        }
       }
-    }
 
-    context "when not logged in" do
-      it "redirects to login" do
+      it "updates the requested program" do
         put :update, params: {id: program.to_param, program: new_attributes}, session: valid_session
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context "when logged in" do
-      before do
-        sign_in admin
+        program.reload
+        expect(program.name).to eq('Canonball')
       end
 
-      context "with valid params" do
-        it "updates the requested program" do
-          put :update, params: {id: program.to_param, program: new_attributes}, session: valid_session
-          program.reload
-          expect(program.name).to eq('St Anthonys program')
-        end
+      it "renders a JSON response with the program" do
 
-        it "renders a JSON response with the program" do
-
-          put :update, params: {id: program.to_param, program: valid_attributes}, session: valid_session
-          expect(response).to have_http_status(:ok)
-          expect(response.content_type).to eq('application/json')
-        end
-      end
-
-      context "with invalid params" do
-        it "renders a JSON response with errors for the program" do
-
-          put :update, params: {id: program.to_param, program: invalid_attributes}, session: valid_session
-          expect(response).to have_http_status(:unprocessable_entity)
-          expect(response.content_type).to eq('application/json')
-        end
+        put :update, params: {id: program.to_param, program: valid_attributes}, session: valid_session
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to eq('application/json')
       end
     end
   end
 
   describe "DELETE #destroy" do
-    context "when not logged in" do
-      it "redirects to login" do
+    it "destroys the requested program" do
+      program.save!
+      expect {
         delete :destroy, params: {id: program.to_param}, session: valid_session
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context "when logged in" do
-      before do
-        sign_in admin
-      end
-
-      it "destroys the requested program" do
-        program.save!
-        expect {
-          delete :destroy, params: {id: program.to_param}, session: valid_session
-        }.to change(Program, :count).by(-1)
-      end
+      }.to change(Program, :count).by(-1)
     end
   end
 end
