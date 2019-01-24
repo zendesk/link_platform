@@ -3,5 +3,6 @@ FactoryBot.define do
     name "My Program"
     alternate_name "🌟"
     organization
+    link_instance
   end
 end

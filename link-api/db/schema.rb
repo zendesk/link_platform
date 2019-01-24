@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_225559) do
   enable_extension "plpgsql"
 
   create_table "admins", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_225559) do
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["link_instance_id", "email"], name: "index_admins_on_link_instance_id_and_email", unique: true
+    t.index ["email"], name: "index_admins_on_email"
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_admins_on_uid_and_provider", unique: true
   end
@@ -187,6 +189,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_225559) do
     t.string "alternate_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "link_instance_id"
   end
 
   create_table "service_at_locations", force: :cascade do |t|
