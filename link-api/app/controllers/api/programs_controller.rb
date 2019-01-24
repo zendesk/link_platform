@@ -15,8 +15,7 @@ class Api::ProgramsController < ApplicationController
 
   # POST /programs
   def create
-    @program = Program.new(program_params)
-    @program.link_instance = current_link_instance
+    @program = current_link_instance.programs.build(program_params)
 
     if @program.save
       render json: @program, status: :created, location: api_program_url(@program)
