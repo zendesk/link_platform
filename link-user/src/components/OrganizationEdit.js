@@ -183,73 +183,7 @@ const LocationEditContainer = createComponent(() => ({
 	padding: '8px'
 }));
 
-const t = {
-	organizationEditBox: {},
-	submitBanner: {},
-	input: {},
-	baseOrganizationProperties: {},
-	baseOrganizationItem: {},
-	mainInputGroup: {},
-	description: {},
-	mainLabel: {},
-	sectionLabel: {},
-	subsectionLabel: {},
-	buttonStyle: {},
-	deleteButton: {},
-	submitButton: {},
-	addToSubsection: {},
-	addToSubsection_hover: {},
-	phonesBox: {},
-	locationsEditBox: {},
-	locationsList: {},
-	locationEdit: {}
-};
-
 class OrganizationEdit extends Component {
-	constructor(props) {
-		const tempProps = Object.assign({}, props);
-
-		super(props);
-		this.state = {
-			changesExist: false,
-			hasSubmit: false,
-			submitResult: true,
-			organization: tempProps.organization,
-			locations: [],
-			selectedLocation: null,
-			selectedService: null
-		};
-	}
-
-	componentDidMount() {
-		this.refreshLocations();
-		this.refreshTaxonomies();
-		const currentLocation = window.location.pathname;
-
-		history.listenBeforeUnload(_ =>
-			this.state.changesExist ? changesMessage : null
-		);
-
-		// If there are changes and the user tries to click the back button, so we
-		// prompt them if it is okay. The caveat is that regardless of the users
-		// answer, the history stack and URL have already been modified. So if we
-		// are executing the back action (action == POP), then push the current page
-		// back onto the stack, otherwise proceed as normal.
-		history.listenBefore((location, callback) => {
-			if (location.action === 'POP' && this.state.changesExist) {
-				if (confirm(changesMessage)) {
-					callback();
-				}
-				else {
-					history.push(currentLocation);
-				}
-			}
-			else {
-				callback();
-			}
-		});
-	}
-
 	//TODO: only fetch locations for org rather than filter them down after
 	refreshLocations = () => {
 		const { organization } = this.state;
@@ -343,8 +277,6 @@ class OrganizationEdit extends Component {
 
 		newPhones.splice(index, 1);
 		newOrganization.phones = newPhones;
-
-		const updatedOrganization = R.merge(organization, newOrganization);
 
 		this.setState({
 			organization: newOrganization,
@@ -479,7 +411,52 @@ class OrganizationEdit extends Component {
 	}
 
 	locationSelected = location =>
-		this.state.selectedLocation && this.state.selectedLocation.id == location.id
+		this.state.selectedLocation &&
+		this.state.selectedLocation.id === location.id
+
+	constructor(props) {
+		const tempProps = Object.assign({}, props);
+
+		super(props);
+		this.state = {
+			changesExist: false,
+			hasSubmit: false,
+			submitResult: true,
+			organization: tempProps.organization,
+			locations: [],
+			selectedLocation: null,
+			selectedService: null
+		};
+	}
+
+	componentDidMount() {
+		this.refreshLocations();
+		this.refreshTaxonomies();
+		const currentLocation = window.location.pathname;
+
+		history.listenBeforeUnload(_ =>
+			this.state.changesExist ? changesMessage : null
+		);
+
+		// If there are changes and the user tries to click the back button, so we
+		// prompt them if it is okay. The caveat is that regardless of the users
+		// answer, the history stack and URL have already been modified. So if we
+		// are executing the back action (action == POP), then push the current page
+		// back onto the stack, otherwise proceed as normal.
+		history.listenBefore((location, callback) => {
+			if (location.action === 'POP' && this.state.changesExist) {
+				if (confirm(changesMessage)) {
+					callback();
+				}
+				else {
+					history.push(currentLocation);
+				}
+			}
+			else {
+				callback();
+			}
+		});
+	}
 
 	render() {
 		const {
@@ -585,17 +562,9 @@ class OrganizationEdit extends Component {
 				</LocationsEditBox>
 
 				<div>
-					<SubmitButton
-						onClick={this.handleSubmit}
-					>
-						Submit
-					</SubmitButton>
-					<BaseButton onClick={this.handleReset}>
-						Reset
-					</BaseButton>
-					<DeleteButton
-						onClick={this.handleDeleteOrganization}
-					>
+					<SubmitButton onClick={this.handleSubmit}>Submit</SubmitButton>
+					<BaseButton onClick={this.handleReset}>Reset</BaseButton>
+					<DeleteButton onClick={this.handleDeleteOrganization}>
 						Delete this Organization
 					</DeleteButton>
 				</div>

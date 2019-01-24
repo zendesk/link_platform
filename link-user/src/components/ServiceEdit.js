@@ -179,17 +179,17 @@ class ServiceEdit extends Component {
 		return taxonomy.toLowerCase() === value;
 	}
 
-	handleTimeChange = (event, value_changed, metadata) => {
+	handleTimeChange = (event, valueChanged, metadata) => {
 		const { schedules } = this.props.service;
 		const newSchedules = schedules;
 
-		if (value_changed === 'start') {
+		if (valueChanged === 'start') {
 			newSchedules[metadata.scheduleNum].opensAt = event.target.value.replace(
 				':',
 				''
 			);
 		}
-		else if (value_changed === 'end') {
+		else if (valueChanged === 'end') {
 			newSchedules[metadata.scheduleNum].closesAt = event.target.value.replace(
 				':',
 				''

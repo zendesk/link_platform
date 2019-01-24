@@ -1,8 +1,6 @@
 import { h } from 'preact';
-import s from './CategoryList.css';
 import Category from './Category';
 import { createComponent } from 'preact-fela';
-import icons from '../../icons/css/fontello.css';
 
 const Container = createComponent(() => ({
 	display: 'flex',
