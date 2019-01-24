@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import { createComponent } from 'preact-fela';
 import R from 'ramda';
-import s from './OrganizationEdit.css';
 import history from '../../core/history';
 
 import { taxonomiesWithIcons } from '../../lib/taxonomies';
@@ -514,7 +513,6 @@ class OrganizationEdit extends Component {
 						<MainInputGroup>
 							<MainLabel>Website </MainLabel>
 							<InputField
-								className={s.input}
 								type="text"
 								value={organization.url}
 								onChange={e => this.handleChange('url', e)}

@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import Link from './Link';
 import { createComponentWithProxy } from 'preact-fela';
-import icons from '../../icons/css/fontello.css';
 
 const CategoryLink = createComponentWithProxy(
 	() => (

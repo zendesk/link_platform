@@ -13,13 +13,6 @@ const Body = createComponent(() => ({
 	width: '100%'
 }));
 
-const Body = createComponent(() => ({
-	display: 'flex',
-	flexDirection: 'column',
-	flexWrap: 'nowrap',
-	width: '100%'
-}));
-
 const CenterContent = createComponent(() => ({
 	display: 'flex',
 	flexDirection: 'column',

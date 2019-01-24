@@ -1,8 +1,6 @@
 import { h } from 'preact';
 import { createComponent, createComponentWithProxy } from 'preact-fela';
 
-import s from './Toggle.css';
-
 // Styles
 const disabledContainerStyles = disabled =>
 	disabled ? { borderColor: '#999', cursor: 'default' } : {};

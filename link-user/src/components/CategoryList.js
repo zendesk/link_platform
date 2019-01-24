@@ -15,7 +15,7 @@ const CategorySpacer = createComponent(() => ({
 }));
 
 const CategoryList = props => (
-	<Container title="Services" className={`${s.taxonomies}`}>
+	<Container title="Services">
 		{props.categories.map((category, i) => (
 			<div key={`category-${i}`}>
 				<Category
