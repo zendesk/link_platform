@@ -34,28 +34,28 @@ jobs:
           name: run unit tests
           command: bundle exec rspec
 
-  # link-admin:
-  #   working_directory: ~/link_platform/link-admin
-  #   docker:
-  #     - image: circleci/node:8-stretch-browsers
-  #   steps:
-  #     - checkout:
-  #         path: ~/link_platform
-  #     - restore_cache:
-  #         keys:
-  #         - v1-js-admin-dependencies-{{ checksum "package-lock.json" }}
-  #         # fallback to using the latest cache if no exact match is found
-  #         - v1-js-admin-dependencies-
-  #     - run:
-  #         name: install dependencies
-  #         command: npm install
-  #     - save_cache:
-  #         paths:
-  #           - ./node_modules
-  #         key: v1-js-dependencies-{{ checksum "package-lock.json" }}
-  #     - run:
-  #         name: run javascript tests
-  #         command: npm test
+  link-admin:
+    working_directory: ~/link_platform/link-admin
+    docker:
+      - image: circleci/node:8-stretch-browsers
+    steps:
+      - checkout:
+          path: ~/link_platform
+      - restore_cache:
+          keys:
+          - v1-js-admin-dependencies-{{ checksum "package-lock.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-js-admin-dependencies-
+      - run:
+          name: install dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-js-dependencies-{{ checksum "package-lock.json" }}
+      - run:
+          name: run javascript tests
+          command: npm test
 
   # link-user:
   #   working_directory: ~/link_platform/link-user
@@ -85,5 +85,5 @@ workflows:
   test_suite:
     jobs:
       - link-api
-      # - link-admin
+      - link-admin
       # - link-user
