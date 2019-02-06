@@ -25,8 +25,8 @@ RSpec.describe Api::RegularSchedulesController, type: :controller do
   let(:valid_session) { {} }
 
   before do
+    login admin
     allow_any_instance_of(ApplicationController).to receive(:current_link_instance).and_return(link_instance)
-    sign_in admin
   end
 
   describe "GET #index" do
