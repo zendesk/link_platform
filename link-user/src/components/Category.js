@@ -3,35 +3,33 @@ import Link from './Link';
 import { createComponentWithProxy } from 'preact-fela';
 
 const CategoryLink = createComponentWithProxy(
-	() => (
-		{
-			backgroundColor: 'white',
-			border: 'none',
-			borderRadius: '4px',
-			fontSize: '20px',
-			textAlign: 'left',
-			cursor: 'pointer',
-			height: '57px',
-			boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-			display: 'flex',
-			alignItems: 'center',
-			textDecoration: 'none',
-			paddingLeft: '10px',
-			color: '#333333'
+	() => ({
+		backgroundColor: 'white',
+		border: 'none',
+		borderRadius: '4px',
+		fontSize: '20px',
+		textAlign: 'left',
+		cursor: 'pointer',
+		height: '57px',
+		boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+		display: 'flex',
+		alignItems: 'center',
+		textDecoration: 'none',
+		paddingLeft: '10px',
+		color: '#333333',
+		':active': {
+			color: 'inherit'
 		},
-		(':active': {
+		':hover': {
 			color: 'inherit'
-		}),
-		(':hover': {
+		},
+		':focus': {
 			color: 'inherit'
-		}),
-		(':focus': {
+		},
+		':visited': {
 			color: 'inherit'
-		}),
-		(':visited': {
-			color: 'inherit'
-		})
-	),
+		}
+	}),
 	Link
 );
 
