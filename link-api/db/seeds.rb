@@ -81,5 +81,6 @@ PostalAddress.create!(
 Program.create!(
   name: 'My Program',
   alternate_name: 'Your Program',
-  organization_id: organization.id
+  organization_id: organization.id,
+  link_instance_id: link_instance.id
 )
