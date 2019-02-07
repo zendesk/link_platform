@@ -1,5 +1,19 @@
+# frozen_string_literal: true
+
 class Api::OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :update, :destroy]
+  ALLOWED_PARAMS = %i[
+    name
+    alternate_name
+    description
+    email
+    url
+    tax_status
+    tax_id
+    year_incorporated
+    legal_status
+  ].freeze
+
+  before_action :set_organization, only: %i[show update destroy]
 
   # GET /organizations
   def index
@@ -15,10 +29,14 @@ class Api::OrganizationsController < ApplicationController
 
   # POST /organizations
   def create
-    @organization = current_link_instance.organizations.build(organization_params)
+    @organization = current_link_instance.
+                    organizations.
+                    build(organization_params)
 
     if @organization.save
-      render json: @organization, status: :created, location: api_organization_url(@organization)
+      render json: @organization,
+             status: :created,
+             location: api_organization_url(@organization)
     else
       render json: @organization.errors, status: :unprocessable_entity
     end
@@ -39,13 +57,14 @@ class Api::OrganizationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_organization
-      @organization = current_link_instance.organizations.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def organization_params
-      params.require(:organization).permit(:name, :alternate_name, :description, :email, :url, :tax_status, :tax_id, :year_incorporated, :legal_status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_organization
+    @organization = current_link_instance.organizations.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def organization_params
+    params.require(:organization).permit(ALLOWED_PARAMS)
+  end
 end

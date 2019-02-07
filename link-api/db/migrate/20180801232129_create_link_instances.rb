@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLinkInstances < ActiveRecord::Migration[5.2]
   def change
     create_table :link_instances do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostalAddress < ApplicationRecord
   validates :address_1, presence: true
   validates :city, presence: true
@@ -5,10 +7,11 @@ class PostalAddress < ApplicationRecord
   validates :postal_code, presence: true
   validates :country, presence: true
 
-  validates :country, length: { minimum: 2, too_short: "%{count} minimum characters are required" }
+  validates :country, length: {
+    minimum: 2,
+    too_short: '%{count} minimum characters are required'
+  }
 
   belongs_to :location
   belongs_to :link_instance
 end
-
-

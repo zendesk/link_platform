@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :service_at_location do
     link_instance
     service
     location
-    description "Helpful words"
+    description 'Helpful words'
   end
 end

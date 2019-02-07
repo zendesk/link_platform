@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class LinkInstancesController < ApplicationController
   skip_before_action :assert_link_instance
   skip_before_action :authenticate_admin!
   skip_before_action :assert_admin_domain
 
-  before_action :set_link_instance, only: [:show, :update, :destroy]
+  before_action :set_link_instance, only: %i[show update destroy]
 
   def index
     @link_instances = LinkInstance.all

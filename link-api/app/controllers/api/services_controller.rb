@@ -1,6 +1,25 @@
+# frozen_string_literal: true
+
 module Api
   class ServicesController < ApplicationController
-    before_action :set_service, only: [:show, :update, :destroy]
+    ALLOWED_PARAMS = %i[
+      organization_id
+      program_id
+      name
+      alternate_name
+      description
+      url
+      email
+      status
+      interpretation_services
+      application_services
+      wait_time
+      fees
+      accreditations
+      licenses
+    ].freeze
+
+    before_action :set_service, only: %i[show update destroy]
 
     # GET /api/services
     def index
@@ -19,7 +38,9 @@ module Api
       @service = current_link_instance.services.build(service_params)
 
       if @service.save
-        render json: @service, status: :created, location: api_service_url(@service)
+        render json: @service,
+               status: :created,
+               location: api_service_url(@service)
       else
         render json: @service.errors, status: :unprocessable_entity
       end
@@ -40,14 +61,15 @@ module Api
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_service
-        @service = current_link_instance.services.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def service_params
-        params.require(:service).permit(:organization_id, :program_id, :name, :alternate_name, :description, :url, :email, :status, :interpretation_services, :application_services, :wait_time, :fees, :accreditations, :licenses)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_service
+      @service = current_link_instance.services.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def service_params
+      params.require(:service).permit(ALLOWED_PARAMS)
+    end
   end
 end

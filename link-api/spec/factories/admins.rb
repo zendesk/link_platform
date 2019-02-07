@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :admin, aliases: [:owner] do
-    name "Admin Adam"
+    name 'Admin Adam'
     email
-    password "1234abcd"
+    password '1234abcd'
     link_instance
   end
 

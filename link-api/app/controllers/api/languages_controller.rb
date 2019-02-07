@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Api
   class LanguagesController < ApplicationController
-    before_action :set_language, only: [:show, :update, :destroy]
+    before_action :set_language, only: %i[show update destroy]
 
     # GET /api/languages
     def index
@@ -19,7 +21,9 @@ module Api
       @language = current_link_instance.languages.build(language_params)
 
       if @language.save
-        render json: @language, status: :created, location: api_language_url(@language)
+        render json: @language,
+               status: :created,
+               location: api_language_url(@language)
       else
         render json: @language.errors, status: :unprocessable_entity
       end
@@ -40,14 +44,15 @@ module Api
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_language
-        @language = current_link_instance.languages.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def language_params
-        params.require(:language).permit(:service_id, :location_id, :language)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_language
+      @language = current_link_instance.languages.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def language_params
+      params.require(:language).permit(:service_id, :location_id, :language)
+    end
   end
 end

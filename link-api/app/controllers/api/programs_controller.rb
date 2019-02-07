@@ -1,5 +1,13 @@
+# frozen_string_literal: true
+
 class Api::ProgramsController < ApplicationController
-  before_action :set_program, only: [:show, :update, :destroy]
+  ALLOWED_PARAMS = %i[
+    name
+    alternate_name
+    organization_id
+  ].freeze
+
+  before_action :set_program, only: %i[show update destroy]
 
   # GET /programs
   def index
@@ -18,7 +26,9 @@ class Api::ProgramsController < ApplicationController
     @program = current_link_instance.programs.build(program_params)
 
     if @program.save
-      render json: @program, status: :created, location: api_program_url(@program)
+      render json: @program,
+             status: :created,
+             location: api_program_url(@program)
     else
       render json: @program.errors, status: :unprocessable_entity
     end
@@ -39,13 +49,14 @@ class Api::ProgramsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_program
-      @program = current_link_instance.programs.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def program_params
-      params.require(:program).permit(:name, :alternate_name, :organization_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_program
+    @program = current_link_instance.programs.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def program_params
+    params.require(:program).permit(ALLOWED_PARAMS)
+  end
 end

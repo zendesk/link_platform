@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LinkInstance < ApplicationRecord
-  belongs_to :owner, class_name: "Admin", optional: true
+  belongs_to :owner, class_name: 'Admin', optional: true
 
   has_many :contacts
   has_many :locations
@@ -21,9 +23,8 @@ class LinkInstance < ApplicationRecord
   validates :owner, presence: true, on: :update
 
   property_set :settings do
-    property :theme_color, default: "#f8f8f8"
-    property :button_color, default: "#007aff"
+    property :theme_color, default: '#f8f8f8'
+    property :button_color, default: '#007aff'
     property :feedback_email
   end
-
 end

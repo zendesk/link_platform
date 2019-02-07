@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Admin, type: :model do
-  describe "Validations" do
-    it "is valid with a name and email" do
+  describe 'Validations' do
+    it 'is valid with a name and email' do
       expect(FactoryBot.build(:admin)).to be_valid
     end
 
-    it "is invalid without a name" do
+    it 'is invalid without a name' do
       admin = FactoryBot.build(:admin, name: nil)
       admin.valid?
       expect(admin.errors[:name]).to include("can't be blank")
     end
 
-    describe "Email validation" do
-      it "is invalid without an email" do
+    describe 'Email validation' do
+      it 'is invalid without an email' do
         admin = FactoryBot.build(:admin, email: nil)
         admin.valid?
         expect(admin.errors[:email]).to include("can't be blank")
@@ -21,13 +23,17 @@ RSpec.describe Admin, type: :model do
 
       it "doesn't allow duplicate emails within link_instances" do
         a1 = FactoryBot.create(:admin)
-        a2 = FactoryBot.build(:admin, email: a1.email, link_instance_id: a1.link_instance_id)
+        a2 = FactoryBot.build(
+          :admin,
+          email: a1.email,
+          link_instance_id: a1.link_instance_id
+        )
 
         a2.valid?
-        expect(a2.errors[:email]).to include("has already been taken")
+        expect(a2.errors[:email]).to include('has already been taken')
       end
 
-      it "allows duplicate emails across link_instances" do
+      it 'allows duplicate emails across link_instances' do
         FactoryBot.create(:admin)
         expect(FactoryBot.build(:admin)).to be_valid
       end

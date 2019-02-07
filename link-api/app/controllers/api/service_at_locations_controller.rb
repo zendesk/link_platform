@@ -1,6 +1,14 @@
+# frozen_string_literal: true
+
 module Api
   class ServiceAtLocationsController < ApplicationController
-    before_action :set_service_at_location, only: [:show, :update, :destroy]
+    ALLOWED_PARAMS = %i[
+      service_id
+      location_id
+      description
+    ].freeze
+
+    before_action :set_service_at_location, only: %i[show update destroy]
 
     # GET /api/service_at_locations
     def index
@@ -16,10 +24,14 @@ module Api
 
     # POST /api/service_at_locations
     def create
-      @service_at_location = current_link_instance.service_at_locations.build(service_at_location_params)
+      @service_at_location = current_link_instance.
+                             service_at_locations.
+                             build(service_at_location_params)
 
       if @service_at_location.save
-        render json: @service_at_location, status: :created, location: api_service_at_location_url(@service_at_location)
+        render json: @service_at_location,
+               status: :created,
+               location: api_service_at_location_url(@service_at_location)
       else
         render json: @service_at_location.errors, status: :unprocessable_entity
       end
@@ -40,14 +52,17 @@ module Api
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_service_at_location
-        @service_at_location = current_link_instance.service_at_locations.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def service_at_location_params
-        params.require(:service_at_location).permit(:service_id, :location_id, :description)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_service_at_location
+      @service_at_location = current_link_instance.
+                             service_at_locations.
+                             find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def service_at_location_params
+      params.require(:service_at_location).permit(ALLOWED_PARAMS)
+    end
   end
 end
