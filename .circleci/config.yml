@@ -33,6 +33,9 @@ jobs:
       - run:
           name: run unit tests
           command: bundle exec rspec
+      - run:
+          name: run rubocop
+          command: bundle exec rubocop
 
   link-admin:
     working_directory: ~/link_platform/link-admin

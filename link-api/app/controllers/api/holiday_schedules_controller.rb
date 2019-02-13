@@ -1,6 +1,19 @@
+# frozen_string_literal: true
+
 module Api
   class HolidaySchedulesController < ApplicationController
-    before_action :set_holiday_schedule, only: [:show, :update, :destroy]
+    ALLOWED_PARAMS = %i[
+      service_id
+      location_id
+      service_at_location_id
+      closed
+      opens_at
+      closes_at
+      start_date
+      end_date
+    ].freeze
+
+    before_action :set_holiday_schedule, only: %i[show update destroy]
 
     # GET /holiday_schedules
     def index
@@ -16,10 +29,14 @@ module Api
 
     # POST /holiday_schedules
     def create
-      @holiday_schedule = current_link_instance.holiday_schedules.build(holiday_schedule_params)
+      @holiday_schedule = current_link_instance.
+                          holiday_schedules.
+                          build(holiday_schedule_params)
 
       if @holiday_schedule.save
-        render json: @holiday_schedule, status: :created, location: api_holiday_schedule_url(@holiday_schedule)
+        render json: @holiday_schedule,
+               status: :created,
+               location: api_holiday_schedule_url(@holiday_schedule)
       else
         render json: @holiday_schedule.errors, status: :unprocessable_entity
       end
@@ -40,14 +57,17 @@ module Api
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_holiday_schedule
-        @holiday_schedule = current_link_instance.holiday_schedules.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def holiday_schedule_params
-        params.require(:holiday_schedule).permit(:service_id, :location_id, :service_at_location_id, :closed, :opens_at, :closes_at, :start_date, :end_date)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_holiday_schedule
+      @holiday_schedule = current_link_instance.
+                          holiday_schedules.
+                          find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def holiday_schedule_params
+      params.require(:holiday_schedule).permit(ALLOWED_PARAMS)
+    end
   end
 end

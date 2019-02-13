@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Contact < ApplicationRecord
   belongs_to :link_instance
   belongs_to :organization, optional: true

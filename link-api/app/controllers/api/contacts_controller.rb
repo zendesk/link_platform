@@ -1,6 +1,18 @@
+# frozen_string_literal: true
+
 module Api
   class ContactsController < ApplicationController
-    before_action :set_contact, only: [:show, :update, :destroy]
+    ALLOWED_PARAMS = %i[
+      organization_id
+      service_id
+      service_at_location_id
+      name
+      title
+      department
+      email
+    ].freeze
+
+    before_action :set_contact, only: %i[show update destroy]
 
     # GET /api/contacts
     def index
@@ -19,7 +31,9 @@ module Api
       @contact = current_link_instance.contacts.build(contact_params)
 
       if @contact.save
-        render json: @contact, status: :created, location: api_contact_url(@contact)
+        render json: @contact,
+               status: :created,
+               location: api_contact_url(@contact)
       else
         render json: @contact.errors, status: :unprocessable_entity
       end
@@ -40,6 +54,7 @@ module Api
     end
 
     private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = current_link_instance.contacts.find(params[:id])
@@ -47,7 +62,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(:organization_id, :service_id, :service_at_location_id, :name, :title, :department, :email)
+      params.require(:contact).permit(ALLOWED_PARAMS)
     end
   end
 end

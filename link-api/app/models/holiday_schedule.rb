@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HolidaySchedule < ApplicationRecord
   belongs_to :link_instance
   belongs_to :service, optional: true

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe HolidaySchedule, type: :model do
@@ -8,7 +10,8 @@ RSpec.describe HolidaySchedule, type: :model do
       holiday_schedule.closed = nil
 
       expect(holiday_schedule.valid?).to eq(false)
-      expect(holiday_schedule.errors[:closed]).to include('is not included in the list')
+      expect(holiday_schedule.errors[:closed]).
+        to include('is not included in the list')
     end
   end
 

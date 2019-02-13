@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ControllerHelper
   require 'devise_token_auth'
 

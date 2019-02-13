@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PhysicalAddress < ApplicationRecord
   validates :address_1, presence: true
   validates :city, presence: true
