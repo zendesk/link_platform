@@ -119,3 +119,12 @@ Program.create!(
   organization_id: organization.id,
   link_instance_id: link_instance.id
 )
+
+Admin.create!(
+  email: "ga@linkplatform.com",
+  name: "Great Admin",
+  nickname: "Goodness Gracious Great Admin",
+  password: "link_platform",
+  link_instance_id: link_instance.id,
+  confirmed_at: Time.now
+)
