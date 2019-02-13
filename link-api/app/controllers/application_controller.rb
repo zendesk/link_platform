@@ -4,8 +4,16 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   before_action :assert_link_instance
-  before_action :authenticate_admin!, only: %i[create update destroy]
-  before_action :assert_admin_domain, only: %i[create update destroy]
+
+  before_action :authenticate_admin!,
+                only: %i[create update destroy],
+                unless: :devise_controller?
+
+  before_action :assert_admin_domain,
+                only: %i[create update destroy],
+                unless: :devise_controller?
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def current_link_instance
     @current_link_instance ||= LinkInstance.find_by(subdomain: subdomain)
@@ -27,6 +35,12 @@ class ApplicationController < ActionController::API
     render json: {
       error: 'UnknownLinkInstance'
     }, status: :not_found
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 
   private

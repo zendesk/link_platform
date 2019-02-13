@@ -39,5 +39,9 @@ module LinkApi
       require 'dotenv'
       Dotenv.load
     end
+
+    # Load middleware required for Omniauth
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end
