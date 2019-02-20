@@ -6,7 +6,7 @@ Date: 2018-06-13
 
 Proposed
 
-Amended by [17. Use strings for all model id fields](0017-use-strings-for-all-model-id-fields.md)
+Amended by [17. Use string (uuid) for all model id fields](0017-use-strings-for-all-model-id-fields.md)
 
 ## Context
 
@@ -16,7 +16,7 @@ In this new project, we want to further support these efforts by exposing an ope
 
 ## Decision
 
-Adopt and extend the OpenReferal API and data structure.  
+Adopt and extend the OpenReferal API and data structure.
 We will extend the model to accommodate data that is specific to the link platform system.
 
 ## Consequences
