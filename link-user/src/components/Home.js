@@ -2,7 +2,6 @@ import { h } from 'preact';
 import { createComponent } from 'preact-fela';
 
 import CategoryList from './CategoryList';
-import icons from '../../icons/css/fontello.css';
 
 const Spacer = createComponent(() => ({
 	height: '10px'

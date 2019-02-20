@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { createComponent } from 'preact-fela';
 
-import { currentUser } from '../../lib/session';
+// import { currentUser } from '../../lib/session';
 import Navigation from './Navigation';
 import Footer from './Footer';
 
@@ -41,7 +41,7 @@ const Layout = ({ admin, children }) => {
 	const ContentComponent = admin ? AdminContent : Content;
 	return (
 		<Body>
-			<Navigation currentUser={admin && currentUser()} />
+			<Navigation currentUser={null} />
 			<CenterContent>
 				<ContentComponent>{children}</ContentComponent>
 			</CenterContent>

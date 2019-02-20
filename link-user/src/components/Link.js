@@ -1,56 +1,67 @@
-import React, { Component, PropTypes } from 'react'
-import R from 'ramda'
+import React, { Component, PropTypes } from 'react';
+import { omit } from 'ramda';
 
-import history from '../../core/history'
-import { redirectTo, redirectToViaReplace, convertToQueryString } from '../../lib/navigation'
+import {
+	redirectTo,
+	redirectToViaReplace,
+	convertToQueryString
+} from '../lib/navigation';
 
+// import history from '../core/history';
+// TODO: History
+const history = {
+	createHref: () => {
+		console.log('implement history createRef');
+	}
+};
 
 class Link extends Component {
+	handleClick = event => {
+		if (this.props.onClick) {
+			this.props.onClick(event);
+		}
 
-  static propTypes = {
-    to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-    onClick: PropTypes.func,
-  }
+		// Return early if this is *not* a left-click.
+		if (event.button !== 0) {
+			return;
+		}
 
-  handleClick = (event) => {
-    if (this.props.onClick) {
-      this.props.onClick(event)
-    }
+		if (event.metaKey || event.altKey || event.ctrlKey || event.shiftKey) {
+			return;
+		}
 
-    // Return early if this is *not* a left-click.
-    if (event.button !== 0) {
-      return
-    }
+		if (event.defaultPrevented === true) {
+			return;
+		}
 
-    if (event.metaKey || event.altKey || event.ctrlKey || event.shiftKey) {
-      return
-    }
+		event.preventDefault();
 
-    if (event.defaultPrevented === true) {
-      return
-    }
+		const queryString =
+			this.props.queryString || convertToQueryString(this.props.query);
+		const go = this.props.replaceState ? redirectToViaReplace : redirectTo;
 
-    event.preventDefault()
+		if (this.props.to && (this.props.query || this.props.queryString)) {
+			go({
+				pathname: this.props.to,
+				search: queryString
+			});
+		}
+		else if (this.props.to) {
+			go(this.props.to);
+		}
+	}
+	static propTypes = {
+		to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+		onClick: PropTypes.func
+	}
 
-    const queryString = this.props.queryString || convertToQueryString(this.props.query)
-    const go = (this.props.replaceState ? redirectToViaReplace : redirectTo)
-
-    if (this.props.to && (this.props.query || this.props.queryString)) {
-      go({
-        pathname: this.props.to,
-        search: queryString
-      })
-    } else if (this.props.to) {
-      go(this.props.to)
-    }
-  }
-
-  render() {
-    const propsForChild = R.omit(['replaceState'], this.props)
-    const { to, query, queryString, ...props } = propsForChild // eslint-disable-line no-use-before-define
-    return <a href={history.createHref(to)} {...props} onClick={this.handleClick} />
-  }
-
+	render() {
+		const propsForChild = omit(['replaceState'], this.props);
+		const { to, ...props } = propsForChild; // eslint-disable-line no-use-before-define
+		return (
+			<a href={history.createHref(to)} {...props} onClick={this.handleClick} />
+		);
+	}
 }
 
-export default Link
+export default Link;

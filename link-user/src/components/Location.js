@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import icons from '../../icons/css/fontello.css';
+// import icons from '../../icons/css/fontello.css';
 import { createComponent } from 'preact-fela';
 
 import { relevantTaxonomies, getIcon } from '../../lib/taxonomies';
@@ -417,7 +417,7 @@ const Location = props => {
 			)}
 			{organization.phones && (
 				<InsetContainer>
-					<ContactLabel className={`${icons.iconPhone} icon-phone`}>
+					<ContactLabel className={'icon-phone'}>
 						Call{' '}
 					</ContactLabel>
 					<CallPhoneSection>
@@ -434,7 +434,7 @@ const Location = props => {
 			)}
 			{organization.url && (
 				<InsetContainer>
-					<ContactLabel className={`${icons.iconLink} icon-website`}>
+					<ContactLabel className={'icon-website'}>
 						Website{' '}
 					</ContactLabel>
 					<WebsiteUrlText>
@@ -455,7 +455,7 @@ const Location = props => {
 					target="_blank noopener noreferrer"
 				>
 					<button>
-						<DirectionsLabel className={`${icons.iconCompass} icon-compass`}>
+						<DirectionsLabel className={`icon-compass`}>
 							Directions
 						</DirectionsLabel>
 					</button>

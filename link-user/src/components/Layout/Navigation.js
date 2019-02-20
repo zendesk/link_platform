@@ -1,8 +1,14 @@
 import { h } from 'preact';
 import { createComponent, createComponentWithProxy } from 'preact-fela';
-import history from '../../core/history';
 
 import Link from '../Link';
+
+// TODO: History
+const history = {
+	goBack: () => {
+		console.log('implement goBack');
+	}
+};
 
 // Styles
 const NavContainer = createComponentWithProxy(
@@ -57,9 +63,12 @@ const CurrentUserContainer = createComponent(() => ({
 	margin: '0 auto'
 }));
 
-const LogoutAnchor = createComponent(() => ({
-	float: 'right'
-}), 'a');
+const LogoutAnchor = createComponent(
+	() => ({
+		float: 'right'
+	}),
+	'a'
+);
 
 const BackLink = createComponentWithProxy(
 	() => ({
@@ -120,13 +129,11 @@ const LogoImage = createComponent(
 const CurrentUser = props => {
 	if (props.currentUser) {
 		return (
-			<CurrentUserContainer >
+			<CurrentUserContainer>
 				<CurrentUserDetailText>
 					Logged in as: <strong>{props.currentUser.email}</strong>
 				</CurrentUserDetailText>
-				<LogoutAnchor href="/logout">
-					Logout
-				</LogoutAnchor>
+				<LogoutAnchor href="/logout">Logout</LogoutAnchor>
 			</CurrentUserContainer>
 		);
 	}
@@ -142,11 +149,7 @@ const getFilter = () => {
 	) {
 		return null;
 	}
-	return (
-		<FilterLink to="/options">
-			Filter
-		</FilterLink>
-	);
+	return <FilterLink to="/options">Filter</FilterLink>;
 };
 
 const Navigation = props => (

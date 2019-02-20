@@ -8,7 +8,34 @@ class HomePage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			taxonomies: []
+			// TODO: Remove mock data
+			taxonomies: [
+				{
+					id: 1,
+					icon: '',
+					name: 'Food'
+				},
+				{
+					id: 2,
+					icon: '',
+					name: 'Housing'
+				},
+				{
+					id: 3,
+					icon: '',
+					name: 'Hygiene'
+				},
+				{
+					id: 4,
+					icon: '',
+					name: 'Medical'
+				},
+				{
+					id: 5,
+					icon: '',
+					name: 'Shelter'
+				}
+			]
 		};
 	}
 

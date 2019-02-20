@@ -3,7 +3,7 @@ import { createComponent, createComponentWithProxy } from 'preact-fela';
 
 // Local imports
 import s from './LocationRow.css';
-import icons from '../../icons/css/fontello.css';
+import icons from '../icons/css/fontello.css';
 import { relevantTaxonomies, getIcon } from '../../lib/taxonomies';
 import ServiceStatus from './ServiceStatus';
 import Link from './Link';

@@ -1,10 +1,9 @@
 import { h, Component } from 'preact';
 import { createComponent } from 'preact-fela';
 import R from 'ramda';
-import history from '../../core/history';
 
 import { taxonomiesWithIcons } from '../../lib/taxonomies';
-import { redirectTo } from '../../lib/navigation';
+import { redirectTo } from '../lib/navigation';
 import { uuid } from '../../lib/uuid';
 import {
 	fetchLocations,
@@ -19,6 +18,10 @@ import Banner from '../Banner';
 import LocationEdit from '../LocationEdit';
 import ToggleButton from '../ToggleButton';
 import PhoneEdit from '../PhoneEdit';
+
+// import history from '../core/history';
+// TODO: History
+let history = {};
 
 // Constants
 const changesMessage =
