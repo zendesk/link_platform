@@ -1,4 +1,4 @@
-# 17. Use strings for all model id fields
+# 17. Use string (uuid) for all model id fields
 
 Date: 2018-08-08
 
@@ -11,8 +11,8 @@ Amends [9. Use OpenReferal API](0009-use-openreferal-api.md)
 ## Context
 
 To enhance the ability to import data from any source that is compliant with the OpenReferral
-modle use strings for fields that are keys. 
- 
+modle use strings for fields that are keys.
+
 ## Decision
 
 Convert existing models to use strings instead of integers as the id fields and references.
