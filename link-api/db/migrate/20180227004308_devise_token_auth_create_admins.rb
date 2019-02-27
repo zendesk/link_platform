@@ -2,9 +2,7 @@
 
 class DeviseTokenAuthCreateAdmins < ActiveRecord::Migration[5.2]
   def change
-    drop_table :admins
-
-    create_table(:admins) do |t|
+    create_table :admins, id: :uuid do |t|
       ## Required
       t.string :provider, null: false, default: "email"
       t.string :uid, null: false, default: ""
@@ -51,8 +49,8 @@ class DeviseTokenAuthCreateAdmins < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :admins, %i[link_instance_id email], unique: true
-    add_index :admins, %i[uid provider],           unique: true
+    add_index :admins, %i[link_instance_id email],  unique: true
+    add_index :admins, %i[uid provider],            unique: true
     add_index :admins, :reset_password_token,       unique: true
     add_index :admins, :confirmation_token,         unique: true
     # add_index :admins, :unlock_token,       unique: true

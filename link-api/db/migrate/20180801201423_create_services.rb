@@ -2,9 +2,10 @@
 
 class CreateServices < ActiveRecord::Migration[5.2]
   def change
-    create_table :services do |t|
-      t.string :organization_id, null: false
-      t.string :program_id
+    create_table :services, id: :uuid do |t|
+      t.references :organization, foreign_key: true, type: :uuid
+      t.references :program, foreign_key: true, type: :uuid
+      t.references :link_instance, foreign_key: true, type: :uuid
       t.string :name, null: false
       t.string :alternate_name
       t.string :description
