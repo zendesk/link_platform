@@ -2,8 +2,9 @@
 
 class CreatePhysicalAddresses < ActiveRecord::Migration[5.2]
   def change
-    create_table :physical_addresses do |t|
-      t.string :location_id
+    create_table :physical_addresses, id: :uuid do |t|
+      t.references :location, foreign_key: true, type: :uuid
+      t.references :link_instance, foreign_key: true, type: :uuid
       t.string :attention
       t.string :address_1, null: false
       t.string :city, null: false

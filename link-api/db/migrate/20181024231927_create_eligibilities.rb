@@ -2,9 +2,9 @@
 
 class CreateEligibilities < ActiveRecord::Migration[5.2]
   def change
-    create_table :eligibilities do |t|
-      t.string :link_instance_id, null: false
-      t.string :service_id
+    create_table :eligibilities, id: :uuid do |t|
+      t.references :link_instance, foreign_key: true, type: :uuid
+      t.references :service, foreign_key: true, type: :uuid
       t.string :eligibility
 
       t.timestamps

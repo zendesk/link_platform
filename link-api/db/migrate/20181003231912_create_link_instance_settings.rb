@@ -2,8 +2,8 @@
 
 class CreateLinkInstanceSettings < ActiveRecord::Migration[5.2]
   def change
-    create_table :link_instance_settings do |t|
-      t.string :link_instance_id, null: false
+    create_table :link_instance_settings, id: :uuid do |t|
+      t.references :link_instance, foreign_key: true, type: :uuid
       t.string  :name, null: false
       t.string  :value
       t.timestamps
