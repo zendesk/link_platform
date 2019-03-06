@@ -1,8 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'preact';
+import { createRenderer } from 'fela';
+import { Provider } from 'preact-fela';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import HomePage from './pages/Home';
+
+const renderer = createRenderer();
+
+render(
+	<Provider renderer={renderer}>
+		<HomePage />
+	</Provider>,
+	document.body
+);

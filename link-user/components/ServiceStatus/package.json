@@ -1,6 +1,0 @@
-{
-  "name": "ServiceStatus",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ServiceStatus.js"
-}
