@@ -3,6 +3,8 @@
 class LinkInstance < ApplicationRecord
   belongs_to :owner, class_name: 'Admin', optional: true
 
+  has_one_attached :logo
+
   has_many :contacts
   has_many :locations
   has_many :phones

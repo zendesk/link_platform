@@ -57,4 +57,7 @@ Rails.application.configure do
 
   # Without this in development, request.subdomain will always be nil
   config.action_dispatch.tld_length = 0
+
+  # Storage server
+  config.active_storage.service = :amazon
 end

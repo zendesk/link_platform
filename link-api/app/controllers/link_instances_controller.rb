@@ -5,7 +5,7 @@ class LinkInstancesController < ApplicationController
   skip_before_action :authenticate_admin!
   skip_before_action :assert_admin_domain
 
-  before_action :set_link_instance, only: %i[show update destroy]
+  before_action :set_link_instance, only: %i[show update destroy down]
 
   def index
     @link_instances = LinkInstance.all
@@ -46,6 +46,6 @@ class LinkInstancesController < ApplicationController
   end
 
   def link_instance_params
-    params.require(:link_instance).permit(:name, :email, :subdomain)
+    params.require(:link_instance).permit(:name, :email, :subdomain, :logo)
   end
 end

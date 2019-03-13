@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations'
   }
 
+  get '/download/:id', to: 'link_instances#down'
   resources :link_instances
 
   namespace :api do
