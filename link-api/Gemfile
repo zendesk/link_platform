@@ -20,6 +20,12 @@ gem 'iso639-validator'
 # Use property sets for Link Instance settings
 gem 'property_sets'
 
+gem 'aws-sdk-s3', require: false
+
+gem "shrine", "~> 2.0"
+gem "image_processing", "~> 1.0"
+gem "fastimage"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

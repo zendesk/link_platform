@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LinkInstancesController < ApplicationController
+  include ActionView::Rendering
   skip_before_action :assert_link_instance
   skip_before_action :authenticate_admin!
   skip_before_action :assert_admin_domain
@@ -14,7 +15,7 @@ class LinkInstancesController < ApplicationController
   end
 
   def show
-    render json: @link_instance
+    render "link_instances/show"
   end
 
   def create

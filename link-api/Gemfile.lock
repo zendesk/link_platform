@@ -42,12 +42,31 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
+    aws-eventstream (1.0.2)
+    aws-partitions (1.147.0)
+    aws-sdk-core (3.48.3)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.16.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.35.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.0)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.12)
     builder (3.2.3)
     byebug (10.0.2)
     concurrent-ruby (1.0.5)
+    content_disposition (1.0.0)
     crass (1.0.4)
     devise (4.5.0)
       bcrypt (~> 3.0)
@@ -63,6 +82,8 @@ GEM
     dotenv-rails (2.5.0)
       dotenv (= 2.5.0)
       railties (>= 3.2, < 6.0)
+    down (4.8.0)
+      addressable (~> 2.5)
     erubi (1.7.1)
     factory_bot (4.10.0)
       activesupport (>= 3.0.0)
@@ -71,16 +92,21 @@ GEM
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
+    fastimage (2.1.5)
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    image_processing (1.8.0)
+      mini_magick (>= 4.9.3, < 5)
+      ruby-vips (>= 2.0.13, < 3)
     iso-639 (0.2.8)
     iso639-validator (0.0.3)
       iso-639 (~> 0.2.5)
     jaro_winkler (1.5.2)
+    jmespath (1.4.0)
     json (2.1.0)
     jwt (1.5.6)
     listen (3.1.5)
@@ -96,6 +122,7 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
     mimemagic (0.3.2)
+    mini_magick (4.9.3)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -130,6 +157,7 @@ GEM
     property_sets (3.4.0)
       activerecord (>= 4.2, < 6.0)
       json
+    public_suffix (3.0.3)
     puma (3.11.4)
     rack (2.0.5)
     rack-test (1.0.0)
@@ -192,7 +220,12 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
     ruby-progressbar (1.10.0)
+    ruby-vips (2.0.13)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
+    shrine (2.16.0)
+      content_disposition (~> 1.0)
+      down (~> 4.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -224,10 +257,13 @@ PLATFORMS
   x86_64-darwin-17
 
 DEPENDENCIES
+  aws-sdk-s3
   byebug
   devise_token_auth
   dotenv-rails
   factory_bot_rails (~> 4.10.0)
+  fastimage
+  image_processing (~> 1.0)
   iso639-validator
   listen (>= 3.0.5, < 3.2)
   omniauth-google-oauth2
@@ -237,6 +273,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rspec-rails (~> 3.7.0)
   rubocop
+  shrine (~> 2.0)
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

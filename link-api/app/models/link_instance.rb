@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LinkInstance < ApplicationRecord
+  include ImageUploader[:image] # adds an `image` virtual attribute
+
   belongs_to :owner, class_name: 'Admin', optional: true
 
   has_many :contacts
