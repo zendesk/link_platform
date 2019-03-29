@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { ThemeProvider } from '@zendeskgarden/react-theming';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { Provider as FelaProvider } from 'react-fela';
-import { createRenderer } from 'fela';
+import React, { Component } from 'react'
+import { ThemeProvider } from '@zendeskgarden/react-theming'
+import { Provider } from 'react-redux'
+import { Provider as FelaProvider } from 'react-fela'
+import { createRenderer } from 'fela'
+import { Route, Switch } from 'react-router'
+import { ConnectedRouter } from 'connected-react-router'
 
-import combinedReducer from './reducer'
-import Landing from './pages/Landing';
+import store, { history } from './reducer'
+import Landing from './pages/Landing'
 
-const renderer = createRenderer();
-const store = createStore(combinedReducer);
+const renderer = createRenderer()
 
 class App extends Component {
   render() {
@@ -17,12 +17,17 @@ class App extends Component {
       <ThemeProvider>
         <Provider store={store}>
           <FelaProvider renderer={renderer}>
-            <Landing />
+            <ConnectedRouter history={history}>
+              <Switch>
+                <Route exact path="/" render={() => <Landing />} />
+                <Route render={() => <div>Miss</div>} />
+              </Switch>
+            </ConnectedRouter>
           </FelaProvider>
         </Provider>
       </ThemeProvider>
-    );
+    )
   }
 }
 
-export default App;
+export default App
