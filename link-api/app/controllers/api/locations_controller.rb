@@ -17,7 +17,7 @@ class Api::LocationsController < ApplicationController
   def index
     @locations = current_link_instance.locations.all
 
-    render json: @locations
+    render json: Api::Paginate::paginate(params[:page], @locations)
   end
 
   # GET /locations/1

@@ -21,7 +21,7 @@ module Api
     def index
       @phones = current_link_instance.phones
 
-      render json: @phones
+      render json: Api::Paginate::paginate(params[:page], @phones)
     end
 
     # GET /phones/1

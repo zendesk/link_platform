@@ -13,7 +13,7 @@ class Api::ProgramsController < ApplicationController
   def index
     @programs = current_link_instance.programs.all
 
-    render json: @programs
+    render json: Api::Paginate::paginate(params[:page], @programs)
   end
 
   # GET /programs/1

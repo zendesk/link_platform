@@ -25,7 +25,7 @@ module Api
     def index
       @services = current_link_instance.services
 
-      render json: @services
+      render json: Api::Paginate::paginate(params[:page], @services)
     end
 
     # GET /api/services/1

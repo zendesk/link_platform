@@ -8,7 +8,7 @@ module Api
     def index
       @languages = current_link_instance.languages
 
-      render json: @languages
+      render json: Api::Paginate::paginate(params[:page], @languages)
     end
 
     # GET /api/languages/1

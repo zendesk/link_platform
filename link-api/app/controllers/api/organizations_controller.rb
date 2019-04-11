@@ -17,9 +17,9 @@ class Api::OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = current_link_instance.organizations.all
+    @organizations = current_link_instance.organizations
 
-    render json: @organizations
+    render json: Api::Paginate::paginate(params[:page], @organizations)
   end
 
   # GET /organizations/1

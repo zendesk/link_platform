@@ -19,7 +19,7 @@ module Api
     def index
       @physical_addresses = current_link_instance.physical_addresses
 
-      render json: @physical_addresses
+      render json: Api::Paginate::paginate(params[:page], @physical_addresses)
     end
 
     # GET /physical_addresses/1

@@ -18,7 +18,7 @@ module Api
     def index
       @contacts = current_link_instance.contacts
 
-      render json: @contacts
+      render json: Api::Paginate::paginate(params[:page], @contacts)
     end
 
     # GET /api/contacts/1

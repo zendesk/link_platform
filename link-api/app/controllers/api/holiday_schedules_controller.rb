@@ -19,7 +19,7 @@ module Api
     def index
       @holiday_schedules = current_link_instance.holiday_schedules
 
-      render json: @holiday_schedules
+      render json: Api::Paginate::paginate(params[:page], @holiday_schedules)
     end
 
     # GET /holiday_schedules/1

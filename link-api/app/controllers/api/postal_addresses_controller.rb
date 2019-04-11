@@ -19,7 +19,7 @@ module Api
     def index
       @postal_addresses = current_link_instance.postal_addresses
 
-      render json: @postal_addresses
+      render json: Api::Paginate::paginate(params[:page], @postal_addresses)
     end
 
     # GET /postal_addresses/1

@@ -17,7 +17,7 @@ module Api
     def index
       @regular_schedules = current_link_instance.regular_schedules
 
-      render json: @regular_schedules
+      render json: Api::Paginate::paginate(params[:page], @regular_schedules)
     end
 
     # GET /regular_schedules/1
