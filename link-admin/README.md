@@ -5,3 +5,8 @@
 1. `cd link-admin`
 1. `npm install`
 1. `npm start`
+
+You will need to install postgres
+Recommended method:
+ `brew install postgresql`
+ `brew services start postgresql`
