@@ -6,7 +6,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import actions from './actions'
-import { Textarea, TextField, Label, Hint, Input, Message } from '@zendeskgarden/react-textfields';
+import { Textarea, TextField, TextGroup, Label, Hint, Input, Message } from '@zendeskgarden/react-textfields';
+import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 
 class Organization extends React.PureComponent {
   static propTypes = {
@@ -24,9 +25,24 @@ class Organization extends React.PureComponent {
           <Label>Location Name</Label>
           <Input placeholder="Zendesk HQ" />
         </TextField>
-        <Textarea>
-          <Label>Location Description</Label>
-        </Textarea>
+        <Label>Description</Label>
+        <Textarea placeholder="Description" />
+        <Grid>
+          <Row>
+            <Col lg>
+              <TextField>
+                <Label>Address</Label>
+                <Input placeholder="1019 Market St" />
+              </TextField>
+            </Col>
+            <Col lg>
+              <TextField>
+                <Label>City</Label>
+                <Input placeholder="San Francisco" />
+              </TextField>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
