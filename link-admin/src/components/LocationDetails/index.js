@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
+import { Button } from '@zendeskgarden/react-buttons';
 
 class LocationDetails extends React.PureComponent {
   static propTypes = {
@@ -44,17 +45,24 @@ class LocationDetails extends React.PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col >
+          <Col>
             <Label>Address</Label>
             <Input value={location.address} />
           </Col>
-          <Col >
+          <Col>
             <Label>City</Label>
             <Input value={location.city} />
           </Col>
-          <Col >
+          <Col>
             <Label>Postal Code</Label>
             <Input value={location.postal_code} />
+          </Col>
+        </Row>
+        <Row
+          style={{ marginTop: 15 }}
+        >
+          <Col>
+            <Button danger>Delete Location</Button>
           </Col>
         </Row>
       </Grid>
