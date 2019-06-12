@@ -6,7 +6,7 @@ import { Provider as FelaProvider } from 'react-fela';
 import { createRenderer } from 'fela';
 
 import combinedReducer from './reducer'
-import Organization from './pages/Organization';
+import Landing from './pages/Landing';
 
 const renderer = createRenderer();
 const store = createStore(combinedReducer);
@@ -17,7 +17,7 @@ class App extends Component {
       <ThemeProvider>
         <Provider store={store}>
           <FelaProvider renderer={renderer}>
-            <Organization />
+            <Landing />
           </FelaProvider>
         </Provider>
       </ThemeProvider>
