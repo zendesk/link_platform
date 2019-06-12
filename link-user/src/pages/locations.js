@@ -31,4 +31,5 @@ class LocationsPage extends Component {
 		);
 	}
 };
+
 export default LocationsPage;

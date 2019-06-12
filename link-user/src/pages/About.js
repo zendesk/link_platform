@@ -1,21 +1,12 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 
 import About from '../components/About';
 
 const mockData = {
-	logoUrl: "",
-	description: "Preact doing stuff"
-}
-class AboutPage extends Component {
-	constructor(props) {
-		super(props);
-	}
+	logoUrl: '',
+	description: 'Preact doing stuff'
+};
 
-	render() {
-		return (
-			<About logoUrl={mockData.logoUrl} description={mockData.description}/>
-		);
-	}
-}
+const AboutPage = () => <About logoUrl={mockData.logoUrl} description={mockData.description} />;
 
 export default AboutPage;

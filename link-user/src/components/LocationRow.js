@@ -2,9 +2,6 @@ import { h } from 'preact';
 import { createComponent, createComponentWithProxy } from 'preact-fela';
 
 // Local imports
-import s from './LocationRow.css';
-import icons from '../icons/css/fontello.css';
-import { relevantTaxonomies, getIcon } from '../../lib/taxonomies';
 import ServiceStatus from './ServiceStatus';
 import Link from './Link';
 
@@ -90,15 +87,18 @@ const SidebarContainer = createComponent(() => ({
 	textAlign: 'right'
 }));
 
-const DistanceText = props => <div className={s.distanceText}>{props.text}</div>;
+const DistanceText = props => <div>{props.text}</div>;
 
 const IconSpans = props => (
 	<div>
-		{props.taxonomies.map((taxonomy, index) => (
-			<span key={`category-${index}`}>
-				<i className={`category-icon ${getIcon(taxonomy)}`} />
-			</span>
-		))}
+		{props.taxonomies.map((taxonomy, index) => {
+			const iconClass = ''; // TODO: determine dynamic CSS class
+			return (
+				<span key={`category-${index}`}>
+					<i className={`category-icon ${iconClass}`} />
+				</span>
+			);
+		})}
 	</div>
 );
 
@@ -117,12 +117,13 @@ const LocationRow = props => (
 					</NameAndStatusContainer>
 					<Spacer />
 					<IconAndDistanceContainer>
-						<IconSpans taxonomies={relevantTaxonomies(props.services)} />
+						{/* TODO: get relevant taxonomies in JS */}
+						<IconSpans taxonomies={[]} />
 						{props.duration && <DistanceText text={props.duration.text} />}
 					</IconAndDistanceContainer>
 				</DetailsContainer>
 				<SidebarContainer>
-					<i className={`${icons.iconRightOpen2} icon-caret`} />
+					<i className={`icon-caret`} />
 				</SidebarContainer>
 			</ContentContainer>
 		</LocationLink>
