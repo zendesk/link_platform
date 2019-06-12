@@ -10,7 +10,8 @@ const Body = createComponent(() => ({
 	display: 'flex',
 	flexDirection: 'column',
 	flexWrap: 'nowrap',
-	width: '100%'
+	width: '100%',
+	fontFamily: 'arial'
 }));
 
 const CenterContent = createComponent(() => ({

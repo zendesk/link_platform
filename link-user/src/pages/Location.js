@@ -1,46 +1,27 @@
-import { h, Component } from 'preact'
 
-import Layout from '../components/Layout'
-import Loading from '../components/Loading'
-import Location from '../components/Location'
+import { h, Component } from 'preact';
 
-export default class LocationPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      location: null,
-      organization: null,
-    }
-  }
+import Layout from '../components/Layout';
 
-  componentDidMount() {
-    const match = this.props.route.pattern.exec(window.location.pathname)
-    const locationId = match[1]
+class LocationPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			// TODO: Remove mock data
+			location: {
+				id: 1,
+				name: 'cool place'
+			}
+		};
+	}
+	render() {
+		const { location } = this.state;
 
-    fetchLocation(locationId)
-      .then(location => {
-        this.setState({ location })
-        fetchOrganization(location.organizationId)
-          .then(organization => {
-            this.setState({ organization })
-          })
-      })
-  }
-
-  componentDidUpdate() {
-    const { location } = this.state
-    document.title = location ? location.name : globalConfig.title
-  }
-
-  render() {
-    const { location, organization } = this.state
-
-    return (
-      <Layout>
-        {(location && organization) ?
-          <Location location={location} organization={organization} /> :
-          <Loading />
-        }
-      </Layout>
-    )
-  }
+		return (
+			<Layout>
+                <p>{location.name}</p>
+			</Layout>
+		);
+	}
+};
+export default LocationPage;

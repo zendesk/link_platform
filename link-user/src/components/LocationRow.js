@@ -27,7 +27,7 @@ const LocationLink = createComponentWithProxy(
 	() => ({
 		textDecoration: 'none',
 		color: '#000',
-		padding: 14
+		padding: '14px'
 	}),
 	Link
 );
@@ -105,6 +105,7 @@ const IconSpans = props => (
 const LocationRow = props => (
 	<LocationItem key={`location-${props.id}`}>
 		<LocationLink
+			href={`/locations/${props.id}`}
 			to={`/locations/${props.id}`}
 			title={`Click to see more details about ${props.name}`}
 		>
