@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { createComponent } from 'preact-fela';
-import { isOpen } from '../../lib/filterLocations';
 
 
 // Styles
@@ -9,7 +8,7 @@ const ServiceStatusText = createComponent(({ isOpen }) => ({
 }));
 
 const ServiceStatus = props => {
-	const isServiceOpen = isOpen(props.services);
+	const isServiceOpen = true; // TODO: filter in JS
 	const openOrClosed = isServiceOpen ? 'open' : 'closed';
 
 	return (

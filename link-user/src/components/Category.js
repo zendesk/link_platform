@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import Link from './Link';
+import { Link } from 'preact-router/match';
 import { createComponentWithProxy } from 'preact-fela';
 
 const CategoryLink = createComponentWithProxy(
@@ -45,8 +45,7 @@ const CategoryIcon = createComponentWithProxy(
 
 const Category = ({ name, iconClass }) => (
 	<CategoryLink
-		to="/locations"
-		query={{ services: [name.toLowerCase()] }}
+		href={`/locations?services=${name.toLowerCase()}`}
 		aria-label={`Look for ${name} services`}
 	>
 		<CategoryIcon className={iconClass} />

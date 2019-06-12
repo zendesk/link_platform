@@ -2,14 +2,14 @@ import { h } from 'preact';
 import { createComponent } from 'preact-fela';
 import Layout from './Layout';
 
-const Terms = createComponent(() => ({
+const Content = createComponent(() => ({
 	marginTop: '35px'
 }));
 
 const Terms = ({ appName, adminOrgName, logoUrl }) => (
     <Layout>
         <Logo src={logoUrl}/>
-        <Terms>
+        <Content>
             <h1>{appName} Terms of Service</h1>
 
             <p>These Terms of Service constitute a contract between you and {adminOrgName}
@@ -158,7 +158,7 @@ const Terms = ({ appName, adminOrgName, logoUrl }) => (
             and is not responsible for the practices of these Third Parties or their websites or
             applications. This Privacy Policy applies only to information collected by {adminOrgName}
             through {appName}.</p>
-            </div>
+        </Content>
     </Layout>
 );
 
