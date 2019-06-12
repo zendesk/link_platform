@@ -1,9 +1,22 @@
-# Link Platform End User Components
+# link-user
 
-## Development
-1. Check out `link_platform`
-1. `cd link-user`
-1. `npm install`
-1. `npm start`
+## CLI Commands
 
-Your app will be visible on `localhost:8080`
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# test the production build locally
+npm run serve
+
+# run tests with jest and preact-render-spy 
+npm run test
+```
+
+For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).

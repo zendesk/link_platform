@@ -1,14 +1,3 @@
-import { render } from 'preact';
-import { createRenderer } from 'fela';
-import { Provider } from 'preact-fela';
+import App from './components/App';
 
-import HomePage from './pages/Home';
-
-const renderer = createRenderer();
-
-render(
-	<Provider renderer={renderer}>
-		<HomePage />
-	</Provider>,
-	document.body
-);
+export default App;
