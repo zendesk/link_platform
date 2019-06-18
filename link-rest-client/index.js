@@ -1,4 +1,3 @@
-import zipObject from 'lodash/zipObject'
 import RemoteData from 'remote-data-js'
 
 const api = path => `api/${path}`
@@ -13,7 +12,10 @@ const urls = {
 }
 
 const toMap = promise => {
-  return promise.then(xs => zipObject(xs.map(x => x.id), xs))
+  return promise.then(xs => xs.reduce((dict, x) => {
+    dict[x.id] = x
+    return dict
+  }, {}))
 }
 const toJson = x => x.json()
 
