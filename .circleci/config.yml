@@ -43,15 +43,6 @@ jobs:
       - image: circleci/node:8-stretch-browsers
     steps:
       - checkout:
-          path: ~/link_platform/link-rest-client
-      - run:
-          name: install local dependencies
-          command: npm install
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-js-dependencies-{{ checksum "package-lock.json" }}
-      - checkout:
           path: ~/link_platform
       - restore_cache:
           keys:
@@ -60,7 +51,7 @@ jobs:
           - v1-js-admin-dependencies-
       - run:
           name: install dependencies
-          command: npm install
+          command: cd ../link-rest-client && npm install && cd .../link-admin && npm install
       - save_cache:
           paths:
             - ./node_modules
