@@ -45,7 +45,7 @@ jobs:
       - checkout:
           path: ~/link_platform/link-rest-client
       - run:
-          name: install dependencies
+          name: install local dependencies
           command: npm install
       - save_cache:
           paths:
