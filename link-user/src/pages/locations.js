@@ -1,12 +1,52 @@
-import { h } from 'preact';
+import { h, Component } from 'preact'
+import * as Client from 'link-rest-client'
 
-import LocationList from '../components/LocationList';
+import LocationList from '../components/LocationList'
 
-const locations = [{
-	id: 1,
-	name: 'cool place'
-}];
+const renderError = error => <p>{`${error}`}</p>
 
-const LocationsPage = () => <LocationList locations={locations} />;
+class LocationsPage extends Component {
+  constructor() {
+    super()
+    this.state.cache = Client.init()
+  }
 
-export default LocationsPage;
+  componentWillMount() {
+    const { cache } = this.state
+    const self = this
+
+    Client.locations
+      .fetch(cache)
+      .then(locations => {
+        console.log(locations)
+        self.setState({
+          cache: Client.updateCache(
+            cache,
+            Client.locations.fetchSuccess(locations)
+          ),
+        })
+      })
+      .catch(err => {
+        self.setState({
+          cache: Client.updateCache(cache, Client.locations.fetchFailed(err)),
+        })
+      })
+  }
+
+  render(props, state) {
+    console.log(state)
+    const { cache } = state
+    const locationsData = Client.locations.all(cache)
+
+    return locationsData.case({
+      NotAsked: () => 'Initializing...',
+      Pending: () => 'Loading...',
+      Success: locations => (
+        <LocationList locations={Object.values(locations)} />
+      ),
+      Failure: renderError,
+    })
+  }
+}
+
+export default LocationsPage
