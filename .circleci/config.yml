@@ -51,7 +51,7 @@ jobs:
           - v1-js-admin-dependencies-
       - run:
           name: install dependencies
-          command: cd ../link-rest-client && npm install && cd .../link-admin && npm install
+          command: cd ../link-rest-client && npm install && cd ../link-admin && npm install
       - save_cache:
           paths:
             - ./node_modules
