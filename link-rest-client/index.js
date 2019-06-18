@@ -1,4 +1,3 @@
-import axios from 'axios'
 import zipObject from 'lodash/zipObject'
 import RemoteData from 'remote-data-js'
 
@@ -11,7 +10,6 @@ const urls = {
   location: id => api(`location/${id}`),
   services: api('services'),
   service: id => api(`service/${id}`),
-  taxonomies: api('taxonomies'),
 }
 
 const toMap = promise => {
@@ -26,25 +24,25 @@ export const init = () => ({
   }),
   locations: new RemoteData({
     url: urls.locations,
+    parse: response => toMap(toJson(response)),
   }),
   services: new RemoteData({
     url: urls.services,
   }),
-  taxonomies: new RemoteData({
-    url: urls.taxonomies,
-  }),
 })
 
 const actionTypes = {
-  FETCH_ORGANIZATIONS: 'FETCH_ORGANIZATIONS',
   FETCH_ORGANIZATIONS_SUCCESS: 'FETCH_ORGANIZATIONS_SUCCESS',
   FETCH_ORGANIZATIONS_FAILED: 'FETCH_ORGANIZATIONS_FAILED',
-  FETCH_ORGANIZATION: 'FETCH_ORGANIZATION',
   FETCH_ORGANIZATION_SUCCESS: 'FETCH_ORGANIZATION_SUCCESS',
   FETCH_ORGANIZATION_FAILED: 'FETCH_ORGANIZATION_FAILED',
+  FETCH_LOCATIONS_SUCCESS: 'FETCH_LOCATIONS_SUCCESS',
+  FETCH_LOCATIONS_FAILED: 'FETCH_LOCATIONS_FAILED',
+  FETCH_SERVICES_SUCCESS: 'FETCH_SERVICES_SUCCESS',
+  FETCH_SERVICES_FAILED: 'FETCH_SERVICES_FAILED',
 }
 
-const updateCache = (state, action) => {
+export const updateCache = (state, action) => {
   switch (action.type) {
     case actionTypes.FETCH_ORGANIZATIONS_SUCCESS:
       return {
@@ -64,6 +62,28 @@ const updateCache = (state, action) => {
 
     case actionTypes.FETCH_ORGANIZATION_FAILED:
       return state
+
+    case actionTypes.FETCH_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        locations: action.locations
+      }
+
+    case actionTypes.FETCH_LOCATIONS_FAILED: {
+      return state
+    }
+
+    case actionTypes.FETCH_SERVICES_SUCCESS:
+      return {
+        services: {
+          ...state.services,
+          services: action.services
+        }
+      }
+
+    case actionTypes.FETCH_SERVICES_FAILED: {
+      return state
+    }
 
     default:
       return state
@@ -113,3 +133,31 @@ export const organization = {
       state.organizations[id].services.includes(location.id)
     ),
 }
+
+export const locations = {
+  fetch: state => state.locations.fetch(),
+  fetchSuccess: locations => ({
+    type: actionTypes.FETCH_LOCATIONS_SUCCESS,
+    locations
+  }),
+  fetchFailed: err => ({
+    type: actionTypes.FETCH_LOCATIONS_FAILED,
+    err
+  }),
+  all: state => state.locations
+}
+
+export const services = {
+  fetch: state => state.services.fetch(),
+  fetchSuccess: services => ({
+    type: actionTypes.FETCH_SERVICES_SUCCESS,
+    services
+  }),
+  fetchFailed: err => ({
+    type: actionTypes.FETCH_SERVICES_FAILED,
+    err
+  }),
+  all: state => state.services
+}
+
+

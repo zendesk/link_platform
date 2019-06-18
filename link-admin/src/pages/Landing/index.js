@@ -12,7 +12,7 @@ import actions from './actions'
 import AdminTopBar from './components/AdminTopBar'
 import * as Taxonomy from './components/Taxonomy'
 import OrganizationList from './components/OrganizationList'
-import * as Client from '../../client'
+import * as Client from 'link-rest-client'
 
 const Viewport = createComponent(() => {})
 

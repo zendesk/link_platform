@@ -1,7 +1,7 @@
 import { loop, Cmd } from 'redux-loop'
 import xor from 'lodash/xor'
 import { actionTypes } from './actions'
-import * as Client from '../../client'
+import * as Client from 'link-rest-client'
 
 export const initialState = {
   initStarted: false,

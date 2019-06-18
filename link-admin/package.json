@@ -14,6 +14,7 @@
     "connected-react-router": "^6.3.2",
     "fela": "^10.2.2",
     "global": "^4.3.2",
+    "link-rest-client": "file:../link-rest-client/index.js",
     "lodash": "^4.17.11",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
