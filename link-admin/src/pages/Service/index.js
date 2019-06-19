@@ -11,7 +11,6 @@ import AdminTopBar from './components/AdminTopBar';
 import * as Taxonomy from './components/Taxonomy';
 import Location from '../../components/LocationDetails/index'
 import OrganizationDetails from '../../components/OrganizationDetails/index'
-import LocationsTable from '../../components/OrganizationLocations/index'
 import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { Button } from '@zendeskgarden/react-buttons';
@@ -57,14 +56,14 @@ class Landing extends React.PureComponent {
 
     <Tabs>
       <TabPanel label="Details" key="tab-1">
-       Organization Details
+       Orgnaization Details
       <OrganizationDetails/>
 
 
       </TabPanel>
       <TabPanel label="Location" key="tab-2">
         Locations
-        <LocationsTable/>
+        <Location/>
       </TabPanel>
     </Tabs>
     

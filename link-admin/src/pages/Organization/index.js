@@ -71,17 +71,6 @@ class Landing extends React.PureComponent {
           
 
 
-      <AdminTopBar
-        tags={taxonomies.map((taxonomy, index) => (
-          <Taxonomy.Tag
-            key={taxonomy.id}
-            onClick={updateTaxonomyFilters}
-            isActive={activeTaxonomyFilters.includes(taxonomy.id)}
-            taxonomy={{index, ...taxonomy}}
-          />
-        ))}
-      />
-
       </>
     );
   }
