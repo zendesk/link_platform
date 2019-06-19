@@ -47,8 +47,8 @@ class Landing extends React.PureComponent {
   /* This will probably need to be hardcoded by each page */
   <ThemeProvider>
     <Breadcrumb>
-      <Anchor href="/">Root</Anchor>
-      <Anchor href="..">Parent</Anchor>
+      <Anchor href="/">Organization</Anchor>
+      <Anchor href="..">Locations</Anchor>
       <Item>Self</Item>
     </Breadcrumb>
   </ThemeProvider>

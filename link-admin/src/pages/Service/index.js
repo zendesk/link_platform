@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import actions from './actions'
 import AdminTopBar from './components/AdminTopBar';
 import * as Taxonomy from './components/Taxonomy';
-import Location from '../../components/LocationDetails/index'
-import OrganizationDetails from '../../components/OrganizationDetails/index'
+import ServiceDetails from '../../components/ServiceDetails/index'
+
 import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { Button } from '@zendeskgarden/react-buttons';
@@ -47,22 +47,22 @@ class Landing extends React.PureComponent {
   /* This will probably need to be hardcoded by each page */
   <ThemeProvider>
     <Breadcrumb>
-      <Anchor href="/">Root</Anchor>
-      <Anchor href="..">Parent</Anchor>
-      <Item>Self</Item>
+      <Anchor href="/">Organization</Anchor>
+      <Anchor href="..">Location</Anchor>
+      <Item>Services</Item>
     </Breadcrumb>
   </ThemeProvider>;
 
 
     <Tabs>
       <TabPanel label="Details" key="tab-1">
-       Orgnaization Details
-      <OrganizationDetails/>
+       Service Details
+      <ServiceDetails/>
 
 
       </TabPanel>
       <TabPanel label="Location" key="tab-2">
-        Locations
+        N/A
         <Location/>
       </TabPanel>
     </Tabs>
