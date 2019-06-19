@@ -1,15 +1,20 @@
 import '@zendeskgarden/react-buttons/dist/styles.css';
 import '@zendeskgarden/react-tags/dist/styles.css';
 import '@zendeskgarden/react-textfields/dist/styles.css';
-import '@zendeskgarden/react-grid/dist/styles.css';
+import '@zendeskgarden/react-tabs/dist/styles.css';
+
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-
+import actions from './actions'
+import AdminTopBar from './components/AdminTopBar';
+import * as Taxonomy from './components/Taxonomy';
+import Location from '../../components/LocationDetails/index'
+import OrganizationDetails from '../../components/OrganizationDetails/index'
+import LocationsTable from '../../components/OrganizationLocations/index'
 import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
 import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { Button } from '@zendeskgarden/react-buttons';
-import { ThemeProvider } from '@zendeskgarden/react-theming';
 
 //Breadcrumbs
 import '@zendeskgarden/react-breadcrumbs/dist/styles.css';
@@ -19,129 +24,76 @@ import { Anchor } from '@zendeskgarden/react-buttons';
 
 
 
-class LocationDetails extends React.PureComponent {
+//Tabs tools
+import { Tabs, TabPanel } from '@zendeskgarden/react-tabs';
+import { ThemeProvider } from 'react-fela';
+
+class Landing extends React.PureComponent {
   static propTypes = {
-    location: PropTypes.object
+    activeTaxonomyFilters: PropTypes.array.isRequired,
+    updateTaxonomyFilters: PropTypes.func.isRequired,
+    taxonomies: PropTypes.array.isRequired
   };
 
   static defaultProps = {
-    location: {
-      name: "",
-      description: "",
-      address: "",
-      city: "",
-      postal_code: ""
-    }
+    taxonomies: [],
   }
 
   render() {
-    const { location } = this.props;
-
+    const { activeTaxonomyFilters, updateTaxonomyFilters, taxonomies } = this.props;
 
     return (
-
       <>
 
-
-    
-    <ThemeProvider>
+  /* This will probably need to be hardcoded by each page */
+  <ThemeProvider>
     <Breadcrumb>
-      <Anchor href="/">Organization</Anchor>
-      <Anchor href="..">Location</Anchor>
-      <Item>Services</Item>
+      <Anchor href="/">Root</Anchor>
+      <Anchor href="..">Parent</Anchor>
+      <Item>Self</Item>
     </Breadcrumb>
   </ThemeProvider>;
 
 
-        <Grid>
-        <Row>
-          <Col size={7}>
-            <TextField>
-              <Label>Organization ID</Label>
-              <Input />
-            </TextField>
-          </Col>
-        </Row>
-        <Row>
-          <Col size={7}>
-            <Label>Program ID</Label>
-            <Textarea/>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Label>Name</Label>
-            <Input/>
-          </Col>
-          <Col>
-            <Label>Description</Label>
-            <Input />
-          </Col>
-          <Col>
-            <Label>Alternate Name</Label>
-            <Input />
-          </Col>
-          <Col>
-            <Label>URL</Label>
-            <Input/>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Label>Email</Label>
-            <Input/>
-          </Col>
-          <Col>
-            <Label>Status</Label>
-            <Input />
-          </Col>
-          <Col>
-            <Label>Interpretation Services</Label>
-            <Input/>
-          </Col>
-          <Col>
-            <Label>Application Services</Label>
-            <Input/>
-          </Col>
-        </Row>
+    <Tabs>
+      <TabPanel label="Details" key="tab-1">
+       Organization Details
+      <OrganizationDetails/>
 
-        <Row>
-          <Col>
-            <Label>Wait Time</Label>
-            <Input/>
-          </Col>
-          <Col>
-            <Label>Fees</Label>
-            <Input />
-          </Col>
-          <Col>
-            <Label>Accredidation</Label>
-            <Input/>
-          </Col>
-          <Col>
-            <Label>Licenses</Label>
-            <Input/>
-          </Col>
-        </Row>
-        <Row
-          style={{ marginTop: 15 }}
-        >
-          <Col>
-            <Button danger>Delete Location</Button>
-          </Col>
-        </Row>
-      </Grid>
+
+      </TabPanel>
+      <TabPanel label="Location" key="tab-2">
+        Locations
+        <LocationsTable/>
+      </TabPanel>
+    </Tabs>
+    
+          
+
+
+      <AdminTopBar
+        tags={taxonomies.map((taxonomy, index) => (
+          <Taxonomy.Tag
+            key={taxonomy.id}
+            onClick={updateTaxonomyFilters}
+            isActive={activeTaxonomyFilters.includes(taxonomy.id)}
+            taxonomy={{index, ...taxonomy}}
+          />
+        ))}
+      />
 
       </>
-     
     );
   }
 }
 
 const mapStateToProps = state => {
+  const landingState = state.landing;
+  return { ...landingState };
 };
 
 const mapDispatchToProps = dispatch => ({
+  updateTaxonomyFilters: tf => dispatch(actions.updateTaxonomyFilters(tf))
 });
 
 const withStateAndActions = connect(
@@ -149,4 +101,4 @@ const withStateAndActions = connect(
   mapDispatchToProps
 );
 
-export default withStateAndActions(LocationDetails);
+export default withStateAndActions(Landing);
