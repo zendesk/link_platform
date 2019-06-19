@@ -2,12 +2,12 @@ import { h } from 'preact';
 // import icons from '../../icons/css/fontello.css';
 import { createComponent } from 'preact-fela';
 
-import { relevantTaxonomies, getIcon } from '../../lib/taxonomies';
-import { capitalize } from '../../lib/stringHelpers';
+// import { relevantTaxonomies, getIcon } from '../../lib/taxonomies';
+// import { capitalize } from '../../lib/stringHelpers';
 
-import GoogleMap from './GoogleMap';
+// import GoogleMap from './GoogleMap';
 
-const nl2br = require('react-nl2br');
+// const nl2br = require('react-nl2br');
 
 const FlexContainer = createComponent(() => ({
 	display: 'flex'
@@ -399,18 +399,18 @@ const Location = props => {
 			<ParagraphTitle>Services</ParagraphTitle>
 			<Section>
 				<FlexContainer>
-					{relevantTaxonomies(services).map((taxonomy, index) => (
+					{/* {relevantTaxonomies(services).map((taxonomy, index) => (
 						<span key={`category-${index}`}>
 							<i className={`category-icon ${getIcon(taxonomy)}`} />
-							{capitalize(taxonomy)}
+							{taxonomy}
 						</span>
-					))}
+					))} */}
 				</FlexContainer>
 			</Section>
 			{location.physicalAddress && (
 				<MapInset>
 					<MapContainer>
-						<GoogleMap lat={location.latitude} long={location.longitude} />
+						{/* <GoogleMap lat={location.latitude} long={location.longitude} /> */}
 					</MapContainer>
 					<AddressText>{location.physicalAddress.address1}</AddressText>
 				</MapInset>
@@ -468,7 +468,7 @@ const Location = props => {
 							<NoteWrapperContainer>
 								<ServiceTitleText>{service.name}</ServiceTitleText>
 								<ServiceDescriptionText>
-									{nl2br(service.description)}
+									{service.description}
 								</ServiceDescriptionText>
 								<Schedule schedules={service.schedules} />
 							</NoteWrapperContainer>

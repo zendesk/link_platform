@@ -2,6 +2,16 @@
 import { h, Component } from 'preact';
 
 import Layout from '../components/Layout';
+import Location from '../components/Location';
+
+// TODO: remove mock data
+const organization = {
+	id: '1',
+    longDescription: 'This is such a great organization',
+    name: 'Great Org',
+    phones: [],
+    url: '',
+};
 
 class LocationPage extends Component {
 	constructor(props) {
@@ -19,7 +29,7 @@ class LocationPage extends Component {
 
 		return (
 			<Layout>
-                <p>{location.name}</p>
+                <Location location={location} organization={organization}></Location>
 			</Layout>
 		);
 	}
