@@ -1,9 +1,3 @@
-import '@zendeskgarden/react-buttons/dist/styles.css'
-import '@zendeskgarden/react-menus/dist/styles.css'
-import '@zendeskgarden/react-tags/dist/styles.css'
-import '@zendeskgarden/react-textfields/dist/styles.css'
-import '@zendeskgarden/react-tables/dist/styles.css'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { createComponent } from 'react-fela'

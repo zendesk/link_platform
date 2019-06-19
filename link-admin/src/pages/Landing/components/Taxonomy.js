@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Tag as GardenTag } from '@zendeskgarden/react-tags'
 
@@ -13,32 +13,27 @@ const all = [
   { id: 5, label: 'Technology' },
 ]
 
-class Tag extends Component {
-  static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    isActive: PropTypes.bool.isRequired,
-    taxonomy: PropTypes.object.isRequired,
-  }
+const Tag = () => {
+  const {
+    onClick,
+    isActive,
+    taxonomy: { id, index, label },
+  } = this.props
 
-  render() {
-    const {
-      onClick,
-      isActive,
-      taxonomy: { id, index, label },
-    } = this.props
+  return (
+    <Row>
+      {index > 0 ? <Spacer space={'.5'} /> : ''}
+      <GardenTag type={isActive ? 'blue' : 'grey'} onClick={() => onClick(id)}>
+        {label}
+      </GardenTag>
+    </Row>
+  )
+}
 
-    return (
-      <Row>
-        {index > 0 ? <Spacer space={'.5'} /> : ''}
-        <GardenTag
-          type={isActive ? 'blue' : 'grey'}
-          onClick={() => onClick(id)}
-        >
-          {label}
-        </GardenTag>
-      </Row>
-    )
-  }
+Tag.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  taxonomy: PropTypes.object.isRequired,
 }
 
 export { Tag, all }

@@ -18,7 +18,6 @@ class LocationsPage extends Component {
     Client.locations
       .fetch(cache)
       .then(locations => {
-        console.log(locations)
         self.setState({
           cache: Client.updateCache(
             cache,
@@ -34,7 +33,6 @@ class LocationsPage extends Component {
   }
 
   render(props, state) {
-    console.log(state)
     const { cache } = state
     const locationsData = Client.locations.all(cache)
 
