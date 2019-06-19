@@ -5,9 +5,10 @@
   "dependencies": {
     "@zendeskgarden/react-buttons": "^3.9.8",
     "@zendeskgarden/react-grid": "^1.1.25",
+    "@zendeskgarden/react-tabs": "^6.0.1",
     "@zendeskgarden/react-tags": "^1.1.17",
     "@zendeskgarden/react-textfields": "^3.8.7",
-    "@zendeskgarden/react-theming": "^3.2.1",
+    "@zendeskgarden/react-theming": "^3.2.3",
     "fela": "^6.1.9",
     "global": "^4.3.2",
     "lodash": "^4.17.11",
