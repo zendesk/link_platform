@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_24_231927) do
+ActiveRecord::Schema.define(version: 2019_06_19_201155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -271,6 +271,17 @@ ActiveRecord::Schema.define(version: 2018_10_24_231927) do
     t.index ["program_id"], name: "index_services_on_program_id"
   end
 
+  create_table "taxonomies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "link_instance_id"
+    t.string "name", null: false
+    t.string "parent_id"
+    t.string "parent_name"
+    t.string "vocabulary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_instance_id"], name: "index_taxonomies_on_link_instance_id"
+  end
+
   add_foreign_key "contacts", "link_instances"
   add_foreign_key "contacts", "organizations"
   add_foreign_key "contacts", "service_at_locations"
@@ -310,4 +321,5 @@ ActiveRecord::Schema.define(version: 2018_10_24_231927) do
   add_foreign_key "services", "link_instances"
   add_foreign_key "services", "organizations"
   add_foreign_key "services", "programs"
+  add_foreign_key "taxonomies", "link_instances"
 end
