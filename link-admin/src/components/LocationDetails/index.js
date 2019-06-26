@@ -30,15 +30,12 @@ class LocationDetails extends React.PureComponent {
     const { location } = this.props
 
     return (
-
-  
-
       <Grid>
         <Row>
           <Col size={7}>
             <TextField>
               <Label>Name</Label>
-              <Input  />
+              <Input />
             </TextField>
           </Col>
         </Row>
@@ -51,7 +48,7 @@ class LocationDetails extends React.PureComponent {
         <Row>
           <Col>
             <Label>Description</Label>
-            <Input  />
+            <Input />
           </Col>
           <Col>
             <Label>Transportation</Label>
@@ -59,19 +56,18 @@ class LocationDetails extends React.PureComponent {
           </Col>
           <Col>
             <Label>Latitude</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Longitude</Label>
-            <Input/>
+            <Input />
           </Col>
         </Row>
         <Row>
           <Col>
             <Label>Organization ID</Label>
-            <Input/>
+            <Input />
           </Col>
-    
         </Row>
         <Row style={{ marginTop: 15 }}>
           <Col>
