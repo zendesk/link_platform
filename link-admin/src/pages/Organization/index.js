@@ -38,7 +38,6 @@ class Landing extends React.PureComponent {
     return (
       <>
 
-  /* This will probably need to be hardcoded by each page */
   <ThemeProvider>
     <Breadcrumb>
       <Item>Organization</Item>
