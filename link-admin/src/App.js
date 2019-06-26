@@ -7,6 +7,7 @@ import { createRenderer } from 'fela';
 
 import combinedReducer from './reducer'
 import Landing from './pages/Landing';
+//import './globalStyles.js'
 
 const renderer = createRenderer();
 const store = createStore(combinedReducer);

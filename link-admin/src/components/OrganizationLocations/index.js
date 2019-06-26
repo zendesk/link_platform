@@ -1,20 +1,18 @@
-import '@zendeskgarden/react-buttons/dist/styles.css';
-import '@zendeskgarden/react-tags/dist/styles.css';
-import '@zendeskgarden/react-textfields/dist/styles.css';
-import '@zendeskgarden/react-grid/dist/styles.css';
+
+
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import { Table } from '@zendeskgarden/react-tables'
 
-import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
-import { Grid, Col } from '@zendeskgarden/react-grid';
-import { Button } from '@zendeskgarden/react-buttons';
+// import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
+// import { Grid, Col } from '@zendeskgarden/react-grid';
+// import { Button } from '@zendeskgarden/react-buttons';
 
-import '@zendeskgarden/react-tables/dist/styles.css';
+
 
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import {
-  Table,
   Caption,
   Head,
   HeaderRow,

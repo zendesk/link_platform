@@ -1,7 +1,3 @@
-import '@zendeskgarden/react-buttons/dist/styles.css';
-import '@zendeskgarden/react-tags/dist/styles.css';
-import '@zendeskgarden/react-textfields/dist/styles.css';
-import '@zendeskgarden/react-grid/dist/styles.css';
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
@@ -11,8 +7,7 @@ import { Grid, Row, Col } from '@zendeskgarden/react-grid';
 import { Button } from '@zendeskgarden/react-buttons';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 
-//Breadcrumbs
-import '@zendeskgarden/react-breadcrumbs/dist/styles.css';
+
 //import { ThemeProvider } from '@zendeskgarden/react-theming';
 import { Breadcrumb, Item } from '@zendeskgarden/react-breadcrumbs';
 import { Anchor } from '@zendeskgarden/react-buttons';
