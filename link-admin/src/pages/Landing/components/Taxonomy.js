@@ -13,22 +13,14 @@ const all = [
   { id: 5, label: 'Technology' },
 ]
 
-const Tag = () => {
-  const {
-    onClick,
-    isActive,
-    taxonomy: { id, index, label },
-  } = this.props
-
-  return (
-    <Row>
-      {index > 0 ? <Spacer space={'.5'} /> : ''}
-      <GardenTag type={isActive ? 'blue' : 'grey'} onClick={() => onClick(id)}>
-        {label}
-      </GardenTag>
-    </Row>
-  )
-}
+const Tag = ({ onClick, isActive, taxonomy: { id, index, label } }) => (
+  <Row>
+    {index > 0 ? <Spacer space={'.5'} /> : ''}
+    <GardenTag type={isActive ? 'blue' : 'grey'} onClick={() => onClick(id)}>
+      {label}
+    </GardenTag>
+  </Row>
+)
 
 Tag.propTypes = {
   onClick: PropTypes.func.isRequired,

@@ -30,34 +30,48 @@ class LocationDetails extends React.PureComponent {
     const { location } = this.props
 
     return (
+
+  
+
       <Grid>
         <Row>
           <Col size={7}>
             <TextField>
               <Label>Name</Label>
-              <Input value={location.name} />
+              <Input  />
             </TextField>
           </Col>
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Description</Label>
-            <Textarea value={location.description} />
+            <Label>Alternate Name</Label>
+            <Textarea />
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Address</Label>
-            <Input value={location.address} />
+            <Label>Description</Label>
+            <Input  />
           </Col>
           <Col>
-            <Label>City</Label>
-            <Input value={location.city} />
+            <Label>Transportation</Label>
+            <Input />
           </Col>
           <Col>
-            <Label>Postal Code</Label>
-            <Input value={location.postal_code} />
+            <Label>Latitude</Label>
+            <Input/>
           </Col>
+          <Col>
+            <Label>Longitude</Label>
+            <Input/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label>Organization ID</Label>
+            <Input/>
+          </Col>
+    
         </Row>
         <Row style={{ marginTop: 15 }}>
           <Col>

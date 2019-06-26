@@ -17,6 +17,7 @@ class Landing extends React.PureComponent {
     activeTaxonomyFilters: PropTypes.array.isRequired,
     updateTaxonomyFilters: PropTypes.func.isRequired,
     organizationData: PropTypes.object.isRequired,
+    goToEditOrganization: PropTypes.func.isRequired,
   }
 
   render() {
@@ -24,6 +25,7 @@ class Landing extends React.PureComponent {
       activeTaxonomyFilters,
       updateTaxonomyFilters,
       organizationData,
+      goToEditOrganization,
     } = this.props
 
     return (
@@ -44,7 +46,7 @@ class Landing extends React.PureComponent {
           Success: organizations => (
             <OrganizationList
               organizations={Object.values(organizations)}
-              onSelectEdit={() => console.log('edit')}
+              onSelectEdit={org => goToEditOrganization(org.id)}
               onSelectDelete={() => console.log('delete')}
             />
           ),
