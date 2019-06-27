@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import * as landing from './pages/Landing/actions'
 import Organization from './pages/Organization'
 import * as organization from './pages/Organization/actions'
+
 const base = '/organizations'
 
 const withRouteActions = (Component, additionalProps) => {

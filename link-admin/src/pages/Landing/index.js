@@ -22,6 +22,7 @@ class Landing extends React.PureComponent {
     const {
       activeTaxonomyFilters,
       updateTaxonomyFilters,
+      goToNewOrganization,
       goToEditOrganization,
       cache,
     } = this.props
@@ -39,6 +40,7 @@ class Landing extends React.PureComponent {
               taxonomy={{ index, ...taxonomy }}
             />
           ))}
+          onAdd={goToNewOrganization}
         />
         {organizationsData.case({
           NotAsked: () => 'Initializing...',

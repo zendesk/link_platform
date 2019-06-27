@@ -19,12 +19,6 @@ const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
     active: tabId,
   }
 
-  const organizationData = Client.organization.find(cache, organizationId)
-  if (!organizationData) {
-    fetchOrganization(organizationId)
-    return <Loading />
-  }
-
   return (
     <>
       <Breadcrumb>
@@ -33,14 +27,13 @@ const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
       </Breadcrumb>
       <Tabs selectedKey={tabs.active} onChange={tabs.handleChange}>
         <TabPanel label="Details" key="details">
-          {organizationData.case({
-            NotAsked: () => 'Initializating',
-            Pending: () => <Loading />,
-            Success: organization => (
-              <OrganizationDetails organization={organization} />
-            ),
-            Failure: error => <p>{`${error}`}</p>,
-          })}
+          {organizationId
+            ? existing(
+                Client.organization.find(cache, organizationId),
+                fetchOrganization,
+                organizationId
+              )
+            : newOrg}
         </TabPanel>
         <TabPanel label="Locations" key="locations">
           <LocationsTable />
@@ -48,6 +41,29 @@ const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
       </Tabs>
     </>
   )
+}
+
+const DEFAULT_ORGANIZATION = {
+  name: '',
+  description: '',
+}
+
+const newOrg = <OrganizationDetails organization={DEFAULT_ORGANIZATION} />
+
+const existing = (organizationData, fetchOrg, organizationId) => {
+  if (!organizationData) {
+    fetchOrg(organizationId)
+    return <Loading />
+  }
+
+  return organizationData.case({
+    NotAsked: () => 'Initializating',
+    Pending: () => <Loading />,
+    Success: organization => (
+      <OrganizationDetails organization={organization} />
+    ),
+    Failure: error => <p>{`${error}`}</p>,
+  })
 }
 
 Organization.propTypes = {
