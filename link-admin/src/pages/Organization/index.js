@@ -10,42 +10,38 @@ import { Anchor } from '@zendeskgarden/react-buttons'
 //Tabs tools
 import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
 
-class Organization extends React.PureComponent {
-  render() {
-    return (
-      <>
-        <Breadcrumb>
-          <Anchor href="/">Root</Anchor>
-          <Anchor href="..">Parent</Anchor>
-          <Item>Self</Item>
-        </Breadcrumb>
-        <Tabs>
-          <TabPanel label="Details" key="tab-1">
-            Organization Details
-            <OrganizationDetails />
-          </TabPanel>
-          <TabPanel label="Location" key="tab-2">
-            Locations
-            <LocationsTable />
-          </TabPanel>
-        </Tabs>
-      </>
-    )
+const Organization = ({ match, goToTab }) => {
+  const { organizationId, tabId = 'details' } = match.params
+
+  const tabs = {
+    handleChange: goToTab(organizationId),
+    active: tabId,
   }
+
+  return (
+    <>
+      <Breadcrumb>
+        <Anchor href="/">Home</Anchor>
+        <Item>Organization</Item>
+      </Breadcrumb>
+      <Tabs selectedKey={tabs.active} onChange={tabs.handleChange}>
+        <TabPanel label="Details" key="details">
+          <OrganizationDetails />
+        </TabPanel>
+        <TabPanel label="Locations" key="locations">
+          <LocationsTable />
+        </TabPanel>
+      </Tabs>
+    </>
+  )
 }
 
-const mapStateToProps = state => {
-  const landingState = state.landing
-  return { ...landingState }
+Organization.propTypes = {
+  // UI state
+  match: PropTypes.object.isRequired,
+  // navigation
+  goToLanding: PropTypes.func.isRequired,
+  goToTab: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateTaxonomyFilters: tf => dispatch(actions.updateTaxonomyFilters(tf)),
-})
-
-const withStateAndActions = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-
-export default withStateAndActions(Organization)
+export default Organization
