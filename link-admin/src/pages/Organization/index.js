@@ -1,21 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import actions from './actions'
-import OrganizationDetails from '../../components/OrganizationDetails/index'
+import OrganizationDetails from '../../components/OrganizationDetails'
 import LocationsTable from '../../components/OrganizationLocations/index'
 import { Breadcrumb, Item } from '@zendeskgarden/react-breadcrumbs'
 import { Anchor } from '@zendeskgarden/react-buttons'
+import * as Client from 'link-rest-client'
 
 //Tabs tools
 import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
 
-const Organization = ({ match, goToTab }) => {
+const Loading = () => <div>Loading...</div>
+
+const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
   const { organizationId, tabId = 'details' } = match.params
 
   const tabs = {
     handleChange: goToTab(organizationId),
     active: tabId,
+  }
+
+  const organizationData = Client.organization.find(cache, organizationId)
+  if (!organizationData) {
+    fetchOrganization(organizationId)
+    return <Loading />
   }
 
   return (
@@ -26,7 +33,14 @@ const Organization = ({ match, goToTab }) => {
       </Breadcrumb>
       <Tabs selectedKey={tabs.active} onChange={tabs.handleChange}>
         <TabPanel label="Details" key="details">
-          <OrganizationDetails />
+          {organizationData.case({
+            NotAsked: () => 'Initializating',
+            Pending: () => <Loading />,
+            Success: organization => (
+              <OrganizationDetails organization={organization} />
+            ),
+            Failure: error => <p>{`${error}`}</p>,
+          })}
         </TabPanel>
         <TabPanel label="Locations" key="locations">
           <LocationsTable />
@@ -42,6 +56,7 @@ Organization.propTypes = {
   // navigation
   goToLanding: PropTypes.func.isRequired,
   goToTab: PropTypes.func.isRequired,
+  fetchOrganization: PropTypes.func.isRequired,
 }
 
 export default Organization

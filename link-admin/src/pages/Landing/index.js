@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { createComponent } from 'react-fela'
-import { connect } from 'react-redux'
-import actions from './actions'
 import AdminTopBar from './components/AdminTopBar'
 import * as Taxonomy from './components/Taxonomy'
 import OrganizationList from './components/OrganizationList'
@@ -15,8 +13,8 @@ const renderError = error => <p>{`${error}`}</p>
 class Landing extends React.PureComponent {
   static propTypes = {
     activeTaxonomyFilters: PropTypes.array.isRequired,
+    cache: PropTypes.object.isRequired,
     updateTaxonomyFilters: PropTypes.func.isRequired,
-    organizationData: PropTypes.object.isRequired,
     goToEditOrganization: PropTypes.func.isRequired,
   }
 
@@ -24,9 +22,11 @@ class Landing extends React.PureComponent {
     const {
       activeTaxonomyFilters,
       updateTaxonomyFilters,
-      organizationData,
       goToEditOrganization,
+      cache,
     } = this.props
+
+    const organizationsData = Client.organizations.all(cache)
 
     return (
       <Viewport>
@@ -40,7 +40,7 @@ class Landing extends React.PureComponent {
             />
           ))}
         />
-        {organizationData.case({
+        {organizationsData.case({
           NotAsked: () => 'Initializing...',
           Pending: () => 'Loading...',
           Success: organizations => (
@@ -57,20 +57,4 @@ class Landing extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ app }) => {
-  const landingState = app.landing
-  const organizationData = Client.organizations.all(app.cache)
-
-  return { ...landingState, organizationData }
-}
-
-const mapDispatchToProps = dispatch => ({
-  updateTaxonomyFilters: tf => dispatch(actions.updateTaxonomyFilters(tf)),
-})
-
-const withStateAndActions = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-
-export default withStateAndActions(Landing)
+export default Landing

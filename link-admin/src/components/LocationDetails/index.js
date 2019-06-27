@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
 import {
   Textarea,
@@ -79,13 +78,4 @@ class LocationDetails extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => {}
-
-const mapDispatchToProps = dispatch => ({})
-
-const withStateAndActions = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-
-export default withStateAndActions(LocationDetails)
+export default LocationDetails

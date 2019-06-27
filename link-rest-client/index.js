@@ -1,6 +1,6 @@
 import RemoteData from 'remote-data-js'
 
-const api = path => `api/${path}`
+const api = path => `/api/${path}`
 
 const urls = {
   organizations: api('organizations'),
@@ -45,6 +45,7 @@ const actionTypes = {
 }
 
 export const updateCache = (state, action) => {
+  console.log(action)
   switch (action.type) {
     case actionTypes.FETCH_ORGANIZATIONS_SUCCESS:
       return {
@@ -56,9 +57,13 @@ export const updateCache = (state, action) => {
 
     case actionTypes.FETCH_ORGANIZATION_SUCCESS:
       return {
+        ...state,
         organizations: {
           ...state.organizations,
-          [action.organization.id]: action.organization,
+          stateData: { // this is hacky
+            ...state.organizations.stateData,
+            [action.organization.data.id]: action.organization.data,
+          }
         },
       }
 
@@ -111,10 +116,8 @@ export const organizations = {
 }
 
 export const organization = {
-  fetch: (state, id) =>
-    state.organizations.isFinished() && state.organizations.data[id]
-      ? { state: 'SUCCESS', stateData: state.organizations.data[id] }
-      : new RemoteData({
+  fetch: (state, id) => () =>
+        new RemoteData({
           url: urls.organization(id),
         }),
   fetchSuccess: organization => ({
@@ -125,7 +128,11 @@ export const organization = {
     type: actionTypes.FETCH_ORGANIZATION_FAILED,
     err,
   }),
-  find: (id, state) => state.organizations[id],
+  find: (state, id) => {
+    return state.organizations.isSuccess() && state.organizations.data[id]
+    ? new RemoteData({ state: 'REMOTE_DATA_SUCCESS', stateData: state.organizations.data[id] })
+    : null
+  },
   locations: (id, state) =>
     state.locations.filter(location =>
       state.organizations[id].locations.includes(location.id)

@@ -1,5 +1,6 @@
-const actionTypes = {}
+export const FETCH_ORGANIZATION = 'FETCH_ORGANIZATION'
 
-export default {}
-
-export { actionTypes }
+export const fetchOrganization = id => ({
+  type: FETCH_ORGANIZATION,
+  id,
+})

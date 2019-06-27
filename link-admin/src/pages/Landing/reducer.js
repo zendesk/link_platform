@@ -1,6 +1,6 @@
 import { loop, Cmd } from 'redux-loop'
 import xor from 'lodash/xor'
-import { actionTypes } from './actions'
+import * as actions from './actions'
 import * as Client from 'link-rest-client'
 
 export const initialState = {
@@ -23,7 +23,7 @@ export const update = (state, action) => {
 
       return state
 
-    case actionTypes.UPDATE_TAXONOMY_FILTERS:
+    case actions.UPDATE_TAXONOMY_FILTERS:
       return {
         ...state,
         activeTaxonomyFilters: xor(state.activeTaxonomyFilters, [

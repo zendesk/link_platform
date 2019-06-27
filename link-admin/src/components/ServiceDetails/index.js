@@ -1,35 +1,36 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
-import { Grid, Row, Col } from '@zendeskgarden/react-grid';
-import { Button } from '@zendeskgarden/react-buttons';
+import {
+  Textarea,
+  TextField,
+  Label,
+  Input,
+} from '@zendeskgarden/react-textfields'
+import { Grid, Row, Col } from '@zendeskgarden/react-grid'
+import { Button } from '@zendeskgarden/react-buttons'
 
-class LocationDetails extends React.PureComponent {
+class ServiceDetails extends React.PureComponent {
   static propTypes = {
-    location: PropTypes.object
-  };
+    location: PropTypes.object,
+  }
 
   static defaultProps = {
     location: {
-      name: "",
-      description: "",
-      address: "",
-      city: "",
-      postal_code: ""
-    }
+      name: '',
+      description: '',
+      address: '',
+      city: '',
+      postal_code: '',
+    },
   }
 
   render() {
-    const { location } = this.props;
-
-
-    
-
+    const { location } = this.props
 
     return (
-        <Grid>
+      <Grid>
         <Row>
           <Col size={7}>
             <TextField>
@@ -41,13 +42,13 @@ class LocationDetails extends React.PureComponent {
         <Row>
           <Col size={7}>
             <Label>Program ID</Label>
-            <Textarea/>
+            <Textarea />
           </Col>
         </Row>
         <Row>
           <Col>
             <Label>Name</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Description</Label>
@@ -59,13 +60,13 @@ class LocationDetails extends React.PureComponent {
           </Col>
           <Col>
             <Label>URL</Label>
-            <Input/>
+            <Input />
           </Col>
         </Row>
         <Row>
           <Col>
             <Label>Email</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Status</Label>
@@ -73,18 +74,18 @@ class LocationDetails extends React.PureComponent {
           </Col>
           <Col>
             <Label>Interpretation Services</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Application Services</Label>
-            <Input/>
+            <Input />
           </Col>
         </Row>
 
         <Row>
           <Col>
             <Label>Wait Time</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Fees</Label>
@@ -92,35 +93,21 @@ class LocationDetails extends React.PureComponent {
           </Col>
           <Col>
             <Label>Accredidation</Label>
-            <Input/>
+            <Input />
           </Col>
           <Col>
             <Label>Licenses</Label>
-            <Input/>
+            <Input />
           </Col>
         </Row>
-        <Row
-          style={{ marginTop: 15 }}
-        >
+        <Row style={{ marginTop: 15 }}>
           <Col>
             <Button danger>Delete Location</Button>
           </Col>
         </Row>
       </Grid>
-     
-    );
+    )
   }
 }
 
-const mapStateToProps = state => {
-};
-
-const mapDispatchToProps = dispatch => ({
-});
-
-const withStateAndActions = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
-
-export default withStateAndActions(LocationDetails);
+export default ServiceDetails

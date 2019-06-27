@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import actions from './actions'
 import LocationDetails from '../../components/LocationDetails/index'
 import ServicesTable from '../../components/LocationServices/index'
 
@@ -9,16 +8,6 @@ import ServicesTable from '../../components/LocationServices/index'
 import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
 
 class Location extends React.PureComponent {
-  static propTypes = {
-    activeTaxonomyFilters: PropTypes.array.isRequired,
-    updateTaxonomyFilters: PropTypes.func.isRequired,
-    taxonomies: PropTypes.array.isRequired,
-  }
-
-  static defaultProps = {
-    taxonomies: [],
-  }
-
   render() {
     return (
       <>
@@ -36,18 +25,4 @@ class Location extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  const landingState = state.landing
-  return { ...landingState }
-}
-
-const mapDispatchToProps = dispatch => ({
-  updateTaxonomyFilters: tf => dispatch(actions.updateTaxonomyFilters(tf)),
-})
-
-const withStateAndActions = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-
-export default withStateAndActions(Location)
+export default Location
