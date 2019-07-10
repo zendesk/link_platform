@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
+  # Devise is not subdomain aware, so we have to ignore the link_instance check
   before_action :assert_link_instance, unless: :devise_controller?
 
   before_action :authenticate_admin!,
