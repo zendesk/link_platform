@@ -10,6 +10,15 @@ Accepted
 
 We need some form of background framework to do asynchronous tasks such as sending emails, creating accounts, and possibly some long import/export operations.
 
+We'll be evaluating for
+
+- Priority or multiple queues
+- Retriable jobs
+- Scheduling
+- Persistent queues
+- Realtime dashboards
+
+
 ### Which Library?
 
 Our use cases aren't particularly complicated.  Our main concerns are ease of integration and reliability.  In order of popularity from [The Ruby Toolbox](https://www.ruby-toolbox.com/categories/Background_Jobs), let's take a look.
@@ -22,11 +31,11 @@ Sidekiq is the most popular Ruby job running framework by a fair margin.  It is 
 
 The feature set ticks all the boxes:
 
-* Priority queueing
-* Retriable jobs
-* Scheduling
-* Realtime dashboards
-* Persistent queues
+- [x] Priority or multiple queues
+- [x] Retriable jobs
+- [x] Scheduling
+- [x] Persistent queues
+- [x] Realtime dashboards
 
 #### Resque
 
@@ -36,24 +45,25 @@ We use Resque here at Zendesk so we have plenty of domain knowledge.  Similarly 
 
 Features include:
 
-* Multiple queues
-* Retriable jobs
-* Scheduling
-* Dashboarding
-* Persistent queues
+- [x] Priority or multiple queues
+- [x] Retriable jobs
+- [x] Scheduling
+- [x] Persistent queues
+- [x] Realtime dashboards
 
 #### Delayed Job
 
 https://github.com/collectiveidea/delayed_job
 
-Delayed::Job inspired the creation of Resque, and has most of the same features.  It's main shortcomings are around its resiliency and throughput since state is stored in the database using ActiveRecord.  It has Ruby 2+ and Rails 3+ support.
+DelayedJob inspired the creation of Resque, and has most of the same features.  It's main shortcomings are around its resiliency and throughput since state is stored in the database using ActiveRecord.  It has Ruby 2+ and Rails 3+ support.
 
 It has:
 
-* Job priority _or_ multiple queues
-* Scheduling
-* Retriable jobs
-* Persistent queues
+- [x] Priority or multiple queues
+- [x] Retriable jobs
+- [x] Scheduling
+- [x] Persistent queues
+- [ ] Realtime dashboards
 
 ### Sucker Punch
 
@@ -63,12 +73,17 @@ Sucker Punch is perhaps the simplest of the frameworks we're exploring.  Unlike 
 
 The features:
 
-* Scheduling
-* Priority queuing
+- [x] Priority or multiple queues
+- [ ] Retriable jobs
+- [x] Scheduling
+- [ ] Persistent queues
+- [ ] Realtime dashboards
 
 ## Decision
 
-While Sidekiq and Resque both offer more features, and Sucker Punch is extremely light weight, Delayed::Job provides us a great set of features with no extra dependencies since we already have a database.  It integrates seamlessly with ActiveRecord, and should scale to meet our needs.  
+We will use DelayedJob as our background job framework.
+
+While Sidekiq and Resque both offer more features, and Sucker Punch is extremely light weight, DelayedJob provides us a great set of features with no extra dependencies since we already have a database.  It integrates seamlessly with ActiveRecord, and should scale to meet our needs.  
 
 To quote directly from [the Resque documentation](https://github.com/resque/resque):
 
