@@ -29,7 +29,7 @@ class OrganizationDetails extends React.PureComponent {
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Alternate Name</Label>
+            <Label>Alternate Name :)</Label>
             <Textarea />
           </Col>
         </Row>
