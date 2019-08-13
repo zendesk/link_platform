@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import {
   Textarea,
@@ -10,7 +11,7 @@ import {
 import { Grid, Row, Col } from '@zendeskgarden/react-grid'
 import { Button } from '@zendeskgarden/react-buttons'
 
-class LocationDetails extends React.PureComponent {
+class ServiceDetails extends React.PureComponent {
   static propTypes = {
     location: PropTypes.object,
   }
@@ -33,38 +34,69 @@ class LocationDetails extends React.PureComponent {
         <Row>
           <Col size={7}>
             <TextField>
-              <Label>Name</Label>
+              <Label>Organization ID</Label>
               <Input />
             </TextField>
           </Col>
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Alternate Name</Label>
+            <Label>Program ID</Label>
             <Textarea />
           </Col>
         </Row>
         <Row>
           <Col>
+            <Label>Name</Label>
+            <Input />
+          </Col>
+          <Col>
             <Label>Description</Label>
             <Input />
           </Col>
           <Col>
-            <Label>Transportation</Label>
+            <Label>Alternate Name</Label>
             <Input />
           </Col>
           <Col>
-            <Label>Latitude</Label>
-            <Input />
-          </Col>
-          <Col>
-            <Label>Longitude</Label>
+            <Label>URL</Label>
             <Input />
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Organization ID</Label>
+            <Label>Email</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Status</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Interpretation Services</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Application Services</Label>
+            <Input />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Label>Wait Time</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Fees</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Accredidation</Label>
+            <Input />
+          </Col>
+          <Col>
+            <Label>Licenses</Label>
             <Input />
           </Col>
         </Row>
@@ -78,4 +110,4 @@ class LocationDetails extends React.PureComponent {
   }
 }
 
-export default LocationDetails
+export default ServiceDetails

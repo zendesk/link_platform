@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import { ThemeProvider } from '@zendeskgarden/react-theming';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { Provider as FelaProvider } from 'react-fela';
-import { createRenderer } from 'fela';
+import React from 'react'
 
-import combinedReducer from './reducer'
-import Landing from './pages/Landing';
+import { Provider } from 'react-redux'
+import { Provider as FelaProvider } from 'react-fela'
+import { createRenderer } from 'fela'
 
-const renderer = createRenderer();
-const store = createStore(combinedReducer);
+import { ConnectedRouter } from 'connected-react-router'
+import { ThemeProvider } from '@zendeskgarden/react-theming'
 
-class App extends Component {
-  render() {
-    return (
-      <ThemeProvider>
-        <Provider store={store}>
-          <FelaProvider renderer={renderer}>
-            <Landing />
-          </FelaProvider>
-        </Provider>
-      </ThemeProvider>
-    );
-  }
-}
+import store, { history } from './reducer'
+import AdminRouter from './AdminRouter'
 
-export default App;
+const renderer = createRenderer()
+
+const App = () => (
+  <ThemeProvider>
+    <Provider store={store}>
+      <FelaProvider renderer={renderer}>
+        <ConnectedRouter history={history}>
+          <AdminRouter />
+        </ConnectedRouter>
+      </FelaProvider>
+    </Provider>
+  </ThemeProvider>
+)
+
+export default App
