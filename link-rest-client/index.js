@@ -7,8 +7,6 @@ const urls = {
   organization: id => api(`organization/${id}`),
   locations: api('locations'),
   location: id => api(`location/${id}`),
-  services: api('services'),
-  service: id => api(`service/${id}`),
 }
 
 const toMap = promise => {
@@ -28,9 +26,6 @@ export const init = () => ({
     url: urls.locations,
     parse: response => toMap(toJson(response)),
   }),
-  services: new RemoteData({
-    url: urls.services,
-  }),
 })
 
 const actionTypes = {
@@ -40,12 +35,9 @@ const actionTypes = {
   FETCH_ORGANIZATION_FAILED: 'FETCH_ORGANIZATION_FAILED',
   FETCH_LOCATIONS_SUCCESS: 'FETCH_LOCATIONS_SUCCESS',
   FETCH_LOCATIONS_FAILED: 'FETCH_LOCATIONS_FAILED',
-  FETCH_SERVICES_SUCCESS: 'FETCH_SERVICES_SUCCESS',
-  FETCH_SERVICES_FAILED: 'FETCH_SERVICES_FAILED',
 }
 
 export const updateCache = (state, action) => {
-  console.log(action)
   switch (action.type) {
     case actionTypes.FETCH_ORGANIZATIONS_SUCCESS:
       return {
@@ -77,18 +69,6 @@ export const updateCache = (state, action) => {
       }
 
     case actionTypes.FETCH_LOCATIONS_FAILED: {
-      return state
-    }
-
-    case actionTypes.FETCH_SERVICES_SUCCESS:
-      return {
-        services: {
-          ...state.services,
-          services: action.services
-        }
-      }
-
-    case actionTypes.FETCH_SERVICES_FAILED: {
       return state
     }
 
@@ -137,10 +117,6 @@ export const organization = {
     state.locations.filter(location =>
       state.organizations[id].locations.includes(location.id)
     ),
-  services: (id, state) =>
-    state.services.filter(location =>
-      state.organizations[id].services.includes(location.id)
-    ),
 }
 
 export const locations = {
@@ -155,18 +131,3 @@ export const locations = {
   }),
   all: state => state.locations
 }
-
-export const services = {
-  fetch: state => state.services.fetch(),
-  fetchSuccess: services => ({
-    type: actionTypes.FETCH_SERVICES_SUCCESS,
-    services
-  }),
-  fetchFailed: err => ({
-    type: actionTypes.FETCH_SERVICES_FAILED,
-    err
-  }),
-  all: state => state.services
-}
-
-

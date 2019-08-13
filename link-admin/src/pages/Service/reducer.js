@@ -1,20 +1,8 @@
-import xor from 'lodash/xor';
-import { actionTypes } from './actions';
+export const init = {}
 
-const defaultState = {
-  activeTaxonomyFilters: [],
-};
-
-const reducer = (state = defaultState, action) => {
+export const update = (state = defaultState, action) => {
   switch (action.type) {
-    case actionTypes.UPDATE_TAXONOMY_FILTERS:
-      return {
-        ...state, activeTaxonomyFilters: xor(state.activeTaxonomyFilters, [action.taxonomy])
-      };
     default:
-      return state;
+      return state
   }
-};
-
-export { defaultState };
-export default reducer;
+}

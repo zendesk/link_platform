@@ -1,4 +1,4 @@
-import actions, { actionTypes } from './actions'
+import * as actions from './actions'
 import * as Landing from './reducer'
 
 describe('reducer', () => {
