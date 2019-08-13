@@ -9,6 +9,7 @@ const renderer = createRenderer();
 import AboutPage from '../pages/About';
 import HomePage from '../pages/Home';
 import LocationsPage from '../pages/Locations';
+import LocationPage from '../pages/Location';
 import TermsPage from '../pages/Terms';
 
 export default class App extends Component {
@@ -28,7 +29,8 @@ export default class App extends Component {
 					<Router onChange={this.handleRoute}>
 						<HomePage path="/" />
 						<HomePage path="/categories/:params?" />
-						<LocationsPage path="/locations" />
+						<LocationPage path="/locations/:id" />
+						<LocationsPage path="/locations/:params?" />
 						<AboutPage path="/about" />
 						<TermsPage path="/terms" />
 					</Router>

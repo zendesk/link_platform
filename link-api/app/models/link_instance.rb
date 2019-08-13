@@ -9,6 +9,7 @@ class LinkInstance < ApplicationRecord
   has_many :contacts
   has_many :service_at_locations
   has_many :services
+  has_many :taxonomies
   has_many :holiday_schedules
   has_many :languages
   has_many :postal_addresses

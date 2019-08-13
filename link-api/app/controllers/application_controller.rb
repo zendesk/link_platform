@@ -3,7 +3,8 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  before_action :assert_link_instance
+  # Devise is not subdomain aware, so we have to ignore the link_instance check
+  before_action :assert_link_instance, unless: :devise_controller?
 
   before_action :authenticate_admin!,
                 only: %i[create update destroy],
@@ -39,8 +40,10 @@ class ApplicationController < ActionController::API
 
   protected
 
+  # Allow extra Admin fields into Devise controller params
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name nickname])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name nickname])
   end
 
   private

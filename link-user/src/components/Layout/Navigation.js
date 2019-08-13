@@ -6,7 +6,7 @@ import Link from '../Link';
 // TODO: History
 const history = {
 	goBack: () => {
-		console.log('implement goBack');
+		window.history.back();
 	}
 };
 
