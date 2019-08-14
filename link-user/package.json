@@ -11,7 +11,9 @@
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
@@ -20,6 +22,12 @@
     "build/*"
   ],
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-links": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/preact": "^5.1.11",
+    "babel-loader": "^8.0.6",
     "eslint-config-synacor": "^2.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
