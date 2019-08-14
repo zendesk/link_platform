@@ -3,10 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Table } from '@zendeskgarden/react-tables'
 
-// import { Textarea, TextField, Label, Input } from '@zendeskgarden/react-textfields';
-// import { Grid, Col } from '@zendeskgarden/react-grid';
-// import { Button } from '@zendeskgarden/react-buttons';
-
 import { ThemeProvider } from '@zendeskgarden/react-theming'
 import {
   Caption,

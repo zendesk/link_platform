@@ -6,7 +6,7 @@ import {
   TextField,
   Label,
   Input,
-} from '@zendeskgarden/react-textfields'
+} from '@zendeskgarden/react-forms'
 import { Grid, Col } from '@zendeskgarden/react-grid'
 import { Button } from '@zendeskgarden/react-buttons'
 

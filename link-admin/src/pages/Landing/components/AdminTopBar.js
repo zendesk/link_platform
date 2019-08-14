@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { createComponent, createComponentWithProxy } from 'react-fela'
 import { Button } from '@zendeskgarden/react-buttons'
-import { Input } from '@zendeskgarden/react-textfields'
+import { Input } from '@zendeskgarden/react-forms'
 
 import sailor from '../../../images/sailor.svg'
 import strings from '../../../strings'
