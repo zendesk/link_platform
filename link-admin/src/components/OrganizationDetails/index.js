@@ -23,46 +23,62 @@ class OrganizationDetails extends React.PureComponent {
           <Col size={7}>
             <Field>
               <Label>Name</Label>
-              <Input value={organization.name} />
+              <Input value={organization.name} onChange={ () => {} } />
             </Field>
           </Col>
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Alternate Name :)</Label>
-            <Textarea />
+            <Field>
+              <Label>Alternate Name :)</Label>
+              <Textarea />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Description</Label>
-            <Input value={organization.description} />
+            <Field>
+              <Label>Description</Label>
+              <Input value={organization.description} onChange={ () => {} } />
+            </Field>
           </Col>
           <Col>
-            <Label>Email</Label>
-            <Input value={organization.email || ''} />
+            <Field>
+              <Label>Email</Label>
+              <Input value={organization.email || ''} onChange={ () => {} } />
+            </Field>
           </Col>
           <Col>
-            <Label>URL</Label>
-            <Input value={organization.url || ''} />
+            <Field>
+              <Label>URL</Label>
+              <Input value={organization.url || ''} onChange={ () => {} } />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Tax Status</Label>
-            <Input />
+            <Field>
+              <Label>Tax Status</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Tax ID</Label>
-            <Input />
+            <Field>
+              <Label>Tax ID</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Year Incorporated</Label>
-            <Input />
+            <Field>
+              <Label>Year Incorporated</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Legal Status</Label>
-            <Input />
+            <Field>
+              <Label>Legal Status</Label>
+              <Input />
+            </Field>
           </Col>
         </Row>
         <Row style={{ marginTop: 15 }}>

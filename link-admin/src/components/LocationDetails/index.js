@@ -40,32 +40,44 @@ class LocationDetails extends React.PureComponent {
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Alternate Name</Label>
-            <Textarea />
+            <Field>
+              <Label>Alternate Name</Label>
+              <Textarea />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Description</Label>
-            <Input />
+            <Field>
+              <Label>Description</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Transportation</Label>
-            <Input />
+            <Field>
+              <Label>Transportation</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Latitude</Label>
-            <Input />
+            <Field>
+              <Label>Latitude</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Longitude</Label>
-            <Input />
+            <Field>
+              <Label>Longitude</Label>
+              <Input />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Organization ID</Label>
-            <Input />
+            <Field>
+              <Label>Organization ID</Label>
+              <Input />
+            </Field>
           </Col>
         </Row>
         <Row style={{ marginTop: 15 }}>

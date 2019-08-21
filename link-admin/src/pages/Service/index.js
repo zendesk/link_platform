@@ -55,63 +55,89 @@ class Service extends React.PureComponent {
           </Row>
           <Row>
             <Col size={7}>
-              <Label>Program ID</Label>
-              <Textarea />
+              <Field>
+                <Label>Program ID</Label>
+                <Textarea />
+              </Field>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Label>Name</Label>
-              <Input />
+              <Field>
+                <Label>Name</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Description</Label>
-              <Input />
+              <Field>
+                <Label>Description</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Alternate Name</Label>
-              <Input />
+              <Field>
+                <Label>Alternate Name</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>URL</Label>
-              <Input />
+              <Field>
+                <Label>URL</Label>
+                <Input />
+              </Field>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Label>Email</Label>
-              <Input />
+              <Field>
+                <Label>Email</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Status</Label>
-              <Input />
+              <Field>
+                <Label>Status</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Interpretation Services</Label>
-              <Input />
+              <Field>
+                <Label>Interpretation Services</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Application Services</Label>
-              <Input />
+              <Field>
+                <Label>Application Services</Label>
+                <Input />
+              </Field>
             </Col>
           </Row>
 
           <Row>
             <Col>
-              <Label>Wait Time</Label>
-              <Input />
+              <Field>
+                <Label>Wait Time</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Fees</Label>
-              <Input />
+              <Field>
+                <Label>Fees</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Accredidation</Label>
-              <Input />
+              <Field>
+                <Label>Accredidation</Label>
+                <Input />
+              </Field>
             </Col>
             <Col>
-              <Label>Licenses</Label>
-              <Input />
+              <Field>
+                <Label>Licenses</Label>
+                <Input />
+              </Field>
             </Col>
           </Row>
           <Row style={{ marginTop: 15 }}>
