@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import {
+  Field,
   Textarea,
-  TextField,
   Label,
   Input,
 } from '@zendeskgarden/react-forms'
@@ -33,10 +33,10 @@ class ServiceDetails extends React.PureComponent {
       <Grid>
         <Row>
           <Col size={7}>
-            <TextField>
+            <Field>
               <Label>Organization ID</Label>
               <Input />
-            </TextField>
+            </Field>
           </Col>
         </Row>
         <Row>

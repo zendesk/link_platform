@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import {
   Textarea,
-  TextField,
   Label,
   Input,
 } from '@zendeskgarden/react-forms'

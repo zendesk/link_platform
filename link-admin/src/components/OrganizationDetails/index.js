@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  Field,
   Textarea,
-  TextField,
   Label,
   Input,
 } from '@zendeskgarden/react-forms'
@@ -21,10 +21,10 @@ class OrganizationDetails extends React.PureComponent {
       <Grid>
         <Row>
           <Col size={7}>
-            <TextField>
+            <Field>
               <Label>Name</Label>
               <Input value={organization.name} />
-            </TextField>
+            </Field>
           </Col>
         </Row>
         <Row>
