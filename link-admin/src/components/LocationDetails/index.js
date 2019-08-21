@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {
+  Field,
   Textarea,
-  TextField,
   Label,
   Input,
-} from '@zendeskgarden/react-textfields'
+} from '@zendeskgarden/react-forms'
 import { Grid, Row, Col } from '@zendeskgarden/react-grid'
 import { Button } from '@zendeskgarden/react-buttons'
 
@@ -32,40 +32,52 @@ class LocationDetails extends React.PureComponent {
       <Grid>
         <Row>
           <Col size={7}>
-            <TextField>
+            <Field>
               <Label>Name</Label>
               <Input />
-            </TextField>
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col size={7}>
-            <Label>Alternate Name</Label>
-            <Textarea />
+            <Field>
+              <Label>Alternate Name</Label>
+              <Textarea />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Description</Label>
-            <Input />
+            <Field>
+              <Label>Description</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Transportation</Label>
-            <Input />
+            <Field>
+              <Label>Transportation</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Latitude</Label>
-            <Input />
+            <Field>
+              <Label>Latitude</Label>
+              <Input />
+            </Field>
           </Col>
           <Col>
-            <Label>Longitude</Label>
-            <Input />
+            <Field>
+              <Label>Longitude</Label>
+              <Input />
+            </Field>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Label>Organization ID</Label>
-            <Input />
+            <Field>
+              <Label>Organization ID</Label>
+              <Input />
+            </Field>
           </Col>
         </Row>
         <Row style={{ marginTop: 15 }}>
