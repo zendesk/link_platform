@@ -27,16 +27,26 @@ const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
       </Breadcrumb>
       <Tabs selectedKey={tabs.active} onChange={tabs.handleChange}>
         <TabPanel label="Details" key="details">
-          {organizationId
-            ? existing(
+          {
+            organizationId
+            ? <OrganizationDetails organization={existing(
                 Client.organization.find(cache, organizationId),
                 fetchOrganization,
                 organizationId
-              )
-            : newOrg}
+              )} />
+            : newOrg
+          }
         </TabPanel>
         <TabPanel label="Locations" key="locations">
-          <LocationsTable />
+          {
+            organizationId
+            ? <LocationsTable organization={existing(
+                Client.organization.find(cache, organizationId),
+                fetchOrganization,
+                organizationId
+              ).locations} />
+            : newOrg
+          }
         </TabPanel>
       </Tabs>
     </>

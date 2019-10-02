@@ -14,9 +14,9 @@ const withRouteActions = (Component, additionalProps) => {
     const goToLanding = () => push(base)
     const goToNewOrganization = () => push(`${base}/new`)
     const goToEditOrganization = orgId => push(`${base}/${orgId}`)
-    const goToTab = orgId => tabId => {
-      if (orgId) {
-        push(`${base}/${orgId}/${tabId}`)
+    const goToTab = id => tabId => {
+      if (id) {
+        push(`${base}/${id}/${tabId}`)
       } else {
         push(`${base}/new/${tabId}`)
       }

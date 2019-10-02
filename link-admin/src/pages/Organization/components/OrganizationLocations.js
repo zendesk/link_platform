@@ -15,21 +15,15 @@ import {
 
 class OrganizationLocations extends React.PureComponent {
   static propTypes = {
-    location: PropTypes.object,
+    locations: PropTypes.array,
   }
 
   static defaultProps = {
-    location: {
-      name: '',
-      description: '',
-      address: '',
-      city: '',
-      postal_code: '',
-    },
+    locations: []
   }
 
   render() {
-    const { location } = this.props
+    const { locations } = this.props
 
     return (
       <ThemeProvider>

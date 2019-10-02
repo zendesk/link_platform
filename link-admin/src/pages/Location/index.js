@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import LocationDetails from 'components/LocationDetails'
 import ServicesTable from 'components/LocationServices'
+import * as Client from 'link-rest-client'
 
 //Tabs tools
 import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
