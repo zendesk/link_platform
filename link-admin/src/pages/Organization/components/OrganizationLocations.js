@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { Table } from '@zendeskgarden/react-tables'
 
 import { ThemeProvider } from '@zendeskgarden/react-theming'
