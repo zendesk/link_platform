@@ -5,5 +5,6 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './utils/globalStyles'
 
+console.log('test')
 ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()
