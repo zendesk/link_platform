@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import LocationDetails from '../../components/LocationDetails/index'
-import ServicesTable from '../../components/LocationServices/index'
+import LocationDetails from 'components/LocationDetails'
+import ServicesTable from 'components/LocationServices'
 
 //Tabs tools
 import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
