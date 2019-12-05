@@ -42,6 +42,11 @@ service_at_location = ServiceAtLocation.create!(
   description: "Helpful words"
 )
 
+taxonomy = Taxonomy.create!(
+  link_instance_id: link_instance.id,
+  name:"Food"
+)
+
 Contact.create!(
   name: "Jennifer Hanson",
   title: "Contact Person",
