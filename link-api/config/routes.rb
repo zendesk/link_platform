@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     resources :organizations
     resources :physical_addresses
     resources :regular_schedules
+    resources :taxonomies
   end
 end
