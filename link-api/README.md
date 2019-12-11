@@ -13,6 +13,7 @@
     `brew services start postgresql`
 
 1. Create and migrate the database: `bundle exec rake db:create db:migrate db:seed`.
+1. Open `/etc/hosts` with your favorite text editor (you probably need to sudo), and add `127.0.0.1 blomp.localhost` to the list of host aliases.
 1. Start your server: `bundle exec rails server`.
 1. Go to [http://blomp.localhost:3000](http://blomp.localhost:3000)
 
