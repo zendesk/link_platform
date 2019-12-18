@@ -1,26 +1,33 @@
 import { h, Component } from 'preact';
-import { createComponent } from 'preact-fela';
+import { createComponentWithProxy } from 'preact-fela';
 import linkState from 'linkstate';
 
 // import Feedback from '../components/Feedback';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
-const Spacer = createComponent(() => ({
+const Spacer = createComponentWithProxy(() => ({
 	height: '10px'
 }));
 
 
-const Title = createComponent(
+const Title = createComponentWithProxy(
 	() => ({
-		textAlign: 'center',
+		textAlign: 'left',
+		display: 'block',
 		fontSize: '15px',
 		letterSpacing: '0.6pt',
 		color: 'rgb(51, 51, 51)',
-		margin: '0',
 		marginBottom: '20pt'
 	}),
-	'p'
+	'h4'
 );
+
+const FormLabel = createComponentWithProxy(
+	() => ({
+		display: 'block'
+	}),
+	'label'
+)
 
 class FeedbackPage extends Component {
 	constructor(props) {
@@ -37,25 +44,25 @@ class FeedbackPage extends Component {
 		return (
 			<Layout>
 				<Spacer />
-				<Title>Contact Form</Title>
+				<Title>Give us feedback</Title>
 				<div>
-					<h3>Name</h3>
-					<input type="text" value={this.state.name} onInput={linkState(this, 'name')} />
+					<FormLabel>Name</FormLabel>
+					<input type="text" placeholder='Your name' value={this.state.name} onInput={linkState(this, 'name')} />
 				</div>
 				<div>
-					<h3>Email</h3>
-					<input type="text" value={this.state.email} onInput={linkState(this, 'email')} />
+					<FormLabel>Email</FormLabel>
+					<input type="text" placeholder='Your email' value={this.state.email} onInput={linkState(this, 'email')} />
 				</div>
 				<div>
-					<h3>Subject</h3>
-					<input type="text" value={this.state.subject} onInput={linkState(this, 'subject')} />
+					<FormLabel>Subject</FormLabel>
+					<input type="text" placeholder='Subject' value={this.state.subject} onInput={linkState(this, 'subject')} />
 				</div>
 				<div>
-					<h3>Message</h3>
-					<input type="textfield" value={this.state.message} onInput={linkState(this, 'message')} />
+					<FormLabel>Message</FormLabel>
+					<textarea placeholder='Message' value={this.state.message} onInput={linkState(this, 'message')} />
 				</div>
 				<div>
-					<input type="button" value="Submit" onclick={() => {}} />
+					<input type="button" value="Submit Feedback" onclick={() => {}} />
 				</div>
 			</Layout>
 		);
