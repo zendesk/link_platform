@@ -11,6 +11,7 @@ import HomePage from '../pages/Home';
 import LocationsPage from '../pages/Locations';
 import LocationPage from '../pages/Location';
 import TermsPage from '../pages/Terms';
+import FeedbackPage from '../pages/Feedback';
 
 export default class App extends Component {
 
@@ -33,6 +34,7 @@ export default class App extends Component {
 						<LocationsPage path="/locations/:params?" />
 						<AboutPage path="/about" />
 						<TermsPage path="/terms" />
+						<FeedbackPage path="/feedback" />
 					</Router>
 				</RendererProvider>
 			</div>

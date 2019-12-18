@@ -30,9 +30,9 @@ const NavLink = createComponentWithProxy(
 
 const Footer = () => (
 	<Container role="navigation">
-		<NavLink to="/terms">Terms</NavLink>
-		<NavLink to="/feedback">Feedback</NavLink>
-		<NavLink to="/about">About</NavLink>
+		<NavLink href="/terms">Terms</NavLink>
+		<NavLink href="/feedback">Feedback</NavLink>
+		<NavLink href="/about">About</NavLink>
 	</Container>
 );
 
