@@ -19,7 +19,7 @@ module Api
       licenses
     ].freeze
 
-    before_action :set_service, only: %i[show update destroy]
+    before_action :set_service, only: %i[show show_full update destroy]
 
     # GET /api/services
     def index
@@ -28,9 +28,33 @@ module Api
       render json: @services
     end
 
+    # GET /api/services/full
+    def full 
+      @services = current_link_instance.services
+      full_services = @services.to_json(include: 
+        [:contacts,
+        :regular_schedules,
+        :holiday_schedules,
+        :languages,
+        :phones])
+
+        render json: full_services
+    end
+
     # GET /api/services/1
     def show
       render json: @service
+    end
+
+    # GET /api/services/1/full
+    def show_full
+      full_service = @service.to_json(include:
+        [:contacts,
+        :regular_schedules,
+        :holiday_schedules,
+        :languages,
+        :phones])
+      render json: full_service
     end
 
     # POST /api/services

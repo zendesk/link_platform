@@ -7,6 +7,11 @@ RSpec.describe Api::ServicesController, type: :controller do
   let(:service) { create(:service, link_instance: link_instance) }
   let(:organization) { create(:organization) }
   let(:admin) { create(:admin, link_instance: link_instance) }
+  let(:contact) { create(:contact, link_instance: link_instance, service: service)}
+  let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance, service: service)}
+  let(:holiday_schedule) { create(:holiday_schedule, link_instance: link_instance, service: service)}
+  let(:language) { create(:language, link_instance: link_instance, service: service)}
+  let(:phone) { create(:phone, link_instance: link_instance, service: service)}
 
   # This should return the minimal set of attributes required to create a valid
   # Service. As you add validations to Service, be sure to
@@ -45,6 +50,15 @@ RSpec.describe Api::ServicesController, type: :controller do
     end
   end
 
+  describe 'GET #full' do
+  before { create(:service, link_instance: link_instance) }
+
+  it 'returns a success response' do
+    get :index, params: {}, session: valid_session
+    expect(response).to be_successful
+  end
+end
+
   describe 'GET #show' do
     let(:service) { create(:service, link_instance: link_instance) }
 
@@ -53,6 +67,15 @@ RSpec.describe Api::ServicesController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+  describe 'GET #show_full' do
+  let(:service) { create(:service, link_instance: link_instance) }
+
+  it 'returns a success response' do
+    get :show, params: { id: service.to_param }, session: valid_session
+    expect(response).to be_successful
+  end
+end
 
   describe 'POST #create' do
     context 'when not logged in' do
