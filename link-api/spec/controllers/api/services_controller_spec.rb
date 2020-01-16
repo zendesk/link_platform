@@ -31,6 +31,43 @@ RSpec.describe Api::ServicesController, type: :controller do
     }
   end
 
+  let(:valid_full_attributes) do
+    {
+      organization_id: organization.id,
+      name: 'Legal Help',
+      status: 'Open',
+      contacts: [
+        {
+          name: 'Moose',
+          department: 'forest'
+        },
+        {
+          name: 'Sloth',
+          department: 'jungle'
+        }
+      ]
+    }
+  end
+
+  let(:invalid_full_attributes) do
+    {
+      organization_id: organization.id,
+      name: 'Legal Help',
+      status: 'Open',
+      contacts: [
+        {
+          first_name: 'Moose',
+          department: 'forest'
+        },
+        {
+          name: 'Sloth',
+          department: 'jungle'
+        }
+      ]
+    }
+  end
+
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ServicesController. Be sure to keep this updated too.
@@ -54,7 +91,7 @@ RSpec.describe Api::ServicesController, type: :controller do
   before { create(:service, link_instance: link_instance) }
 
   it 'returns a success response' do
-    get :index, params: {}, session: valid_session
+    get :full, params: {}, session: valid_session
     expect(response).to be_successful
   end
 end
@@ -72,7 +109,7 @@ end
   let(:service) { create(:service, link_instance: link_instance) }
 
   it 'returns a success response' do
-    get :show, params: { id: service.to_param }, session: valid_session
+    get :show_full, params: { id: service.to_param }, session: valid_session
     expect(response).to be_successful
   end
 end
@@ -121,6 +158,59 @@ end
       context 'with invalid params' do
         it 'renders a JSON response with errors for the new service' do
           post :create, params: { service: invalid_attributes },
+                        session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
+      end
+    end
+  end
+
+  describe 'POST #create_full' do
+    context 'when not logged in' do
+      it 'returns unauthorized' do
+        post :create_full, params: { service: valid_full_attributes },
+                      session: valid_session
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when logged in to another instance' do
+      it 'returns not found' do
+        login create(:admin)
+
+        post :create_full, params: { service: valid_full_attributes },
+                      session: valid_session
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'when logged in' do
+      before do
+        login admin
+      end
+
+      context 'with valid params' do
+        it 'creates a new Service' do
+          expect do
+            post :create_full, params: { service: valid_full_attributes },
+                          session: valid_session
+          end.to change(Service, :count).by(1)
+             .and change(Contact, :count).by(2)
+        end
+
+        it 'renders a JSON response with the new service' do
+          post :create_full, params: { service: valid_full_attributes },
+                        session: valid_session
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to eq('application/json')
+          expect(response.location).to eq(api_service_url(Service.last))
+        end
+      end
+
+      context 'with invalid params' do
+        it 'renders a JSON response with errors for the new service' do
+          post :create_full, params: { service: invalid_full_attributes },
                         session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')

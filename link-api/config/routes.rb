@@ -9,12 +9,12 @@ Rails.application.routes.draw do
 
   concern :full do
     member do
-      get :full
-      put :full
+      get :full, action: :show_full
+      put :full, action: :update_full
     end
     collection do
       get :full
-      post :full
+      post :full, action: :create_full
     end
   end
 

@@ -1,23 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class ServicesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      organization_id
-      program_id
-      name
-      alternate_name
-      description
-      url
-      email
-      status
-      interpretation_services
-      application_services
-      wait_time
-      fees
-      accreditations
-      licenses
-    ].freeze
+  class ServicesController < ApiBaseController
 
     before_action :set_service, only: %i[show show_full update destroy]
 
@@ -29,7 +13,7 @@ module Api
     end
 
     # GET /api/services/full
-    def full 
+    def full
       @services = current_link_instance.services
       full_services = @services.to_json(include: 
         [:contacts,
@@ -70,6 +54,20 @@ module Api
       end
     end
 
+    def create_full
+      require 'byebug'
+      debugger
+      @service = current_link_instance.services.build(service_params)
+
+      if @service.save
+        render json: @service,
+               status: :created,
+               location: api_service_url(@service)
+      else
+        render json: @service.errors, status: :unprocessable_entity
+      end
+    end
+
     # PATCH/PUT /api/services/1
     def update
       if @service.update(service_params)
@@ -93,7 +91,8 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def service_params
-      params.require(:service).permit(ALLOWED_PARAMS)
+      params.require(:service).permit(:organization_id,:name,:status, contact_attributes: [:name, :department])
+      # params.require(:service).permit(*SERVICE_PARAMS, contacts_attributes: CONTACT_PARAMS)
     end
   end
 end

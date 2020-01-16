@@ -7,11 +7,11 @@ class ApplicationController < ActionController::API
   before_action :assert_link_instance, unless: :devise_controller?
 
   before_action :authenticate_admin!,
-                only: %i[create update destroy],
+                only: %i[create update destroy create_full update_full],
                 unless: :devise_controller?
 
   before_action :assert_admin_domain,
-                only: %i[create update destroy],
+                only: %i[create update destroy create_full update_full],
                 unless: :devise_controller?
 
   before_action :configure_permitted_parameters, if: :devise_controller?
