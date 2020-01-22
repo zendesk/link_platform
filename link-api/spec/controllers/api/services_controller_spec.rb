@@ -202,6 +202,8 @@ end
         it 'renders a JSON response with the new service' do
           post :create_full, params: { service: valid_full_attributes },
                         session: valid_session
+                        require 'byebug'
+                        debugger
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(api_service_url(Service.last))

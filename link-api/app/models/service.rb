@@ -10,7 +10,7 @@ class Service < ApplicationRecord
   has_many :languages
   has_many :phones
 
-  accepts_nested_attributes_for :contacts
+  accepts_nested_attributes_for :contacts, allow_destroy: true
 
   validates :name, :status, presence: true
 end
