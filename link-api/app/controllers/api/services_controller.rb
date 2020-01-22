@@ -57,7 +57,7 @@ module Api
     def create_full
       require 'byebug'
       debugger
-      @service = current_link_instance.services.build(service_params)
+      @service = current_link_instance.services.build(mapped_service_params)
 
       if @service.save
         render json: @service,
@@ -89,10 +89,26 @@ module Api
       @service = current_link_instance.services.find(params[:id])
     end
 
+    def mapped_service_params
+      service_params.tap do |mapped_params|
+        # Change the contacts param and inject the link instance id
+        if mapped_params.has_key?('contacts')
+          contacts = mapped_params.delete('contacts')
+
+          mapped_params['contacts_attributes'] = contacts.map do |contact|
+            contact['link_instance_id'] = current_link_instance.id
+
+            contact
+          end
+        end
+      end
+    end
+
     # Only allow a trusted parameter "white list" through.
     def service_params
-      params.require(:service).permit(:organization_id,:name,:status, contact_attributes: [:name, :department])
-      # params.require(:service).permit(*SERVICE_PARAMS, contacts_attributes: CONTACT_PARAMS)
+      # params.require(:service).permit(:organization_id,:name,:status, contact_attributes: [:name, :department])
+      params.require(:service).permit(SERVICE_PARAMS, contacts: CONTACT_PARAMS )
+      # @service_params = params.require(:service).permit(SERVICE_PARAMS, CONTACT_PARAMS )
     end
   end
 end
