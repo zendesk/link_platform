@@ -7,4 +7,3 @@ module Api
     include ApiParamsHelper
   end
 end
-

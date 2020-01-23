@@ -57,7 +57,6 @@ module Api
     end
 
     def create_full
-
       @service = current_link_instance.services.build(mapped_service_params)
 
       if @service.save
@@ -93,8 +92,14 @@ module Api
     def mapped_service_params
       service_params.tap do |mapped_params|
         # Change the contacts param and inject the link instance id
-        ['contacts', 'eligibilities', 'regular_schedules', 'holiday_schedules', 'languages', 'phones'].each do |key|
+        ['contacts',
+         'eligibilities',
+         'regular_schedules',
+         'holiday_schedules',
+         'languages',
+         'phones'].each do |key|
           next unless mapped_params.key?(key)
+
           nested_param = mapped_params.delete(key)
 
           mapped_params["#{key}_attributes"] = nested_param.map do |param|
@@ -107,12 +112,12 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def service_params
-      params.require(:service).permit(SERVICE_PARAMS, contacts: CONTACT_PARAMS, 
-        eligibilities: ELIGIBILITY_PARAMS,
-        regular_schedules: REGULAR_SCHEDULE_PARAMS,
-        holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
-        languages: LANGUAGE_PARAMS,
-        phones: PHONE_PARAMS)
+      params.require(:service).permit(SERVICE_PARAMS, contacts: CONTACT_PARAMS,
+                                                      eligibilities: ELIGIBILITY_PARAMS,
+                                                      regular_schedules: REGULAR_SCHEDULE_PARAMS,
+                                                      holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
+                                                      languages: LANGUAGE_PARAMS,
+                                                      phones: PHONE_PARAMS)
     end
   end
 end

@@ -2,7 +2,7 @@
 
 module Api
   module ApiParamsHelper
-	  SERVICE_PARAMS = %i[
+    SERVICE_PARAMS = %i[
       organization_id
       program_id
       name
