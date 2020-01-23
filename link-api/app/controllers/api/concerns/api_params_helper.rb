@@ -27,5 +27,9 @@ module Api
       department
       email
     ].freeze
+    ELIGIBILITY_PARAMS = %i[
+      service_id
+      eligibility
+    ].freeze
 	end
 end
