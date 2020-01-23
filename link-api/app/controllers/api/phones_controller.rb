@@ -2,19 +2,6 @@
 
 module Api
   class PhonesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      location_id
-      service_id
-      organization_id
-      contact_id
-      service_at_location_id
-      number
-      extension
-      phone_type
-      language
-      description
-    ].freeze
-
     before_action :set_phone, only: %i[show update destroy]
 
     # GET /phones

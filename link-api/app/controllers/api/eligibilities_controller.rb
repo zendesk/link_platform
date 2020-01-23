@@ -2,7 +2,6 @@
 
 module Api
   class EligibilitiesController < ApiBaseController
-
     before_action :set_eligibility, only: %i[show update destroy]
 
     # GET /api/eligibilities

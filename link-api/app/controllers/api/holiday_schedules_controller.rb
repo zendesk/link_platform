@@ -1,18 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class HolidaySchedulesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      service_id
-      location_id
-      service_at_location_id
-      closed
-      opens_at
-      closes_at
-      start_date
-      end_date
-    ].freeze
-
+  class HolidaySchedulesController < ApiBaseController
     before_action :set_holiday_schedule, only: %i[show update destroy]
 
     # GET /holiday_schedules

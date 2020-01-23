@@ -2,7 +2,6 @@
 
 module Api
   class ContactsController < ApiBaseController
-
     before_action :set_contact, only: %i[show update destroy]
 
     # GET /api/contacts

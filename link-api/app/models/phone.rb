@@ -16,7 +16,7 @@ class Phone < ApplicationRecord
   validates :phone_type, inclusion: {
     in: PHONE_TYPES,
     message: 'is not a valid type'
-  }
+  }, if: -> { phone_type.present? }
 
-  validates :language, iso639Code: true, length: { is: 3 }
+  validates :language, iso639Code: true, length: { is: 3 }, if: -> { language.present? }
 end

@@ -45,6 +45,33 @@ RSpec.describe Api::ServicesController, type: :controller do
           name: 'Sloth',
           department: 'jungle'
         }
+      ],
+      eligibilities: [
+        {
+          eligibility: 'Youth under 18'
+        }
+      ],
+      regular_schedules: [
+        {
+          weekday: 2
+        }
+      ],
+      holiday_schedules: [
+        {
+          closed: false,
+          start_date: '2018-01-01',
+          end_date: '2018-12-31'
+        }
+      ],
+      languages: [
+        {
+          language: 'en'
+        }
+      ],
+      phones: [
+        {
+          number: '+1 415 123-4567'
+        }
       ]
     }
   end
@@ -54,14 +81,9 @@ RSpec.describe Api::ServicesController, type: :controller do
       organization_id: organization.id,
       name: 'Legal Help',
       status: 'Open',
-      contacts: [
+      regular_schedules: [
         {
-          garbage: 'Moose',
-          department: 'forest'
-        },
-        {
-          also_garbage: 'Sloth',
-          department: 'jungle'
+          weekday: nil
         }
       ]
     }
@@ -197,13 +219,16 @@ end
                           session: valid_session
           end.to change(Service, :count).by(1)
              .and change(Contact, :count).by(2)
+             .and change(Eligibility, :count).by(1)
+             .and change(RegularSchedule, :count).by(1)
+             .and change(HolidaySchedule, :count).by(1)
+             .and change(Language, :count).by(1)
+             .and change(Phone, :count).by(1)
         end
 
         it 'renders a JSON response with the new service' do
           post :create_full, params: { service: valid_full_attributes },
                         session: valid_session
-                        require 'byebug'
-                        debugger
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(api_service_url(Service.last))
@@ -214,8 +239,6 @@ end
         it 'renders a JSON response with errors for the new service' do
           post :create_full, params: { service: invalid_full_attributes },
                         session: valid_session
-          require 'byebug'
-          debugger
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
