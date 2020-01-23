@@ -20,6 +20,7 @@ Layout/DotPosition:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'config/routes.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -35,6 +36,6 @@ Style/WordArray:
 
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
-  
+
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
