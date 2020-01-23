@@ -32,5 +32,6 @@ Rails.application.routes.draw do
     resources :physical_addresses
     resources :regular_schedules
     resources :taxonomies
+    resources :eligibilities
   end
 end

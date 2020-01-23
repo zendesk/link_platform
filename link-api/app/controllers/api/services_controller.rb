@@ -55,6 +55,7 @@ module Api
     end
 
     def create_full
+
       @service = current_link_instance.services.build(mapped_service_params)
 
       if @service.save
@@ -88,6 +89,7 @@ module Api
     end
 
     def mapped_service_params
+<<<<<<< HEAD
       require 'byebug'
       debugger
       service_params.map do |k, v|
@@ -99,6 +101,18 @@ module Api
           end
         else
           k
+=======
+      service_params.tap do |mapped_params|
+        # Change the contacts param and inject the link instance id
+        if mapped_params.has_key?('contacts')
+          contacts = mapped_params.delete('contacts')
+
+          mapped_params['contacts_attributes'] = contacts.map do |contact|
+            contact['link_instance_id'] = current_link_instance.id
+
+            contact
+          end
+>>>>>>> 2421a6de06c3cd9df555e7f083c0984474e42f47
         end
       end
     end

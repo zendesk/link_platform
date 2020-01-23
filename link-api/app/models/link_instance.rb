@@ -17,6 +17,7 @@ class LinkInstance < ApplicationRecord
   has_many :programs
   has_many :organizations
   has_many :regular_schedules
+  has_many :eligibilities
 
   validates :name, presence: true
   validates :email, presence: true

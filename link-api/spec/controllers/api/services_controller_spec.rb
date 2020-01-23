@@ -56,11 +56,11 @@ RSpec.describe Api::ServicesController, type: :controller do
       status: 'Open',
       contacts: [
         {
-          first_name: 'Moose',
+          garbage: 'Moose',
           department: 'forest'
         },
         {
-          name: 'Sloth',
+          also_garbage: 'Sloth',
           department: 'jungle'
         }
       ]
@@ -214,6 +214,8 @@ end
         it 'renders a JSON response with errors for the new service' do
           post :create_full, params: { service: invalid_full_attributes },
                         session: valid_session
+          require 'byebug'
+          debugger
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end

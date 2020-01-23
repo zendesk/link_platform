@@ -2,5 +2,5 @@
 
 class Eligibility < ApplicationRecord
   belongs_to :link_instance
-  belongs_to :service
+  belongs_to :service, optional: true
 end
