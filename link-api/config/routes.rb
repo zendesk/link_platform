@@ -7,6 +7,17 @@ Rails.application.routes.draw do
 
   resources :link_instances
 
+  concern :full do
+    member do
+      get :full, action: :show_full
+      put :full, action: :update_full
+    end
+    collection do
+      get :full
+      post :full, action: :create_full
+    end
+  end
+
   namespace :api do
     resources :contacts
     resources :locations
@@ -16,10 +27,11 @@ Rails.application.routes.draw do
     resources :holiday_schedules
     resources :languages
     resources :service_at_locations
-    resources :services
+    resources :services, concerns: :full
     resources :organizations
     resources :physical_addresses
     resources :regular_schedules
     resources :taxonomies
+    resources :eligibilities
   end
 end

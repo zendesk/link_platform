@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class RegularSchedulesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      service_id
-      location_id
-      service_at_location_id
-      weekday
-      opens_at
-      closes_at
-    ].freeze
-
+  class RegularSchedulesController < ApiBaseController
     before_action :set_regular_schedule, only: %i[show update destroy]
 
     # GET /regular_schedules
@@ -65,7 +56,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def regular_schedule_params
-      params.require(:regular_schedule).permit(ALLOWED_PARAMS)
+      params.require(:regular_schedule).permit(REGULAR_SCHEDULE_PARAMS)
     end
   end
 end

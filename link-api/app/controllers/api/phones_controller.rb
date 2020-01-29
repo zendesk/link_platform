@@ -1,20 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class PhonesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      location_id
-      service_id
-      organization_id
-      contact_id
-      service_at_location_id
-      number
-      extension
-      phone_type
-      language
-      description
-    ].freeze
-
+  class PhonesController < ApiBaseController
     before_action :set_phone, only: %i[show update destroy]
 
     # GET /phones
@@ -63,7 +50,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def phone_params
-      params.require(:phone).permit(ALLOWED_PARAMS)
+      params.require(:phone).permit(PHONE_PARAMS)
     end
   end
 end

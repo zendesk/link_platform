@@ -99,14 +99,12 @@ RSpec.describe Api::ServiceAtLocationsController, type: :controller do
       end
 
       context 'with invalid params' do
-        # rubocop:disable Metrics/LineLength
         it 'renders a JSON response with errors for the new service_at_location' do
           post :create, params: { service_at_location: invalid_attributes },
                         session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
-        # rubocop:enable Metrics/LineLength
       end
     end
   end

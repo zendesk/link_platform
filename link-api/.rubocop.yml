@@ -20,6 +20,22 @@ Layout/DotPosition:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'config/routes.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation

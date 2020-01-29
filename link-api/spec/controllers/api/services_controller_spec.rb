@@ -7,6 +7,13 @@ RSpec.describe Api::ServicesController, type: :controller do
   let(:service) { create(:service, link_instance: link_instance) }
   let(:organization) { create(:organization) }
   let(:admin) { create(:admin, link_instance: link_instance) }
+  let(:contact) { create(:contact, link_instance: link_instance, service: service) }
+  # rubocop:disable Metrics/LineLength
+  let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance, service: service) }
+  let(:holiday_schedule) { create(:holiday_schedule, link_instance: link_instance, service: service) }
+  # rubocop:enable Metrics/LineLength
+  let(:language) { create(:language, link_instance: link_instance, service: service) }
+  let(:phone) { create(:phone, link_instance: link_instance, service: service) }
 
   # This should return the minimal set of attributes required to create a valid
   # Service. As you add validations to Service, be sure to
@@ -23,6 +30,64 @@ RSpec.describe Api::ServicesController, type: :controller do
     {
       organization_id: nil,
       name: 'Invalid'
+    }
+  end
+
+  let(:valid_full_attributes) do
+    {
+      organization_id: organization.id,
+      name: 'Legal Help',
+      status: 'Open',
+      contacts: [
+        {
+          name: 'Moose',
+          department: 'forest'
+        },
+        {
+          name: 'Sloth',
+          department: 'jungle'
+        }
+      ],
+      eligibilities: [
+        {
+          eligibility: 'Youth under 18'
+        }
+      ],
+      regular_schedules: [
+        {
+          weekday: 2
+        }
+      ],
+      holiday_schedules: [
+        {
+          closed: false,
+          start_date: '2018-01-01',
+          end_date: '2018-12-31'
+        }
+      ],
+      languages: [
+        {
+          language: 'en'
+        }
+      ],
+      phones: [
+        {
+          number: '+1 415 123-4567'
+        }
+      ]
+    }
+  end
+
+  let(:invalid_full_attributes) do
+    {
+      organization_id: organization.id,
+      name: 'Legal Help',
+      status: 'Open',
+      regular_schedules: [
+        {
+          weekday: nil
+        }
+      ]
     }
   end
 
@@ -45,11 +110,29 @@ RSpec.describe Api::ServicesController, type: :controller do
     end
   end
 
+  describe 'GET #full' do
+    before { create(:service, link_instance: link_instance) }
+
+    it 'returns a success response' do
+      get :full, params: {}, session: valid_session
+      expect(response).to be_successful
+    end
+  end
+
   describe 'GET #show' do
     let(:service) { create(:service, link_instance: link_instance) }
 
     it 'returns a success response' do
       get :show, params: { id: service.to_param }, session: valid_session
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #show_full' do
+    let(:service) { create(:service, link_instance: link_instance) }
+
+    it 'returns a success response' do
+      get :show_full, params: { id: service.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -99,6 +182,64 @@ RSpec.describe Api::ServicesController, type: :controller do
         it 'renders a JSON response with errors for the new service' do
           post :create, params: { service: invalid_attributes },
                         session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
+      end
+    end
+  end
+
+  describe 'POST #create_full' do
+    context 'when not logged in' do
+      it 'returns unauthorized' do
+        post :create_full, params: { service: valid_full_attributes },
+                           session: valid_session
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when logged in to another instance' do
+      it 'returns not found' do
+        login create(:admin)
+
+        post :create_full, params: { service: valid_full_attributes },
+                           session: valid_session
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'when logged in' do
+      before do
+        login admin
+      end
+
+      context 'with valid params' do
+        it 'creates a new Service' do
+          expect do
+            post :create_full, params: { service: valid_full_attributes },
+                               session: valid_session
+          end.to change(Service, :count).by(1).
+            and change(Contact, :count).by(2).
+            and change(Eligibility, :count).by(1).
+            and change(RegularSchedule, :count).by(1).
+            and change(HolidaySchedule, :count).by(1).
+            and change(Language, :count).by(1).
+            and change(Phone, :count).by(1)
+        end
+
+        it 'renders a JSON response with the new service' do
+          post :create_full, params: { service: valid_full_attributes },
+                             session: valid_session
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to eq('application/json')
+          expect(response.location).to eq(api_service_url(Service.last))
+        end
+      end
+
+      context 'with invalid params' do
+        it 'renders a JSON response with errors for the new service' do
+          post :create_full, params: { service: invalid_full_attributes },
+                             session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end

@@ -1,17 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class ContactsController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      organization_id
-      service_id
-      service_at_location_id
-      name
-      title
-      department
-      email
-    ].freeze
-
+  class ContactsController < ApiBaseController
     before_action :set_contact, only: %i[show update destroy]
 
     # GET /api/contacts
@@ -62,7 +52,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(ALLOWED_PARAMS)
+      params.require(:contact).permit(CONTACT_PARAMS)
     end
   end
 end
