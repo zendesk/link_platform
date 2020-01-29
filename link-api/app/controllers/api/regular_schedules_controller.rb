@@ -56,7 +56,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def regular_schedule_params
-      params.require(:regular_schedule).permit(ALLOWED_PARAMS)
+      params.require(:regular_schedule).permit(REGULAR_SCHEDULE_PARAMS)
     end
   end
 end

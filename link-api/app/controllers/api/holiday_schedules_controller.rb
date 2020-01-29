@@ -56,7 +56,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def holiday_schedule_params
-      params.require(:holiday_schedule).permit(ALLOWED_PARAMS)
+      params.require(:holiday_schedule).permit(HOLIDAY_SCHEDULE_PARAMS)
     end
   end
 end
