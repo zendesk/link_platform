@@ -17,6 +17,7 @@ module Api
       full_services = @services.to_json(include:
         [
           :contacts,
+          :eligibilities,
           :regular_schedules,
           :holiday_schedules,
           :languages,
@@ -35,6 +36,7 @@ module Api
       full_service = @service.to_json(include:
         [
           :contacts,
+          :eligibilities,
           :regular_schedules,
           :holiday_schedules,
           :languages,
