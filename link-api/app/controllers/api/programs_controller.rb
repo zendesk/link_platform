@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-class Api::ProgramsController < ApplicationController
-  ALLOWED_PARAMS = %i[
-    name
-    alternate_name
-    organization_id
-  ].freeze
-
+class Api::ProgramsController < ApiBaseController
   before_action :set_program, only: %i[show update destroy]
 
   # GET /programs
@@ -57,6 +51,6 @@ class Api::ProgramsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def program_params
-    params.require(:program).permit(ALLOWED_PARAMS)
+    params.require(:program).permit(PROGRAM_PARAMS)
   end
 end

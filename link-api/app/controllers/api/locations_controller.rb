@@ -1,16 +1,6 @@
 # frozen_string_literal: true
 
-class Api::LocationsController < ApplicationController
-  ALLOWED_PARAMS = %i[
-    name
-    alternate_name
-    description
-    transportation
-    latitude
-    longitude
-    organization_id
-  ].freeze
-
+class Api::LocationsController < ApiBaseController
   before_action :set_location, only: %i[show update destroy]
 
   # GET /locations
@@ -62,6 +52,6 @@ class Api::LocationsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def location_params
-    params.require(:location).permit(ALLOWED_PARAMS)
+    params.require(:location).permit(LOCATION_PARAMS)
   end
 end
