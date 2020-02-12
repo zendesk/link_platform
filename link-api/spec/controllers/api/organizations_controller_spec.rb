@@ -30,8 +30,8 @@ RSpec.describe Api::OrganizationsController, type: :controller do
 
   let(:valid_full_attributes) do
     {
-      name:'ZD org',
-      description:'linksf home',
+      name: 'ZD org',
+      description: 'linksf home',
       contacts: [
         {
           name: 'Moose',
@@ -43,7 +43,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         }
       ],
       programs: [
-        {        
+        {
           name: 'Legal program'
         }
       ],
@@ -64,8 +64,8 @@ RSpec.describe Api::OrganizationsController, type: :controller do
 
   let(:invalid_full_attributes) do
     {
-      name:'ZD org',
-      description:'linksf home',
+      name: 'ZD org',
+      description: 'linksf home',
       locations: [
         {
           longitude: -181.01
@@ -81,7 +81,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
 
   before do
     allow_any_instance_of(ApplicationController).
-    to receive(:current_link_instance).and_return(link_instance)
+      to receive(:current_link_instance).and_return(link_instance)
   end
 
   describe 'GET #index' do
@@ -120,7 +120,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
     context 'when not logged in' do
       it 'returns unauthorized' do
         post :create, params: { organization: valid_full_attributes },
-        session: valid_session
+                      session: valid_session
         expect(response).to have_http_status(401)
       end
     end
@@ -134,13 +134,13 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         it 'creates a new Organization' do
           expect do
             post :create, params: { organization: valid_attributes },
-            session: valid_session
+                          session: valid_session
           end.to change(Organization, :count).by(1)
         end
 
         it 'renders a JSON response with the new organization' do
           post :create, params: { organization: valid_attributes },
-          session: valid_session
+                        session: valid_session
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(api_organization_url(Organization.last))
@@ -150,7 +150,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
       context 'with invalid params' do
         it 'renders a JSON response with errors for the new organization' do
           post :create, params: { organization: invalid_attributes },
-          session: valid_session
+                        session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
@@ -162,7 +162,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
     context 'when not logged in' do
       it 'returns unauthorized' do
         post :create_full, params: { organization: valid_full_attributes },
-        session: valid_session
+                           session: valid_session
         expect(response).to have_http_status(401)
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         login create(:admin)
 
         post :create_full, params: { organization: valid_full_attributes },
-        session: valid_session
+                           session: valid_session
         expect(response).to have_http_status(404)
       end
     end
@@ -186,16 +186,16 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         it 'creates a new Organization' do
           expect do
             post :create_full, params: { organization: valid_full_attributes },
-            session: valid_session
+                               session: valid_session
           end.to change(Organization, :count).by(1).
-          and change(Contact, :count).by(2).
-          and change(Location, :count).by(1).
-          and change(Program, :count).by(1)
+            and change(Contact, :count).by(2).
+            and change(Location, :count).by(1).
+            and change(Program, :count).by(1)
         end
 
         it 'renders a JSON response with the new organization' do
           post :create_full, params: { organization: valid_full_attributes },
-          session: valid_session
+                             session: valid_session
           expect(response).to have_http_status(:created)
           expect(response.content_type).to eq('application/json')
           expect(response.location).to eq(api_organization_url(Organization.last))
@@ -205,7 +205,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
       context 'with invalid params' do
         it 'renders a JSON response with errors for the new organization' do
           post :create_full, params: { organization: invalid_full_attributes },
-          session: valid_session
+                             session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
@@ -219,11 +219,11 @@ RSpec.describe Api::OrganizationsController, type: :controller do
         name: 'Canonball'
       }
     end
-    
+
     context 'when not logged in' do
       it 'returns unauthorized' do
         put :update, params: { id: organization.to_param, organization: new_attributes },
-        session: valid_session
+                     session: valid_session
         expect(response).to have_http_status(401)
       end
     end
@@ -260,7 +260,7 @@ RSpec.describe Api::OrganizationsController, type: :controller do
       organization.save!
       expect do
         delete :destroy, params: { id: organization.to_param },
-        session: valid_session
+                         session: valid_session
       end.to change(Organization, :count).by(-1)
     end
   end

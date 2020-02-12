@@ -43,14 +43,12 @@ module Api
 
     # POST /organizations
     def create
-      @organization = current_link_instance.
-      organizations.
-      build(organization_params)
+      @organization = current_link_instance.organizations.build(organization_params)
 
       if @organization.save
         render json: @organization,
-        status: :created,
-        location: api_organization_url(@organization)
+               status: :created,
+               location: api_organization_url(@organization)
       else
         render json: @organization.errors, status: :unprocessable_entity
       end
@@ -62,8 +60,8 @@ module Api
 
       if @organization.save
         render json: @organization,
-        status: :created,
-        location: api_organization_url(@organization)
+               status: :created,
+               location: api_organization_url(@organization)
       else
         render json: @organization.errors, status: :unprocessable_entity
       end
