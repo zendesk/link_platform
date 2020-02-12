@@ -44,7 +44,6 @@ RSpec.describe Api::OrganizationsController, type: :controller do
       ],
       programs: [
         {        
-          organization_id: organization.id,
           name: 'Legal program'
         }
       ],
@@ -56,7 +55,6 @@ RSpec.describe Api::OrganizationsController, type: :controller do
       ],
       services: [
         {
-          organization_id: organization.id,
           name: 'Legal Help',
           status: 'Open'
         }
@@ -82,7 +80,6 @@ RSpec.describe Api::OrganizationsController, type: :controller do
   let(:valid_session) { {} }
 
   before do
-    login admin
     allow_any_instance_of(ApplicationController).
     to receive(:current_link_instance).and_return(link_instance)
   end
@@ -120,29 +117,43 @@ RSpec.describe Api::OrganizationsController, type: :controller do
   end
 
   describe 'POST #create' do
-    context 'with valid params' do
-      it 'creates a new Organization' do
-        expect do
-          post :create, params: { organization: valid_attributes },
-          session: valid_session
-        end.to change(Organization, :count).by(1)
-      end
-
-      it 'renders a JSON response with the new organization' do
-        post :create, params: { organization: valid_attributes },
+    context 'when not logged in' do
+      it 'returns unauthorized' do
+        post :create, params: { organization: valid_full_attributes },
         session: valid_session
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(api_organization_url(Organization.last))
+        expect(response).to have_http_status(401)
       end
     end
 
-    context 'with invalid params' do
-      it 'renders a JSON response with errors for the new organization' do
-        post :create, params: { organization: invalid_attributes },
-        session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+    context 'when logged in' do
+      before do
+        login admin
+      end
+
+      context 'with valid params' do
+        it 'creates a new Organization' do
+          expect do
+            post :create, params: { organization: valid_attributes },
+            session: valid_session
+          end.to change(Organization, :count).by(1)
+        end
+
+        it 'renders a JSON response with the new organization' do
+          post :create, params: { organization: valid_attributes },
+          session: valid_session
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to eq('application/json')
+          expect(response.location).to eq(api_organization_url(Organization.last))
+        end
+      end
+
+      context 'with invalid params' do
+        it 'renders a JSON response with errors for the new organization' do
+          post :create, params: { organization: invalid_attributes },
+          session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
       end
     end
   end
@@ -203,25 +214,39 @@ RSpec.describe Api::OrganizationsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    context 'with valid params' do
-      let(:new_attributes) do
-        {
-          name: 'Canonball'
-        }
+    let(:new_attributes) do
+      {
+        name: 'Canonball'
+      }
+    end
+    
+    context 'when not logged in' do
+      it 'returns unauthorized' do
+        put :update, params: { id: organization.to_param, organization: new_attributes },
+        session: valid_session
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when logged in' do
+      before do
+        login admin
       end
 
-      it 'updates the requested organization' do
-        params = { id: organization.to_param, organization: new_attributes }
-        put :update, params: params, session: valid_session
-        organization.reload
-        expect(organization.name).to eq('Canonball')
-      end
+      context 'with valid params' do
+        it 'updates the requested organization' do
+          params = { id: organization.to_param, organization: new_attributes }
+          put :update, params: params, session: valid_session
+          organization.reload
+          expect(organization.name).to eq('Canonball')
+        end
 
-      it 'renders a JSON response with the organization' do
-        params = { id: organization.to_param, organization: valid_attributes }
-        put :update, params: params, session: valid_session
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        it 'renders a JSON response with the organization' do
+          params = { id: organization.to_param, organization: valid_attributes }
+          put :update, params: params, session: valid_session
+          expect(response).to have_http_status(:ok)
+          expect(response.content_type).to eq('application/json')
+        end
       end
     end
   end

@@ -94,7 +94,7 @@ module Api
 
     def mapped_service_params
       service_params.tap do |mapped_params|
-        # Change the contacts param and inject the link instance id
+        # Change the nested param and inject the link instance id
         ['contacts',
          'eligibilities',
          'regular_schedules',

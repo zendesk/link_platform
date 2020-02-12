@@ -92,7 +92,7 @@ module Api
 
     def mapped_organization_params
       organization_params.tap do |mapped_params|
-        # Change the contacts param and inject the link instance id
+        # Change the nested param and inject the link instance id
         ['contacts',
          'locations',
          'programs',
@@ -112,9 +112,9 @@ module Api
     # Only allow a trusted parameter "white list" through.
     def organization_params
       params.require(:organization).permit(ORGANIZATION_PARAMS, contacts: CONTACT_PARAMS,
-        locations: LOCATION_PARAMS,
-        programs: PROGRAM_PARAMS,
-        services: SERVICE_PARAMS)
+                                                                locations: LOCATION_PARAMS,
+                                                                programs: PROGRAM_PARAMS,
+                                                                services: SERVICE_PARAMS)
     end
   end
 end
