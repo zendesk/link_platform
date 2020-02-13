@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import * as Client from 'link-rest-client'
+import * as Client from '../lib/api-client'
 
 import LocationList from '../components/LocationList'
 
