@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   class ProgramsController < ApiBaseController
     before_action :set_program, only: %i[show update destroy]

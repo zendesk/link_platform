@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   class LocationsController < ApiBaseController
     before_action :set_location, only: %i[show update destroy]
