@@ -58,6 +58,7 @@ module Api
       end
     end
 
+    # POST /api/services/full
     def create_full
       @service = current_link_instance.services.build(mapped_service_params)
 
@@ -93,7 +94,7 @@ module Api
 
     def mapped_service_params
       service_params.tap do |mapped_params|
-        # Change the contacts param and inject the link instance id
+        # Change the nested param and inject the link instance id
         ['contacts',
          'eligibilities',
          'regular_schedules',

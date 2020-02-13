@@ -66,5 +66,30 @@ module Api
       language
       description
     ].freeze
+    ORGANIZATION_PARAMS = %i[
+      name
+      alternate_name
+      description
+      email
+      url
+      tax_status
+      tax_id
+      year_incorporated
+      legal_status
+    ].freeze
+    LOCATION_PARAMS = %i[
+      name
+      alternate_name
+      description
+      transportation
+      latitude
+      longitude
+      organization_id
+    ].freeze
+    PROGRAM_PARAMS = %i[
+      name
+      alternate_name
+      organization_id
+    ].freeze
   end
 end

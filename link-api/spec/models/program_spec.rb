@@ -10,7 +10,7 @@ RSpec.describe Program, type: :model do
   it 'is invalid without an organization' do
     program = FactoryBot.build(:program, organization_id: nil)
     program.valid?
-    expect(program.errors[:organization_id]).to include("can't be blank")
+    expect(program.errors[:organization]).to include("can't be blank")
   end
 
   it 'is invalid without a name' do

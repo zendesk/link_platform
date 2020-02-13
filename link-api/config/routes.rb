@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :languages
     resources :service_at_locations
     resources :services, concerns: :full
-    resources :organizations
+    resources :organizations, concerns: :full
     resources :physical_addresses
     resources :regular_schedules
     resources :taxonomies
