@@ -1,18 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class PostalAddressesController < ApplicationController
-    ALLOWED_PARAMS = %i[
-      location_id
-      attention
-      address_1
-      city
-      region
-      state_province
-      postal_code
-      country
-    ].freeze
-
+  class PostalAddressesController < ApiBaseController
     before_action :set_postal_address, only: %i[show update destroy]
 
     # GET /postal_addresses
@@ -65,7 +54,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def postal_address_params
-      params.require(:postal_address).permit(ALLOWED_PARAMS)
+      params.require(:postal_address).permit(POSTAL_ADDRESS_PARAMS)
     end
   end
 end

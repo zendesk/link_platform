@@ -91,5 +91,25 @@ module Api
       alternate_name
       organization_id
     ].freeze
+    PHYSICAL_ADDRESS_PARAMS = %i[
+      location_id
+      attention
+      address_1
+      city
+      region
+      state_province
+      postal_code
+      country
+    ].freeze
+    POSTAL_ADDRESS_PARAMS = %i[
+      location_id
+      attention
+      address_1
+      city
+      region
+      state_province
+      postal_code
+      country
+    ].freeze
   end
 end
