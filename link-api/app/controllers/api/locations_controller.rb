@@ -19,6 +19,7 @@ module Api
           :physical_addresses,
           :postal_addresses,
           :services,
+          :service_at_locations,
           :regular_schedules,
           :holiday_schedules,
           :languages,
@@ -39,6 +40,7 @@ module Api
           :physical_addresses,
           :postal_addresses,
           :services,
+          :service_at_locations,
           :regular_schedules,
           :holiday_schedules,
           :languages,
@@ -103,6 +105,7 @@ module Api
          ['physical_addresses',
           'postal_addresses',
           'services',
+          'service_at_locations',
           'regular_schedules',
           'holiday_schedules',
           'languages',
@@ -127,6 +130,7 @@ module Api
                                                         holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
                                                         languages: LANGUAGE_PARAMS,
                                                         services: SERVICE_PARAMS,
+                                                        service_at_locations: SERVICE_AT_LOCATION_PARAMS,
                                                         phones: PHONE_PARAMS)
     end
   end

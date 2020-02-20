@@ -43,6 +43,11 @@ RSpec.describe Api::LocationsController, type: :controller do
           status: 'Open'
         }
       ],
+      service_at_locations: [
+        {
+          description: 'lil desc'
+        }
+      ],
       physical_addresses: [
         {
           link_instance_id: link_instance.id,
