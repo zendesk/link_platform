@@ -70,8 +70,6 @@ module Api
                status: :created,
                location: api_location_url(@location)
       else
-        require 'byebug'
-        debugger
         render json: @location.errors, status: :unprocessable_entity
       end
     end
@@ -102,7 +100,7 @@ module Api
         # Change the nested param and inject the link instance id
          ['physical_addresses',
           'postal_addresses',
-          'services',
+          'service_at_locations',
           'regular_schedules',
           'holiday_schedules',
           'languages',
@@ -123,10 +121,10 @@ module Api
     def location_params
       params.require(:location).permit(LOCATION_PARAMS, physical_addresses: PHYSICAL_ADDRESS_PARAMS,
                                                         postal_addresses: POSTAL_ADDRESS_PARAMS,
+                                                        service_at_locations: SERVICE_AT_LOCATION_PARAMS,
                                                         regular_schedules: REGULAR_SCHEDULE_PARAMS,
                                                         holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
                                                         languages: LANGUAGE_PARAMS,
-                                                        services: SERVICE_PARAMS,
                                                         phones: PHONE_PARAMS)
     end
   end
