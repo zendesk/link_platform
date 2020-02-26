@@ -7,15 +7,22 @@ RSpec.describe Api::LocationsController, type: :controller do
   let(:organization) { create(:organization) }
   let(:location) { create(:location, link_instance: link_instance, organization: organization) }
   let(:service) { create(:service, link_instance: link_instance, organization: organization) }
-  let(:service_at_location) { create(:service_at_location, link_instance: link_instance, service: service, location: location) }
-  let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance, location: location) }
-  let(:holiday_schedule) { create(:holiday_schedule, link_instance: link_instance, location: location) }
   let(:language) { create(:language, link_instance: link_instance, location: location) }
   let(:phone) { create(:phone, link_instance: link_instance, location: location) }
-  let(:physical_address) { create(:physical_address, link_instance: link_instance, location: location) }
   let(:postal_address) { create(:postal_address, link_instance: link_instance, location: location) }
-
   let(:admin) { create(:admin, link_instance: link_instance) }
+  let(:physical_address) do
+    create(:physical_address, link_instance: link_instance, location: location)
+  end
+  let(:holiday_schedule) do
+    create(:holiday_schedule, link_instance: link_instance, location: location)
+  end
+  let(:regular_schedule) do
+    create(:regular_schedule, link_instance: link_instance, location: location)
+  end
+  let(:service_at_location) do
+    create(:service_at_location, link_instance: link_instance, service: service, location: location)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Location. As you add validations to Location, be sure to

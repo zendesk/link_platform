@@ -19,8 +19,8 @@ module Api
     # POST /physical_addresses
     def create
       @physical_address = current_link_instance.
-                          physical_addresses.
-                          build(physical_address_params)
+        physical_addresses.
+        build(physical_address_params)
 
       if @physical_address.save
         render json: @physical_address,
@@ -50,8 +50,8 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_physical_address
       @physical_address = current_link_instance.
-                          physical_addresses.
-                          find(params[:id])
+        physical_addresses.
+        find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -121,13 +121,16 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def location_params
-      params.require(:location).permit(LOCATION_PARAMS, physical_addresses: PHYSICAL_ADDRESS_PARAMS,
-                                                        postal_addresses: POSTAL_ADDRESS_PARAMS,
-                                                        service_at_locations: SERVICE_AT_LOCATION_PARAMS,
-                                                        regular_schedules: REGULAR_SCHEDULE_PARAMS,
-                                                        holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
-                                                        languages: LANGUAGE_PARAMS,
-                                                        phones: PHONE_PARAMS)
+      params.require(:location).permit(
+        LOCATION_PARAMS,
+        physical_addresses: PHYSICAL_ADDRESS_PARAMS,
+        postal_addresses: POSTAL_ADDRESS_PARAMS,
+        service_at_locations: SERVICE_AT_LOCATION_PARAMS,
+        regular_schedules: REGULAR_SCHEDULE_PARAMS,
+        holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
+        languages: LANGUAGE_PARAMS,
+        phones: PHONE_PARAMS
+      )
     end
   end
 end

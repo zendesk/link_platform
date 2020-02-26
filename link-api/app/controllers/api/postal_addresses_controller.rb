@@ -19,8 +19,8 @@ module Api
     # POST /postal_addresses
     def create
       @postal_address = current_link_instance.
-                        postal_addresses.
-                        build(postal_address_params)
+        postal_addresses.
+        build(postal_address_params)
 
       if @postal_address.save
         render json: @postal_address,

@@ -25,8 +25,8 @@ module Api
     # POST /api/service_at_locations
     def create
       @service_at_location = current_link_instance.
-                             service_at_locations.
-                             build(service_at_location_params)
+        service_at_locations.
+        build(service_at_location_params)
 
       if @service_at_location.save
         render json: @service_at_location,
@@ -56,8 +56,8 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_service_at_location
       @service_at_location = current_link_instance.
-                             service_at_locations.
-                             find(params[:id])
+        service_at_locations.
+        find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
