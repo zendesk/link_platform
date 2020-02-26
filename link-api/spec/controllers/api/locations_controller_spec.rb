@@ -4,9 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Api::LocationsController, type: :controller do
   let(:link_instance) { create(:link_instance) }
-  let(:location) { create(:location, link_instance: link_instance) }
   let(:organization) { create(:organization) }
-  let(:service) { create(:service, link_instance: link_instance, location: location) }
+  let(:location) { create(:location, link_instance: link_instance, organization: organization) }
+  let(:service) { create(:service, link_instance: link_instance, organization: organization) }
+  let(:service_at_location) { create(:service_at_location, link_instance: link_instance, service: service, location: location) }
   let(:regular_schedule) { create(:regular_schedule, link_instance: link_instance, location: location) }
   let(:holiday_schedule) { create(:holiday_schedule, link_instance: link_instance, location: location) }
   let(:language) { create(:language, link_instance: link_instance, location: location) }
@@ -36,22 +37,14 @@ RSpec.describe Api::LocationsController, type: :controller do
     {
       name: 'Zendesk',
       description: 'Our home',
-      services: [
-        {
-          organization_id: organization.id,
-          name: 'Legal Help',
-          status: 'Open'
-        }
-      ],
       service_at_locations: [
         {
-          description: 'lil desc'
+          service_id: service.id,
+          description: 'Legal Help at Zendesk'
         }
       ],
       physical_addresses: [
         {
-          link_instance_id: link_instance.id,
-          location_id: location.id,
           address_1: '1019 Market',
           city: 'San Francisco',
           state_province: 'CA',
@@ -61,8 +54,6 @@ RSpec.describe Api::LocationsController, type: :controller do
       ],
       postal_addresses: [
         {
-          link_instance_id: link_instance.id,
-          location_id: location.id,
           attention: 'Me',
           address_1: '1019 Market',
           city: 'San Francisco',
@@ -230,7 +221,7 @@ RSpec.describe Api::LocationsController, type: :controller do
                                session: valid_session
           end.to change(Location, :count).by(1).
             and change(PhysicalAddress, :count).by(1).
-            and change(Service, :count).by(1).
+            and change(ServiceAtLocation, :count).by(1).
             and change(RegularSchedule, :count).by(1).
             and change(HolidaySchedule, :count).by(1).
             and change(Language, :count).by(1).
@@ -238,7 +229,6 @@ RSpec.describe Api::LocationsController, type: :controller do
         end
 
         it 'renders a JSON response with the new location' do
-          require 'byebug'
           post :create_full, params: { location: valid_full_attributes },
                              session: valid_session
           expect(response).to have_http_status(:created)

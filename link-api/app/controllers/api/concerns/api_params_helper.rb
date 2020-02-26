@@ -18,6 +18,11 @@ module Api
       accreditations
       licenses
     ].freeze
+    SERVICE_AT_LOCATION_PARAMS = %i[
+      service_id
+      location_id
+      description
+    ].freeze
     CONTACT_PARAMS = %i[
       organization_id
       service_id
@@ -111,10 +116,5 @@ module Api
       postal_code
       country
     ].freeze
-    SERVICE_AT_LOCATION_PARAMS = %i[
-      service_id
-      location_id
-      description
-    ]
   end
 end
