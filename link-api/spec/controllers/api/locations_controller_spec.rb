@@ -20,9 +20,6 @@ RSpec.describe Api::LocationsController, type: :controller do
   let(:regular_schedule) do
     create(:regular_schedule, link_instance: link_instance, location: location)
   end
-  let(:service_at_location) do
-    create(:service_at_location, link_instance: link_instance, service: service, location: location)
-  end
 
   # This should return the minimal set of attributes required to create a valid
   # Location. As you add validations to Location, be sure to
@@ -44,10 +41,11 @@ RSpec.describe Api::LocationsController, type: :controller do
     {
       name: 'Zendesk',
       description: 'Our home',
-      service_at_locations: [
+      services: [
         {
-          service_id: service.id,
-          description: 'Legal Help at Zendesk'
+          organization_id: organization.id,
+          status: 'open',
+          name: 'Legal Help @ Zendesk'
         }
       ],
       physical_addresses: [
@@ -228,11 +226,11 @@ RSpec.describe Api::LocationsController, type: :controller do
                                session: valid_session
           end.to change(Location, :count).by(1).
             and change(PhysicalAddress, :count).by(1).
-            and change(ServiceAtLocation, :count).by(1).
             and change(RegularSchedule, :count).by(1).
             and change(HolidaySchedule, :count).by(1).
             and change(Language, :count).by(1).
-            and change(Phone, :count).by(1)
+            and change(Phone, :count).by(1).
+            and change(ServiceAtLocation, :count).by(1)
         end
 
         it 'renders a JSON response with the new location' do

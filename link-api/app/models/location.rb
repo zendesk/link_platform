@@ -15,7 +15,7 @@ class Location < ApplicationRecord
   accepts_nested_attributes_for :regular_schedules, allow_destroy: true
   accepts_nested_attributes_for :holiday_schedules, allow_destroy: true
   accepts_nested_attributes_for :languages, allow_destroy: true
-  accepts_nested_attributes_for :service_at_locations
+  accepts_nested_attributes_for :services
   accepts_nested_attributes_for :phones, allow_destroy: true
   accepts_nested_attributes_for :physical_addresses, allow_destroy: true
   accepts_nested_attributes_for :postal_addresses, allow_destroy: true

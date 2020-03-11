@@ -38,7 +38,7 @@ module Api
         [
           :physical_addresses,
           :postal_addresses,
-          :service_at_locations,
+          :services,
           :regular_schedules,
           :holiday_schedules,
           :languages,
@@ -100,10 +100,10 @@ module Api
         # Change the nested param and inject the link instance id
         ['physical_addresses',
          'postal_addresses',
-         'service_at_locations',
          'regular_schedules',
          'holiday_schedules',
          'languages',
+         'services',
          'phones'].each do |key|
           next unless mapped_params.key?(key)
 
@@ -123,7 +123,7 @@ module Api
         LOCATION_PARAMS,
         physical_addresses: PHYSICAL_ADDRESS_PARAMS,
         postal_addresses: POSTAL_ADDRESS_PARAMS,
-        service_at_locations: SERVICE_AT_LOCATION_PARAMS,
+        services: SERVICE_PARAMS,
         regular_schedules: REGULAR_SCHEDULE_PARAMS,
         holiday_schedules: HOLIDAY_SCHEDULE_PARAMS,
         languages: LANGUAGE_PARAMS,
