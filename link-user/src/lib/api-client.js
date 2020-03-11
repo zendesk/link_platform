@@ -4,9 +4,9 @@ const api = path => `/api/${path}`
 
 const urls = {
   organizations: api('organizations'),
-  organization: id => api(`organization/${id}`),
+  organization: id => api(`organizations/${id}`),
   locations: api('locations'),
-  location: id => api(`location/${id}`),
+  location: id => api(`locations/${id}`),
 }
 
 const toMap = promise => {
@@ -18,14 +18,8 @@ const toMap = promise => {
 const toJson = x => x.json()
 
 export const init = () => ({
-  organizations: new RemoteData({
-    url: urls.organizations,
-    parse: response => toMap(toJson(response)),
-  }),
-  locations: new RemoteData({
-    url: urls.locations,
-    parse: response => toMap(toJson(response)),
-  }),
+  organizations: [],
+  locations: []
 })
 
 const actionTypes = {
@@ -120,7 +114,10 @@ export const organization = {
 }
 
 export const locations = {
-  fetch: state => state.locations.fetch(),
+  data: new RemoteData({
+    url: urls.locations,
+    parse: response => toMap(toJson(response)),
+  }),
   fetchSuccess: locations => ({
     type: actionTypes.FETCH_LOCATIONS_SUCCESS,
     locations
@@ -128,6 +125,20 @@ export const locations = {
   fetchFailed: err => ({
     type: actionTypes.FETCH_LOCATIONS_FAILED,
     err
+  })
+}
+
+export const location = {
+  data: id => new RemoteData({
+    url: urls.location(id),
+    parse: response => toJson(response),
   }),
-  all: state => state.locations
+  fetchSuccess: locations => ({
+    type: actionTypes.FETCH_LOCATIONS_SUCCESS,
+    locations
+  }),
+  fetchFailed: err => ({
+    type: actionTypes.FETCH_LOCATIONS_FAILED,
+    err
+  })
 }

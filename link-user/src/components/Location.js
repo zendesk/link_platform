@@ -394,7 +394,7 @@ const Location = props => {
 			<Section>
 				<NameHeader>{location.name}</NameHeader>
 				<LabelText>Welcome: </LabelText>
-				{getEligibility(getAllGendersAndAges(services))}
+				//{getEligibility(getAllGendersAndAges(services))}
 			</Section>
 			<ParagraphTitle>Services</ParagraphTitle>
 			<Section>
