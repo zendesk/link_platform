@@ -26,7 +26,6 @@ Rails.application.routes.draw do
     resources :programs
     resources :holiday_schedules
     resources :languages
-    resources :service_at_locations
     resources :services, concerns: :full
     resources :organizations, concerns: :full
     resources :physical_addresses

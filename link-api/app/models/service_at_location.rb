@@ -10,6 +10,6 @@ class ServiceAtLocation < ApplicationRecord
   private
 
   def inherit_link_instance
-    self.link_instance_id = service.link_instance_id
+    self.link_instance_id = service.link_instance_id if service.present?
   end
 end
