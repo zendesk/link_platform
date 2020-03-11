@@ -18,7 +18,7 @@ module Api
         [
           :physical_addresses,
           :postal_addresses,
-          :service_at_locations,
+          :services,
           :regular_schedules,
           :holiday_schedules,
           :languages,
