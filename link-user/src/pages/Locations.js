@@ -8,8 +8,10 @@ const renderError = error => <p>{`${error}`}</p>
 class LocationsPage extends Component {
   constructor() {
     super()
-    this.state.cache = Client.init()
-    this.state.locationsData = Client.locations.data
+    this.state = {
+      cache: Client.init(),
+      locationsData: Client.locations.data
+    }
   }
 
   componentWillMount() {
@@ -35,7 +37,7 @@ class LocationsPage extends Component {
   }
 
   render(props, state) {
-    const { cache, locationsData } = this.state
+    const { locationsData } = this.state
 
     return locationsData.case({
       NotAsked: () => 'Initializing...',

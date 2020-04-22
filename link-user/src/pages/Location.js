@@ -8,22 +8,22 @@ import * as Client from '../lib/api-client'
 
 // TODO: remove mock data
 const organization = {
-	id: '1',
+    id: '1',
     longDescription: 'This is such a great organization',
     name: 'Great Org',
     phones: [],
     url: '',
 };
 
-const renderError = error => <p>{`${error}`}</p>
 
 class LocationPage extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-
-    this.state.locationData = Client.location.data(props.id)
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      cache: Client.init(),
+      locationData: Client.location.data(props.id)
+    };
+  }
 
   componentWillMount() {
     const { locationData } = this.state
@@ -43,8 +43,9 @@ class LocationPage extends Component {
       })
   }
 
-	render(props, state) {
+  render(props, state) {
     const { locationData } = this.state
+    const renderError = error => <p>{`${error}`}</p>
 
     return locationData.case({
       NotAsked: () => 'Initializing...',
@@ -56,6 +57,6 @@ class LocationPage extends Component {
       ),
       Failure: renderError,
     })
-	}
+  }
 };
 export default LocationPage;
