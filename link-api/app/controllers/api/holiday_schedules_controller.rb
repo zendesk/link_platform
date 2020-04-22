@@ -19,8 +19,8 @@ module Api
     # POST /holiday_schedules
     def create
       @holiday_schedule = current_link_instance.
-                          holiday_schedules.
-                          build(holiday_schedule_params)
+        holiday_schedules.
+        build(holiday_schedule_params)
 
       if @holiday_schedule.save
         render json: @holiday_schedule,
@@ -50,8 +50,8 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_holiday_schedule
       @holiday_schedule = current_link_instance.
-                          holiday_schedules.
-                          find(params[:id])
+        holiday_schedules.
+        find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

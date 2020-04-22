@@ -14,6 +14,12 @@ Style/Documentation:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
 Layout/DotPosition:
   EnforcedStyle: trailing
 
@@ -39,3 +45,9 @@ Layout/ArgumentAlignment:
 
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented

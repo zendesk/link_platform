@@ -10,6 +10,8 @@ class Service < ApplicationRecord
   has_many :holiday_schedules
   has_many :languages
   has_many :phones
+  has_many :service_at_locations
+  has_many :locations, through: :service_at_locations
 
   accepts_nested_attributes_for :contacts, allow_destroy: true
   accepts_nested_attributes_for :eligibilities, allow_destroy: true

@@ -19,8 +19,8 @@ module Api
     # POST /regular_schedules
     def create
       @regular_schedule = current_link_instance.
-                          regular_schedules.
-                          build(regular_schedule_params)
+        regular_schedules.
+        build(regular_schedule_params)
 
       if @regular_schedule.save
         render json: @regular_schedule,
@@ -50,8 +50,8 @@ module Api
     # Use callbacks to share common setup or constraints between actions.
     def set_regular_schedule
       @regular_schedule = current_link_instance.
-                          regular_schedules.
-                          find(params[:id])
+        regular_schedules.
+        find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

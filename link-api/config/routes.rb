@@ -20,13 +20,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :contacts
-    resources :locations
+    resources :locations, concerns: :full
     resources :phones
     resources :postal_addresses
     resources :programs
     resources :holiday_schedules
     resources :languages
-    resources :service_at_locations
     resources :services, concerns: :full
     resources :organizations, concerns: :full
     resources :physical_addresses

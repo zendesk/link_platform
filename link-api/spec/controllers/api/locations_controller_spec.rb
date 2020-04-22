@@ -4,8 +4,22 @@ require 'rails_helper'
 
 RSpec.describe Api::LocationsController, type: :controller do
   let(:link_instance) { create(:link_instance) }
-  let(:location) { create(:location, link_instance: link_instance) }
+  let(:organization) { create(:organization) }
+  let(:location) { create(:location, link_instance: link_instance, organization: organization) }
+  let(:service) { create(:service, link_instance: link_instance, organization: organization) }
+  let(:language) { create(:language, link_instance: link_instance, location: location) }
+  let(:phone) { create(:phone, link_instance: link_instance, location: location) }
+  let(:postal_address) { create(:postal_address, link_instance: link_instance, location: location) }
   let(:admin) { create(:admin, link_instance: link_instance) }
+  let(:physical_address) do
+    create(:physical_address, link_instance: link_instance, location: location)
+  end
+  let(:holiday_schedule) do
+    create(:holiday_schedule, link_instance: link_instance, location: location)
+  end
+  let(:regular_schedule) do
+    create(:regular_schedule, link_instance: link_instance, location: location)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Location. As you add validations to Location, be sure to
@@ -19,6 +33,70 @@ RSpec.describe Api::LocationsController, type: :controller do
 
   let(:invalid_attributes) do
     {
+      longitude: -181.01
+    }
+  end
+
+  let(:valid_full_attributes) do
+    {
+      name: 'Zendesk',
+      description: 'Our home',
+      services: [
+        {
+          organization_id: organization.id,
+          status: 'open',
+          name: 'Legal Help @ Zendesk'
+        }
+      ],
+      physical_addresses: [
+        {
+          address_1: '1019 Market',
+          city: 'San Francisco',
+          state_province: 'CA',
+          postal_code: '94103',
+          country: 'USA'
+        }
+      ],
+      postal_addresses: [
+        {
+          attention: 'Me',
+          address_1: '1019 Market',
+          city: 'San Francisco',
+          region: 'Bay Area',
+          state_province: 'CA',
+          postal_code: '94103',
+          country: 'USA'
+        }
+      ],
+      regular_schedules: [
+        {
+          weekday: 2
+        }
+      ],
+      holiday_schedules: [
+        {
+          closed: false,
+          start_date: '2018-01-01',
+          end_date: '2018-12-31'
+        }
+      ],
+      languages: [
+        {
+          language: 'en'
+        }
+      ],
+      phones: [
+        {
+          number: '+1 415 123-4567'
+        }
+      ]
+    }
+  end
+
+  let(:invalid_full_attributes) do
+    {
+      name: 'Zendesk',
+      description: 'Our home',
       longitude: -181.01
     }
   end
@@ -40,9 +118,27 @@ RSpec.describe Api::LocationsController, type: :controller do
     end
   end
 
+  describe 'GET #full' do
+    before { create(:location, link_instance: link_instance) }
+
+    it 'returns a success response' do
+      get :full, params: {}, session: valid_session
+      expect(response).to be_successful
+    end
+  end
+
   describe 'GET #show' do
     it 'returns a success response' do
       get :show, params: { id: location.to_param }, session: valid_session
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #show_full' do
+    let(:location) { create(:location, link_instance: link_instance) }
+
+    it 'returns a success response' do
+      get :show_full, params: { id: location.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -92,6 +188,64 @@ RSpec.describe Api::LocationsController, type: :controller do
         it 'renders a JSON response with errors for the new location' do
           post :create, params: { location: invalid_attributes },
                         session: valid_session
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.content_type).to eq('application/json')
+        end
+      end
+    end
+  end
+
+  describe 'POST #create_full' do
+    context 'when not logged in' do
+      it 'returns unauthorized' do
+        post :create_full, params: { location: valid_full_attributes },
+                           session: valid_session
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when logged in to another instance' do
+      it 'returns not found' do
+        login create(:admin)
+
+        post :create_full, params: { location: valid_full_attributes },
+                           session: valid_session
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'when logged in' do
+      before do
+        login admin
+      end
+
+      context 'with valid params' do
+        it 'creates a new Location' do
+          expect do
+            post :create_full, params: { location: valid_full_attributes },
+                               session: valid_session
+          end.to change(Location, :count).by(1).
+            and change(PhysicalAddress, :count).by(1).
+            and change(RegularSchedule, :count).by(1).
+            and change(HolidaySchedule, :count).by(1).
+            and change(Language, :count).by(1).
+            and change(Phone, :count).by(1).
+            and change(ServiceAtLocation, :count).by(1)
+        end
+
+        it 'renders a JSON response with the new location' do
+          post :create_full, params: { location: valid_full_attributes },
+                             session: valid_session
+          expect(response).to have_http_status(:created)
+          expect(response.content_type).to eq('application/json')
+          expect(response.location).to eq(api_location_url(Location.last))
+        end
+      end
+
+      context 'with invalid params' do
+        it 'renders a JSON response with errors for the new service' do
+          post :create_full, params: { location: invalid_full_attributes },
+                             session: valid_session
           expect(response).to have_http_status(:unprocessable_entity)
           expect(response.content_type).to eq('application/json')
         end
