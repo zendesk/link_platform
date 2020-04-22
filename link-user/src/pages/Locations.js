@@ -8,17 +8,21 @@ const renderError = error => <p>{`${error}`}</p>
 class LocationsPage extends Component {
   constructor() {
     super()
-    this.state.cache = Client.init()
+    this.state = {
+      cache: Client.init(),
+      locationsData: Client.locations.data
+    }
   }
 
   componentWillMount() {
-    const { cache } = this.state
+    const { cache, locationsData } = this.state
     const self = this
 
-    Client.locations
-      .fetch(cache)
+      locationsData
+      .fetch()
       .then(locations => {
         self.setState({
+          locationsData: locations,
           cache: Client.updateCache(
             cache,
             Client.locations.fetchSuccess(locations)
@@ -33,8 +37,7 @@ class LocationsPage extends Component {
   }
 
   render(props, state) {
-    const { cache } = state
-    const locationsData = Client.locations.all(cache)
+    const { locationsData } = this.state
 
     return locationsData.case({
       NotAsked: () => 'Initializing...',
