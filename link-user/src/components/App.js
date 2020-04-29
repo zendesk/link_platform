@@ -1,3 +1,4 @@
+import 'preact/debug';
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import { createRenderer } from 'fela';

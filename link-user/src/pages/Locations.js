@@ -17,7 +17,7 @@ class LocationsPage extends Component {
   componentWillMount() {
     const { cache, locationsData } = this.state
     const self = this
-
+    
       locationsData
       .fetch()
       .then(locations => {
