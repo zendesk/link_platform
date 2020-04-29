@@ -2,8 +2,6 @@
 
 ## Development
 
-1. Check out `link_platform`
-1. `cd link-admin`
 1. `npm install`
 1. add `DANGEROUSLY_DISABLE_HOST_CHECK=true` to `.env.development.local`
 1. `npm start`

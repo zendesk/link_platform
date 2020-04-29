@@ -12,7 +12,7 @@
     
     `brew services start postgresql`
 
-1. Create and migrate the database: `bundle exec rake db:create db:migrate db:seed`.
+1. Create and migrate the database: `bundle exec rake db:create db:migrate db:seed` or `bundle exec rake db:drop db:setup db:seed`.
 1. Open `/etc/hosts` with your favorite text editor (you probably need to sudo), and add `127.0.0.1 blomp.localhost` to the list of host aliases.
 1. Start your server: `bundle exec rails server`.
 1. Go to [http://blomp.localhost:3000](http://blomp.localhost:3000)
@@ -20,6 +20,8 @@
     It's a platform, so you can make your own "instance", say _chadradwell_, and go to [http://chadradwell.localhost:3000](http://chadradwell.localhost:3000)
 
 ## Troubleshooting
+
+If you run into issues with `bundle install`, then visit the [bundle troubleshooting page](https://bundler.io/blog/2019/05/14/solutions-for-cant-find-gem-bundler-with-executable-bundle.html).
 
 You may run into an issue with `rake db:*` tasks due to databases being a big mutable global variable. Keep calm, trust
 no state, and try `bundle exec rake db:drop`.
