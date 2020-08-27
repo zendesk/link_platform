@@ -2,17 +2,25 @@
   "name": "link-admin",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "dependencies": {
     "@zendeskgarden/react-breadcrumbs": "^6.0.1",
     "@zendeskgarden/react-buttons": "^6.0.2",
+    "@zendeskgarden/react-forms": "^6.0.1",
     "@zendeskgarden/react-grid": "^6.0.1",
     "@zendeskgarden/react-menus": "^4.3.8",
     "@zendeskgarden/react-tables": "^6.0.1",
     "@zendeskgarden/react-tabs": "^6.0.1",
     "@zendeskgarden/react-tags": "^6.0.1",
-    "@zendeskgarden/react-forms": "^6.0.1",
     "@zendeskgarden/react-theming": "^6.0.1",
-    "axios": "^0.18.0",
+    "axios": "^0.20.0",
     "connected-react-router": "^6.3.2",
     "fela": "^10.2.2",
     "global": "^4.3.2",
@@ -28,14 +36,6 @@
     "redux": "^4.0.1",
     "redux-loop": "^4.5.4",
     "styled-components": "^4.3.2"
-  },
-  "scripts": {
-    "start": "PORT=3001 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.1.11",
