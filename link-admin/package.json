@@ -34,8 +34,7 @@
     "react-router": "^4.3.1",
     "react-scripts": "^3.0.1",
     "redux": "^4.0.1",
-    "redux-loop": "^4.5.4",
-    "styled-components": "^4.3.2"
+    "redux-loop": "^4.5.4"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.1.11",
