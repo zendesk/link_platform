@@ -5,18 +5,62 @@ import partial from 'lodash/partial'
 import Tables from '@zendeskgarden/react-tables'
 import OverflowMenu from './OverflowMenu'
 
-const { Head, HeaderRow, HeaderCell, Cell } = Tables
+const OrganizationList = ({ organizations, onSelectEdit, onSelectDelete }) => (
+  <Tables.Table>
 
-const Header = () => (
-  <Head>
-    <HeaderRow>
-      <HeaderCell width="50%">Name</HeaderCell>
-      <HeaderCell width="25%">URL</HeaderCell>
-      <HeaderCell width="25%">Updated</HeaderCell>
-      <HeaderCell menu />
-    </HeaderRow>
-  </Head>
+    <Tables.Head>
+      <Tables.HeaderRow>
+        <Tables.HeaderCell width="50%">Name</Tables.HeaderCell>
+        <Tables.HeaderCell width="25%">URL</Tables.HeaderCell>
+        <Tables.HeaderCell width="25%">Updated</Tables.HeaderCell>
+        <Tables.HeaderCell menu />
+      </Tables.HeaderRow>
+    </Tables.Head>
+    
+    <Tables.Body>
+      {organizations.map(organization => (
+        <Row
+          key={ organization.id }
+          organization={ organization }
+          onEdit={ onSelectEdit }
+          onDelete={ onSelectDelete }
+        />
+      ))}
+    </Tables.Body>
+
+  </Tables.Table>
 )
+
+const Row = ({ organization, onEdit, onDelete }) => {
+  const onEditOrganization = partial(onEdit, organization)
+  const onDeleteOrganization = partial(onDelete, organization)
+
+  return (
+    <Tables.Row>
+      <Tables.Cell width="50%" onClick={ onEditOrganization }>
+        { organization.name }
+      </Tables.Cell>
+      <Tables.Cell width="25%" onClick={ onEditOrganization }>
+        { organization.url }
+      </Tables.Cell>
+      <Tables.Cell width="25%" onClick={ onEditOrganization }>
+        { organization.updatedAt }
+      </Tables.Cell>
+      <Tables.Cell menu>
+        <OverflowMenuPadding>
+          <OverflowMenu
+            onSelectItem={ partial(
+              onMenuChange,
+              onEditOrganization,
+              onDeleteOrganization
+            ) }
+            menuItems={ overflowItems() }
+          />
+        </OverflowMenuPadding>
+      </Tables.Cell>
+    </Tables.Row>
+  )
+}
 
 const EDIT_ITEM = 'overflow-edit'
 const DELETE_ITEM = 'overflow-delete'
@@ -50,61 +94,6 @@ const onMenuChange = (onEdit, onDelete, selectedKey) => {
 const OverflowMenuPadding = createComponent(() => ({
   paddingEnd: '4px',
 }))
-
-const Row = ({ organization, onEdit, onDelete }) => {
-  const onEditOrganization = partial(onEdit, organization)
-  const onDeleteOrganization = partial(onDelete, organization)
-
-  return (
-    <Tables.Row>
-      <Cell width="50%" onClick={onEditOrganization}>
-        {organization.name}
-      </Cell>
-      <Cell width="25%" onClick={onEditOrganization}>
-        {organization.url}
-      </Cell>
-      <Cell width="25%" onClick={onEditOrganization}>
-        {organization.updatedAt}
-      </Cell>
-      <Cell menu>
-        <OverflowMenuPadding>
-          <OverflowMenu
-            onSelectItem={partial(
-              onMenuChange,
-              onEditOrganization,
-              onDeleteOrganization
-            )}
-            menuItems={overflowItems()}
-          />
-        </OverflowMenuPadding>
-      </Cell>
-    </Tables.Row>
-  )
-}
-
-const Body = ({ organizations, onSelectEdit, onSelectDelete }) => (
-  <Tables.Body>
-    {organizations.map(organization => (
-      <Row
-        key={organization.id}
-        organization={organization}
-        onEdit={onSelectEdit}
-        onDelete={onSelectDelete}
-      />
-    ))}
-  </Tables.Body>
-)
-
-const OrganizationList = ({ organizations, onSelectEdit, onSelectDelete }) => (
-  <Tables.Table>
-    <Header />
-    <Body
-      organizations={organizations}
-      onSelectEdit={onSelectEdit}
-      onSelectDelete={onSelectDelete}
-    />
-  </Tables.Table>
-)
 
 OrganizationList.propTypes = {
   organizations: PropTypes.array.isRequired,
