@@ -25,7 +25,7 @@
     "fela": "^11.3.1",
     "global": "^4.3.2",
     "link-rest-client": "file:../link-rest-client",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -44,7 +44,7 @@
     "@storybook/react": "^6.0.21",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
-    "prettier": "^1.16.4",
+    "prettier": "^2.1.1",
     "react-test-renderer": "^16.8.6",
     "redux-devtools": "^3.6.1"
   },
