@@ -15,39 +15,39 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "eslintConfig": {
-    "extends": "eslint-config-synacor"
-  },
-  "eslintIgnore": [
-    "build/*"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@storybook/addon-actions": "^5.1.11",
-    "@storybook/addon-links": "^5.1.11",
-    "@storybook/addons": "^5.1.11",
-    "@storybook/preact": "^5.1.11",
-    "babel-loader": "^8.0.6",
-    "eslint-config-synacor": "^2.0.2",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.8.0",
-    "per-env": "^1.0.2",
-    "preact-cli": "^2.1.0",
-    "preact-render-spy": "^1.2.1",
-    "prettier": "^1.18.2"
-  },
   "dependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^5.0.0",
     "fela": "^11.3.0",
     "preact": "^10.4.1",
-    "preact-context": "^1.1.3",
+    "preact-context": "^1.1.4",
     "preact-fela": "^11.3.0",
     "preact-render-to-string": "^5.1.6",
     "preact-router": "^3.2.1",
     "prop-types": "^15.7.2",
     "remote-data-js": "^0.3.0"
   },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/addons": "^6.0.21",
+    "@storybook/preact": "^6.0.21",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-synacor": "^3.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.4.2",
+    "per-env": "^1.0.2",
+    "preact-cli": "^3.0.1",
+    "preact-render-spy": "^1.2.1",
+    "prettier": "^2.1.1"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-synacor"
+  },
+  "eslintIgnore": [
+    "build/*"
+  ],
   "jest": {
     "verbose": true,
     "setupFiles": [
