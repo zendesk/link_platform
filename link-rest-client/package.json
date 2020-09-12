@@ -1,10 +1,10 @@
 {
   "name": "link-rest-client",
   "version": "1.0.0",
+  "private": true,
   "description": "Fetch Link data from JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",

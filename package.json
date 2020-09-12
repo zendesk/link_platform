@@ -1,0 +1,30 @@
+{
+  "name": "link_platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A SaaS application for linking community services to end users",
+  "scripts": {
+    "start:admin": "foreman start -f Procfile.dev-admin",
+    "start:user": "foreman start -f Procfile.dev-user",
+    "start:all": "foreman start -f Procfile.dev-all"
+  },
+  "workspaces": [
+    "link-admin",
+    "link-api",
+    "link-rest-client",
+    "link-user"
+  ],
+  "directories": {
+    "doc": "doc"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zendesk/link_platform.git"
+  },
+  "homepage": "https://github.com/zendesk/link_platform#readme",
+  "bugs": {
+    "url": "https://github.com/zendesk/link_platform/issues"
+  }
+}

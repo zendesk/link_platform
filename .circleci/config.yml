@@ -40,25 +40,25 @@ jobs:
   link-admin:
     working_directory: ~/link_platform/link-admin
     docker:
-      - image: circleci/node:8-stretch-browsers
+      - image: circleci/node:14.9-stretch-browsers
     steps:
       - checkout:
           path: ~/link_platform
       - restore_cache:
           keys:
-          - v1-js-admin-dependencies-{{ checksum "package-lock.json" }}
+          - v1-js-admin-dependencies-{{ checksum "../yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
           - v1-js-admin-dependencies-
       - run:
           name: install dependencies
-          command: cd ../link-rest-client && npm install && cd ../link-admin && npm install
+          command: cd .. && yarn install --ignore-engines
       - save_cache:
           paths:
             - ./node_modules
-          key: v1-js-dependencies-{{ checksum "package-lock.json" }}
+          key: v1-js-dependencies-{{ checksum "../yarn.lock" }}
       - run:
           name: run javascript tests
-          command: npm test
+          command: yarn test
 
   # link-user:
   #   working_directory: ~/link_platform/link-user
