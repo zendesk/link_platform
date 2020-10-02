@@ -96,10 +96,9 @@ export const organizations = {
 }
 
 export const organization = {
-  fetch: (state, id) => () =>
-        new RemoteData({
-          url: urls.organization(id),
-        }),
+  fetch: (state, id) => () => new RemoteData({
+    url: urls.organization(id),
+  }),
   fetchSuccess: organization => ({
     type: actionTypes.FETCH_ORGANIZATION_SUCCESS,
     organization,
@@ -113,10 +112,11 @@ export const organization = {
     ? new RemoteData({ state: 'REMOTE_DATA_SUCCESS', stateData: state.organizations.data[id] })
     : null
   },
-  locations: (id, state) =>
-    state.locations.filter(location =>
+  locations: (id, state) => (
+    state.locations.filter(location => (
       state.organizations[id].locations.includes(location.id)
-    ),
+    ))
+  ),
 }
 
 export const locations = {

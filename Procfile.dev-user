@@ -1,0 +1,4 @@
+api: sh -c 'cd link-api && rails server -b 127.0.0.1 -p 3000'
+
+client: yarn workspace link-user start
+storybook: yarn workspace link-user storybook
