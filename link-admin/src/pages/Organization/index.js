@@ -4,10 +4,11 @@ import OrganizationDetails from './components/OrganizationDetails'
 import LocationsTable from './components/OrganizationLocations'
 import { Breadcrumb, Item } from '@zendeskgarden/react-breadcrumbs'
 import { Anchor } from '@zendeskgarden/react-buttons'
+import { Span } from '@zendeskgarden/react-typography';
 import * as Client from 'link-rest-client'
 
 //Tabs tools
-import { Tabs, TabPanel } from '@zendeskgarden/react-tabs'
+import { Tabs, TabList, TabPanel, Tab } from '@zendeskgarden/react-tabs'
 
 const Loading = () => <div>Loading...</div>
 
@@ -23,21 +24,29 @@ const Organization = ({ fetchOrganization, cache, match, goToTab }) => {
     <>
       <Breadcrumb>
         <Anchor href="/">Home</Anchor>
-        <Item>Organization</Item>
+        <Span>Organization</Span>
       </Breadcrumb>
-      <Tabs selectedKey={tabs.active} onChange={tabs.handleChange}>
-        <TabPanel label="Details" key="details">
-          {organizationId
+
+      <Tabs selectedItem={ tabs.active } onChange={ tabs.handleChange }>
+        <TabList>
+          <Tab item="details">Details</Tab>
+          <Tab item="locations">Locations</Tab>
+        </TabList>
+
+        <TabPanel item="details">
+          { organizationId
             ? existing(
-                Client.organization.find(cache, organizationId),
-                fetchOrganization,
-                organizationId
-              )
-            : newOrg}
+              Client.organization.find(cache, organizationId),
+              fetchOrganization,
+              organizationId
+            )
+            : newOrg }
         </TabPanel>
-        <TabPanel label="Locations" key="locations">
+
+        <TabPanel item="locations">
           <LocationsTable />
         </TabPanel>
+
       </Tabs>
     </>
   )
@@ -48,7 +57,7 @@ const DEFAULT_ORGANIZATION = {
   description: '',
 }
 
-const newOrg = <OrganizationDetails organization={DEFAULT_ORGANIZATION} />
+const newOrg = <OrganizationDetails organization={ DEFAULT_ORGANIZATION } />
 
 const existing = (organizationData, fetchOrg, organizationId) => {
   if (!organizationData) {
@@ -62,7 +71,7 @@ const existing = (organizationData, fetchOrg, organizationId) => {
     Success: organization => (
       <OrganizationDetails organization={organization} />
     ),
-    Failure: error => <p>{`${error}`}</p>,
+    Failure: error => <p>{ `${error}` }</p>,
   })
 }
 

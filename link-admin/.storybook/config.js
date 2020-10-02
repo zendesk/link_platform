@@ -1,11 +1,10 @@
 import React from 'react'
-import { Provider as FelaProvider } from 'react-fela'
+import { RendererProvider as FelaProvider } from 'react-fela'
 import { configure, addDecorator } from '@storybook/react'
 
 import { createRenderer } from 'fela'
 
 import '../src/index.css'
-import '../src/utils/globalStyles'
 
 const renderer = createRenderer()
 

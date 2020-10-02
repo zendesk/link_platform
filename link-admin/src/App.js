@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Provider } from 'react-redux'
-import { Provider as FelaProvider } from 'react-fela'
+import { RendererProvider as FelaProvider } from 'react-fela'
 import { createRenderer } from 'fela'
 
 import { ConnectedRouter } from 'connected-react-router'
