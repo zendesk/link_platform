@@ -9,14 +9,14 @@ import organizations from './organizations'
 const history = createBrowserHistory()
 
 const reducer = combineReducers({
-	router: connectRouter(history),
-	landing,
-	organizations
+  router: connectRouter(history),
+  landing,
+  organizations
 })
 
 const store = configureStore({
-	reducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(routerMiddleware(history))
+  reducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(routerMiddleware(history))
 })
 
 export default store

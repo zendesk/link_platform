@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { STATUS } from 'link-rest-client/api'
 import { fetchOrganization } from 'store/organizations'
 
-import { Span } from '@zendeskgarden/react-typography';
+import { Span } from '@zendeskgarden/react-typography'
 import DataDependentComponent from 'components/DataDependentComponent'
 import OrganizationTabs from './Tabs'
 

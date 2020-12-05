@@ -75,15 +75,15 @@ const overflowItems = () => [
     key: EDIT_ITEM,
     label: 'edit',
     isDisabled: false,
-    isDanger: false,
+    isDanger: false
   },
   {
     type: 'item',
     key: DELETE_ITEM,
     label: 'delete',
     isDisabled: false,
-    isDanger: false,
-  },
+    isDanger: false
+  }
 ]
 
 const onMenuChange = (onEdit, onDelete, selectedKey) => {

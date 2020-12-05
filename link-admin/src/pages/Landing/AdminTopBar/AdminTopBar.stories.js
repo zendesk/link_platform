@@ -6,20 +6,20 @@ import * as Taxonomy from '../Taxonomy'
 import AdminTopBar from '.'
 
 export const actions = {
-  addNewOrganization: action('addNew'),
+  addNewOrganization: action('addNew')
 }
 
 const selectedTaxonomies = [1]
 
 const tags = Taxonomy.all.map((taxonomy, index) => (
   <Taxonomy.Tag
-    key={taxonomy.id}
-    onClick={action('clicked tag')}
-    isActive={selectedTaxonomies.includes(taxonomy.id)}
+    key={ taxonomy.id }
+    onClick={ action('clicked tag') }
+    isActive={ selectedTaxonomies.includes(taxonomy.id) }
     taxonomy={{ index, ...taxonomy }}
   />
 ))
 
 storiesOf('AdminTopBar', module).add('default', () => (
-  <AdminTopBar tags={tags} {...actions} />
+  <AdminTopBar tags={ tags } { ...actions } />
 ))

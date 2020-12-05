@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Loading = () => {
-	return (
-		<div>
+  return (
+    <div>
 			Loading...
-		</div>
-	)
+    </div>
+  )
 }
 
 export default Loading

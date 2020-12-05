@@ -11,7 +11,7 @@ export const update = (state, action) => {
         state,
         Cmd.run(Client.organization.fetch(state.cache, action.id), {
           successActionCreator: Client.organization.fetchSuccess,
-          failActionCreator: Client.organization.fetchFailed,
+          failActionCreator: Client.organization.fetchFailed
         })
       )
     default:

@@ -11,6 +11,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import store, { history } from 'store'
 import Router from 'router'
 
+console.log({ styledTheme })
+
 const App = () => (
   <Provider store={ store }>
     <StyledThemeProvider theme={ styledTheme }>

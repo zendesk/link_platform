@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import { shallow as enzymeShallow } from 'enzyme';
-import { createRenderer } from 'fela';
+import PropTypes from 'prop-types'
+import { shallow as enzymeShallow } from 'enzyme'
+import { createRenderer } from 'fela'
 
 export const shallow = (node, options = {}) => {
-  const renderer = createRenderer();
+  const renderer = createRenderer()
 
   const component = enzymeShallow(node, {
     context: {
-      renderer,
+      renderer
     },
-    ...options,
-  });
+    ...options
+  })
 
-  return component;
-};
+  return component
+}

@@ -18,18 +18,18 @@ const AdminTopBar = ({ tags }) => {
     <AdminTopBarContainer>
       <Row>
         <SearchBarContainer>
-          <SailorImage src={sailor} />
+          <SailorImage src={ sailor } />
           <Field>
             <Input
-              placeholder={strings.AdminTopBar_SearchPlaceholder}
-              aria-label={strings.AdminTopBar_SearchPlaceholder}
+              placeholder={ strings.AdminTopBar_SearchPlaceholder }
+              aria-label={ strings.AdminTopBar_SearchPlaceholder }
             />
           </Field>
         </SearchBarContainer>
-        <Spacer space={'2.2'} />
-        <NewButton onClick={ () => navigate('/organizations/new') }>{strings.AdminTopBar_NewButton}</NewButton>
+        <Spacer space={ '2.2' } />
+        <NewButton onClick={ () => navigate('/organizations/new') }>{ strings.AdminTopBar_NewButton }</NewButton>
       </Row>
-      <Padded>{tags}</Padded>
+      <Padded>{ tags }</Padded>
     </AdminTopBarContainer>
   )
 }

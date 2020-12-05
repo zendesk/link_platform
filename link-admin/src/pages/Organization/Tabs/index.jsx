@@ -6,13 +6,13 @@ import { Tabs, TabList, TabPanel, Tab } from '@zendeskgarden/react-tabs'
 import { Link, useNavigation } from 'components/Routing'
 import { useParams, useRouteMatch } from 'react-router-dom'
 
-import { Span } from '@zendeskgarden/react-typography';
+import { Span } from '@zendeskgarden/react-typography'
 
 const OrganizationTabs = ({ children }) => {
   const { organizationId, tabId = 'details' } = useParams()
-	const navigate = useNavigation()
+  const navigate = useNavigation()
 	
-	const { url } = useRouteMatch()
+  const { url } = useRouteMatch()
 
   return (
     <>
@@ -38,6 +38,10 @@ const OrganizationTabs = ({ children }) => {
       </Tabs>
     </>
   )
+}
+
+OrganizationTabs.propTypes = {
+  children: PropTypes.node
 }
 
 // Keeping as a reminder that AddOrganization should be a child of the tabbed interface

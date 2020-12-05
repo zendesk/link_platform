@@ -4,23 +4,23 @@ import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
 
 const Link = ({ to, children, ...rest }) => {
-	const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-	const doNavigation = e => {
-		e.preventDefault()
-		dispatch(push(to))
-	}
+  const doNavigation = e => {
+    e.preventDefault()
+    dispatch(push(to))
+  }
 
-	return <a href={ to } onClick={ doNavigation } { ...rest }>{ children }</a>
+  return <a href={ to } onClick={ doNavigation } { ...rest }>{ children }</a>
 }
 
 Link.propTypes = {
-	to: PropTypes.string.isRequired,
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node
-	]).isRequired,
-	rest: PropTypes.object
+  to: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  rest: PropTypes.object
 }
 
 export default Link

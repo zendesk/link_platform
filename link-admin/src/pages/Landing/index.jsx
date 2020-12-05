@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
 import { updateTaxonomyFilters } from 'store/landing'
 import { fetchOrganizations } from 'store/organizations'
@@ -10,6 +9,7 @@ import * as Taxonomy from './Taxonomy'
 import OrganizationList from './OrganizationList'
 
 import DataDependentComponent from 'components/DataDependentComponent'
+import Container from 'components/layout/Container'
 import AdminTopBar from './AdminTopBar'
 
 const Landing = () => {
@@ -28,14 +28,14 @@ const Landing = () => {
   }, [organizations.status, dispatch])
 
   return (
-    <Viewport>
+    <Container>
       <AdminTopBar
         tags={ Taxonomy.all.map((taxonomy, index) => (
           <Taxonomy.Tag
             key={ taxonomy.id }
             onClick={ updateTaxonomyFilters }
             isActive={ activeTaxonomyFilters.includes(taxonomy.id) }
-            taxonomy={ { index, ...taxonomy } }
+            taxonomy={{ index, ...taxonomy }}
           />
         )) }
       />
@@ -45,10 +45,8 @@ const Landing = () => {
         component={ <OrganizationList organizations={ organizations.data } /> } 
       />
 
-    </Viewport>
+    </Container>
   )
 }
-
-const Viewport = styled.div``
 
 export default Landing
