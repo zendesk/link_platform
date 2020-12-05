@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createComponent } from 'react-fela'
 import partial from 'lodash/partial'
 import {
   Table,
@@ -48,17 +47,15 @@ const OrganizationList = ({ organizations }) => {
               <Cell>
                 { organization.updatedAt }
               </Cell>
-              <Cell>
-                <OverflowMenuPadding>
-                  <OverflowMenu
-                    onSelectItem={ partial(
-                      onMenuChange,
-                      onEditOrganization,
-                      onDeleteOrganization
-                    ) }
-                    menuItems={ overflowItems() }
-                  />
-                </OverflowMenuPadding>
+              <Cell hasOverflow>
+                <OverflowMenu
+                  onSelectItem={ partial(
+                    onMenuChange,
+                    onEditOrganization,
+                    onDeleteOrganization
+                  ) }
+                  menuItems={ overflowItems() }
+                />
               </Cell>
             </Row>
           )
@@ -99,10 +96,6 @@ const onMenuChange = (onEdit, onDelete, selectedKey) => {
       return
   }
 }
-
-const OverflowMenuPadding = createComponent(() => ({
-  paddingEnd: '4px',
-}))
 
 OrganizationList.propTypes = {
   organizations: PropTypes.array.isRequired

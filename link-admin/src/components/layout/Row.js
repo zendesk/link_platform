@@ -1,8 +1,8 @@
-import { createComponent } from 'react-fela'
+import styled from 'styled-components'
 
-const Row = createComponent(() => ({
-  justifyContent: 'flex-start',
-  display: 'flex'
-}));
+const Row = styled.div`
+  justify-content: flex-start;
+  display: flex;
+`
 
 export default Row

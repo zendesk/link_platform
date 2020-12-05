@@ -1,7 +1,7 @@
-import { createComponent } from 'react-fela'
+import styled from 'styled-components'
 
-const Spacer = createComponent(({ space }) => ({
-  width: `${space}rem`
-}))
+const Spacer = styled.div`
+  width: ${props => props.space ? props.space : 1}rem;
+`
 
 export default Spacer

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createComponent, createComponentWithProxy } from 'react-fela'
+import styled from 'styled-components'
 import { Button } from '@zendeskgarden/react-buttons'
 import { Field, Input } from '@zendeskgarden/react-forms'
 import { useNavigation } from 'components/Routing'
@@ -34,30 +34,23 @@ const AdminTopBar = ({ tags }) => {
   )
 }
 
-const AdminTopBarContainer = createComponent(() => ({}))
+const AdminTopBarContainer = styled.div``
 
-const SailorImage = createComponent(
-  () => ({
-    bottom: '-.5rem',
-    position: 'relative',
-    zIndex: '-1',
-  }),
-  'img',
-  ['src']
-)
+const SailorImage = styled.img`
+  bottom: -0.5rem;
+  position: relative;
+  z-index: -1;
+`
 
-const NewButton = createComponentWithProxy(
-  () => ({
-    alignSelf: 'flex-end',
-  }),
-  Button
-)
+const NewButton = styled(Button)`
+  align-self: flex-end;
+`
 
-const SearchBarContainer = createComponent(() => ({
-  minWidth: '500px',
-  display: 'flex',
-  flexDirection: 'column',
-}))
+const SearchBarContainer = styled.div`
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+`
 
 AdminTopBar.propTypes = {
   tags: PropTypes.array.isRequired

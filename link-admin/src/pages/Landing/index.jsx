@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createComponent } from 'react-fela'
+import styled from 'styled-components'
 
 import { updateTaxonomyFilters } from 'store/landing'
 import { fetchOrganizations } from 'store/organizations'
@@ -49,6 +49,6 @@ const Landing = () => {
   )
 }
 
-const Viewport = createComponent(() => {})
+const Viewport = styled.div``
 
 export default Landing
