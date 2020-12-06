@@ -12,8 +12,7 @@
     "link-admin",
     "link-api",
     "link-rest-client",
-    "link-user",
-    "svg-icons"
+    "link-user"
   ],
   "directories": {
     "doc": "doc"

@@ -7,7 +7,7 @@ const {
 module.exports = {
   webpack: override(
     addWebpackModuleRule({
-      test: [/svg-icons\/.*\.svg$/, /@zendeskgarden\/.*\.svg$/],
+      test: [/^@zendeskgarden\/svg-icons\/src\/.*\.svg$/],
       use: ['@svgr/webpack']
     })
   ) 

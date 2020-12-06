@@ -28,7 +28,6 @@
     "connected-react-router": "^6.8.0",
     "global": "^4.3.2",
     "link-rest-client": "^1.0.0",
-    "svg-icons": "^6.27.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
