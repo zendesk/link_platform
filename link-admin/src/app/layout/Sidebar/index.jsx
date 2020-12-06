@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import MenuIcon from 'svg-icons/src/icons/menu-stroke.svg'
+import Icon from 'components/Icon'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSidebarOpen } from 'store/app'
-
-console.log({ MenuIcon })
 
 const Sidebar = () => {
   const dispatch = useDispatch()
@@ -19,7 +17,7 @@ const Sidebar = () => {
     <SidebarContainer id="sidebar">
       <nav>
         <MenuToggleButton onClick={ toggleMenuButton }>
-          <MenuIcon width="36px" height="36px" />
+          <Icon name='menu-stroke' size='36' />
         </MenuToggleButton>
       </nav>
     </SidebarContainer>
@@ -39,6 +37,10 @@ const MenuToggleButton = styled.div`
   text-align: right;
   padding: 10px 16px 0 0;
   cursor: pointer;
+
+  svg {
+    font-size: 36px;
+  }
 `
 
 export default Sidebar
