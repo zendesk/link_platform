@@ -1,3 +1,5 @@
+import { DEFAULT_THEME } from '@zendeskgarden/react-theming'
+
 const screenSizes = {
   'xs': 320,
   'sm': 640,
@@ -8,6 +10,7 @@ const screenSizes = {
 }
 
 const theme = {
+  ...DEFAULT_THEME,
   sizes: screenSizes,
   breakpoints: {},
   sidebar: {

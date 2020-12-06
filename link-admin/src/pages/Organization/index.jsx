@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import OrganizationDetails from './OrganizationForm'
 import LocationsTable from './OrganizationLocations'
@@ -22,7 +22,7 @@ const Organization = () => {
   const organizations = useSelector(state => state.organizations)
   const navigate = useNavigation()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if(organizations.status === STATUS.IDLE) {
       dispatch(fetchOrganization(organizationId))
     }

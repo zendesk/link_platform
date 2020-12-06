@@ -1,14 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import classnames from 'classnames'
 
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
 import Footer from './Footer'
+import { useSelector } from 'react-redux'
 
 const AdminLayout = ({ children }) => {
+  const app = useSelector(state => state.app)
+
   return (
-    <LayoutContainer>
+    <LayoutContainer className={ classnames({ 'sidebar-open': app.sidebarOpen }) }>
       <Topbar />
       <Sidebar />
 
@@ -34,6 +38,10 @@ const LayoutContainer = styled.div`
     "sidebar topbar"
     "sidebar content"
     "sidebar footer";
+
+  &.sidebar-open {
+    grid-template-columns: ${({ theme }) => theme.sidebar.width.open} 1fr;
+  }
 `
 
 const ContentWrapper = styled.div`

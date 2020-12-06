@@ -18,7 +18,7 @@ const AdminTopBar = ({ tags }) => {
     <AdminTopBarContainer>
       <Row>
         <SearchBarContainer>
-          <SailorImage src={ sailor } />
+          {/* <SailorImage src={ sailor } /> */}
           <Field>
             <Input
               placeholder={ strings.AdminTopBar_SearchPlaceholder }

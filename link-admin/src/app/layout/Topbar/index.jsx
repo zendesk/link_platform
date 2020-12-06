@@ -19,6 +19,7 @@ const TopbarContainer = styled.header`
 
 const TopbarContent = styled.div`
   flex: 1;
+  padding: 10px;
 `
 
 export default Topbar

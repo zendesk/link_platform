@@ -1,6 +1,6 @@
-const OFF = 0;
-const WARN = 1;
-const ERROR = 2;
+const OFF = 0
+const WARN = 1
+const ERROR = 2
 
 module.exports = {
   root: true,
@@ -84,4 +84,4 @@ module.exports = {
     'react/prefer-stateless-function': OFF,
     'eol-last': [ERROR, 'always']
   }
-};
+}
