@@ -1,0 +1,3 @@
+[submodule "svg-icons"]
+	path = svg-icons
+	url = https://github.com/zendeskgarden/svg-icons.git
