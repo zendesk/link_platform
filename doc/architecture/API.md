@@ -1,3 +1,5 @@
+Organizations
+
 Contacts
 
 Locations
@@ -13,8 +15,6 @@ Holiday Schedules
 Languages
 
 Services
-
-Organizations
 
 Physical Addresses
 

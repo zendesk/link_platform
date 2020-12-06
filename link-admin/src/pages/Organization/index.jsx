@@ -13,6 +13,7 @@ import { fetchOrganization } from 'store/organizations'
 import { Span } from '@zendeskgarden/react-typography'
 import DataDependentComponent from 'components/DataDependentComponent'
 import OrganizationTabs from './Tabs'
+import Container from 'components/layout/Container'
 
 
 const Organization = () => {
@@ -28,12 +29,14 @@ const Organization = () => {
   }, [organizations.status, dispatch, organizationId])
 
   return (
-    <OrganizationTabs>
-      <DataDependentComponent
-        status={ organizations.status } 
-        component={ <OrganizationDetails organization={ organizations.data.find(org => org.id === organizationId) } /> }
-      />
-    </OrganizationTabs>
+    <Container>
+      <OrganizationTabs>
+        <DataDependentComponent
+          status={ organizations.status } 
+          component={ <OrganizationDetails organization={ organizations.data.find(org => org.id === organizationId) } /> }
+        />
+      </OrganizationTabs>
+    </Container>
   )
 }
 
