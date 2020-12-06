@@ -1,11 +1,24 @@
 import React from 'react'
+import styled from 'styled-components'
 
 const Topbar = () => {
   return (
-    <div>
-			Top Bar
-    </div>
+    <TopbarContainer id="topbar">
+      <TopbarContent>
+        Link SF
+      </TopbarContent>
+    </TopbarContainer>
   )
 }
+
+const TopbarContainer = styled.header`
+  grid-area: topbar;
+  background: #CCC;
+  display: flex;
+`
+
+const TopbarContent = styled.div`
+  flex: 1;
+`
 
 export default Topbar

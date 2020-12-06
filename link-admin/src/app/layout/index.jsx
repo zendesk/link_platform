@@ -8,20 +8,46 @@ import Footer from './Footer'
 
 const AdminLayout = ({ children }) => {
   return (
-    <>
+    <LayoutContainer>
       <Topbar />
       <Sidebar />
 
-      <Content>
-        { children }
-      </Content>
+      <ContentWrapper>
+        <Content id="content">
+          { children }
+        </Content>
+      </ContentWrapper>
 
       <Footer />
-    </>
+    </LayoutContainer>
   )
 }
 
-const Content = styled.div``
+
+const LayoutContainer = styled.div`
+	display: grid;
+  height: 100vh;
+  grid-template-columns: ${({ theme }) => theme.sidebar.width.closed} 1fr;
+  grid-template-rows: 50px 1fr 35px;
+	gap: 0;
+  grid-template-areas:
+    "sidebar topbar"
+    "sidebar content"
+    "sidebar footer";
+`
+
+const ContentWrapper = styled.div`
+	grid-area: content;
+	overflow: auto;
+  width: 100%;
+`
+
+const Content = styled.main`
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+  padding: 15px;
+`
 
 AdminLayout.propTypes = {
   children: PropTypes.node

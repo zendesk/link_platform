@@ -9,7 +9,13 @@ const screenSizes = {
 
 const theme = {
   sizes: screenSizes,
-  breakpoints: {}
+  breakpoints: {},
+  sidebar: {
+    width: {
+      closed: '65px',
+      open: '150px'
+    }
+  }
 }
 
 for(const [key, value] of Object.entries(screenSizes)) {
