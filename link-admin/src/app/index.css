@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+/* Something's wrong with the preflight setting for border values. https://github.com/tailwindlabs/tailwindcss/pull/116 */
+*,
+*:before,
+*:after {
+  border-width: 0;
 }
 
-/* remove this: it's just for the demo */
-iframe {
-  display: none;
+html {
+  /* Unsetting this property set by zendeskgarden base theme */
+  overflow-y: unset;
 }

@@ -1,25 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 
 const Footer = () => {
   return (
-    <FooterContainer id="footer">
-      <div>©2020</div>
-    </FooterContainer>
+    <footer id="footer" className="border-t-default border-grey-300 flex flex-row-reverse p-2 border-solid">
+      <div className="text-grey-700">©2020</div>
+    </footer>
   )
 }
-
-const FooterContainer = styled.footer`
-  grid-area: footer;
-  border-top-width: 1px;
-  padding: 0.25rem 0.75rem 0 0;
-  border: 1px solid #CCC;
-  display: flex;
-  flex-direction: row-reverse;
-
-  div {
-    color: #666;
-  }
-`
 
 export default Footer

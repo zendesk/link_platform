@@ -1,25 +1,23 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import Link from 'components/Routing/Link'
+
+import logo from 'images/link-sf.png'
+import MenuToggleButton from 'components/MenuToggleButton'
 
 const Topbar = () => {
   return (
-    <TopbarContainer id="topbar">
-      <TopbarContent>
-        Link SF
-      </TopbarContent>
-    </TopbarContainer>
+    <header id="topbar" className="bg-gather flex">
+      <div className="flex-1 p-2">
+        <div className="sm:hidden inline-block">
+          <MenuToggleButton color="white" size="36" />
+        </div>
+        <Link to="/">
+          <img src={ logo } className="h-full" />
+        </Link>
+      </div>
+    </header>
   )
 }
-
-const TopbarContainer = styled.header`
-  grid-area: topbar;
-  background: #CCC;
-  display: flex;
-`
-
-const TopbarContent = styled.div`
-  flex: 1;
-  padding: 10px;
-`
 
 export default Topbar

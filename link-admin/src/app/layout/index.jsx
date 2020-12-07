@@ -13,16 +13,16 @@ const AdminLayout = ({ children }) => {
 
   return (
     <LayoutContainer className={ classnames({ 'sidebar-open': app.sidebarOpen }) }>
-      <Topbar />
-      <Sidebar />
+      <Topbar id="topbar" />
+      <Sidebar id="sidebar" />
 
-      <ContentWrapper>
-        <Content id="content">
+      <div id="content" className="w-full overflow-auto">
+        <main className="flex flex-col p-4 m-auto my-0">
           { children }
-        </Content>
-      </ContentWrapper>
+        </main>
+      </div>
 
-      <Footer />
+      <Footer id="footer" />
     </LayoutContainer>
   )
 }
@@ -32,7 +32,7 @@ const LayoutContainer = styled.div`
 	display: grid;
   height: 100vh;
   grid-template-columns: ${({ theme }) => theme.sidebar.width.closed} 1fr;
-  grid-template-rows: 50px 1fr 35px;
+  grid-template-rows: 53px 1fr 35px;
 	gap: 0;
   grid-template-areas:
     "sidebar topbar"
@@ -42,19 +42,48 @@ const LayoutContainer = styled.div`
   &.sidebar-open {
     grid-template-columns: ${({ theme }) => theme.sidebar.width.open} 1fr;
   }
-`
 
-const ContentWrapper = styled.div`
-	grid-area: content;
-	overflow: auto;
-  width: 100%;
-`
+  #topbar {
+    grid-area: topbar;
+  }
 
-const Content = styled.main`
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-  padding: 15px;
+  #sidebar {
+    grid-area: sidebar;
+  }
+
+  #content {
+  	grid-area: content;
+  }
+
+  #footer {
+    grid-area: footer;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "topbar"
+      "content"
+      "footer";
+
+    #sidebar {
+      grid-area: unset;
+      position: fixed;
+      top: 0;
+      left: -100vw;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    &.sidebar-open {
+      grid-template-columns: unset;
+      transition: left 150ms ease-in-out;
+
+      #sidebar {
+        left: 0;
+      }
+    }
+  }
 `
 
 AdminLayout.propTypes = {

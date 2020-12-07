@@ -64,6 +64,7 @@ module.exports = {
       'css': 'ignorePackages',
       'svg': 'ignorePackages',
       'jpg': 'ignorePackages',
+      'png': 'ignorePackages',
       'gif': 'ignorePackages'
     }],
     'no-unused-expressions': [ERROR, {
