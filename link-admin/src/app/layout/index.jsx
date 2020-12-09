@@ -27,7 +27,6 @@ const AdminLayout = ({ children }) => {
   )
 }
 
-
 const LayoutContainer = styled.div`
 	display: grid;
   height: 100vh;
@@ -77,10 +76,10 @@ const LayoutContainer = styled.div`
 
     &.sidebar-open {
       grid-template-columns: unset;
-      transition: left 150ms ease-in-out;
 
       #sidebar {
         left: 0;
+        transition: left 150ms ease-in-out;
       }
     }
   }

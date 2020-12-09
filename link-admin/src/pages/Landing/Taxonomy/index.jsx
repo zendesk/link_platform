@@ -1,11 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Tag as GardenTag } from '@zendeskgarden/react-tags'
 
-import Spacer from 'components/layout/Spacer'
-import Row from 'components/layout/Row'
+import { updateTaxonomyFilters } from 'store/landing'
+import { useDispatch, useSelector } from 'react-redux'
 
-const all = [
+import TaxonomyTag from 'components/Taxonomy/Tag'
+import Padded from 'components/layout/Padded'
+
+export const categories = [
   { id: 1, label: 'Food' },
   { id: 2, label: 'Housing' },
   { id: 3, label: 'Hygiene' },
@@ -13,19 +14,23 @@ const all = [
   { id: 5, label: 'Technology' }
 ]
 
-const Tag = ({ onClick, isActive, taxonomy: { id, index, label } }) => (
-  <Row>
-    { index > 0 ? <Spacer space='.5' /> : '' }
-    <GardenTag type={ isActive ? 'blue' : 'grey' } onClick={ () => onClick(id) }>
-      { label }
-    </GardenTag>
-  </Row>
-)
+const TaxonomyTags = () => {
+  const dispatch = useDispatch()
+  const { activeTaxonomyFilters } = useSelector(state => state.landing)
 
-Tag.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  taxonomy: PropTypes.object.isRequired
+  return (
+    <Padded className="flex-wrap gap-2">{
+      categories.map((taxonomy, index) => (
+        <TaxonomyTag
+          className=""
+          key={ taxonomy.id }
+          onClick={ id => dispatch(updateTaxonomyFilters(id)) }
+          isActive={ activeTaxonomyFilters.includes(taxonomy.id) }
+          taxonomy={{ index, ...taxonomy }}
+        />
+      )) }
+    </Padded>
+  )
 }
 
-export { Tag, all }
+export default TaxonomyTags

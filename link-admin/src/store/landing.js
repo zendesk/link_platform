@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import xor from 'lodash/xor'
+import { xor } from 'lodash'
 
 const slice = createSlice({
   name: 'landing',
@@ -8,9 +8,11 @@ const slice = createSlice({
     activeTaxonomyFilters: []
   },
   reducers: {
-    updateTaxonomyFilters: (state, { payload }) => xor(state.activeTaxonomyFilters, [
-      payload.taxonomy
-    ])
+    updateTaxonomyFilters: (state, { payload }) => {
+      state.activeTaxonomyFilters = xor(state.activeTaxonomyFilters, [
+        payload
+      ])
+    }
   }
 })
 

@@ -7,15 +7,15 @@ import MenuToggleButton from 'components/MenuToggleButton'
 
 const Topbar = () => {
   return (
-    <header id="topbar" className="bg-gather flex">
-      <div className="flex-1 p-2">
+    <header id="topbar" className="bg-gather flex-nowrap flex p-2 overflow-hidden">
+      <div className="flex-0">
         <div className="sm:hidden inline-block">
           <MenuToggleButton color="white" size="36" />
         </div>
-        <Link to="/">
-          <img src={ logo } className="h-full" />
-        </Link>
       </div>
+      <Link to="/">
+        <img src={ logo } className="max-w-full max-h-full" />
+      </Link>
     </header>
   )
 }

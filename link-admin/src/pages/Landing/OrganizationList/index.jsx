@@ -11,7 +11,6 @@ import {
   Cell
 } from '@zendeskgarden/react-tables'
 import OverflowMenu from './OverflowMenu'
-// import { Link } from 'react-router-dom'
 import Link from 'components/Routing/Link'
 import { Anchor } from '@zendeskgarden/react-buttons'
 import formatUrl from 'lib/formatUrl'
