@@ -1,11 +1,15 @@
 import { DEFAULT_THEME } from '@zendeskgarden/react-theming'
+import themeExtras from './themeExtras'
+import { merge } from 'lodash'
+
+const defaultSettings = merge(DEFAULT_THEME, themeExtras)
 
 const theme = {
-  ...DEFAULT_THEME,
+  ...defaultSettings,
   sidebar: {
     width: {
       closed: '65px',
-      open: '150px'
+      open: '200px'
     }
   }
 }
