@@ -5,7 +5,7 @@ import MenuToggleButton from 'components/MenuToggleButton'
 
 const Sidebar = () => {
   return (
-    <SidebarContainer id="sidebar" className="bg-kale-700 flex flex-col justify-between">
+    <SidebarContainer id="sidebar" className="flex flex-col justify-between bg-yellow-700">
       <nav>
         <div className="pt-2 pr-4 text-right">
           <MenuToggleButton color="white" size="36" />

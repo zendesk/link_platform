@@ -31,7 +31,7 @@ const LayoutContainer = styled.div`
 	display: grid;
   height: 100vh;
   grid-template-columns: ${({ theme }) => theme.sidebar.width.closed} 1fr;
-  grid-template-rows: 53px 1fr 35px;
+  grid-template-rows: 53px 1fr 28px;
 	gap: 0;
   grid-template-areas:
     "sidebar topbar"
