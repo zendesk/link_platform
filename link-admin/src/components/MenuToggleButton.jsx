@@ -6,7 +6,7 @@ import classnames from 'classnames'
 
 import Icon from 'components/Icon'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSidebarOpen } from 'store/app'
+import { setSidebarOpen } from 'state/app'
 
 const MenuToggleButton = ({ className, size, color }) => {
   const dispatch = useDispatch()

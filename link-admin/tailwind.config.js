@@ -1,5 +1,5 @@
 const zendeskTheme = require('@zendeskgarden/tailwindcss')
-const extras = require('./src/app/themeExtras')
+const extras = require('./src/app/theme/themeExtras')
 
 module.exports = {
   purge: ['./src/**/*.jsx', './public/index.html'],

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { fetchOrganizations } from 'store/organizations'
+import { fetchOrganizations } from 'state/organizations'
 import { STATUS } from 'link-rest-client/api'
 
 import OrganizationList from './OrganizationList'

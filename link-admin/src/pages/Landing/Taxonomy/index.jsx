@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { updateTaxonomyFilters } from 'store/landing'
+import { updateTaxonomyFilters } from 'state/landing'
 import { useDispatch, useSelector } from 'react-redux'
 
 import TaxonomyTag from 'components/Taxonomy/Tag'

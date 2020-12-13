@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { Provider } from 'react-redux'
-import Router from 'router'
+import Router from 'app/router'
 import { ConnectedRouter } from 'connected-react-router'
-import store, { history } from 'store'
+import store, { history } from 'state'
 
-import './index.css'
-import theme from './theme'
+import 'app/index.css'
+import theme from 'app/theme/theme'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { ThemeProvider as ZengardenThemeProvider } from '@zendeskgarden/react-theming'
 
