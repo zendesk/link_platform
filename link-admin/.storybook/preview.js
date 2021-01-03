@@ -1,13 +1,10 @@
 import React from 'react'
-// import { RendererProvider as FelaProvider } from 'react-fela'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components'
-import styledTheme from '../src/app/styledTheme'
 import { configure, addDecorator } from '@storybook/react'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import store from 'store'
 
-import '../src/app/index.css'
+import StyleProviders from '../src/app/providers/style'
 
 const withReduxProvider = story => (
   <ReduxProvider store={ store }>{ story() }</ReduxProvider>
@@ -24,10 +21,8 @@ configure(loadStories, module)
 
 export const decorators = [
   (Story) => (
-    <ReduxProvider>
-      <StyledThemeProvider theme={ styledTheme }>
-        <Story />
-      </StyledThemeProvider>
-    </ReduxProvider>
+    <StyleProviders>
+      <Story />
+    </StyleProviders>
   )
 ]

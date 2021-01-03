@@ -2,7 +2,8 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import * as Taxonomy from '../Taxonomy'
+import { Tag as TaxonomyTag } from 'components/Taxonomy'
+import { categories } from '../Taxonomy'
 import AdminTopBar from '.'
 
 export const actions = {
@@ -11,8 +12,8 @@ export const actions = {
 
 const selectedTaxonomies = [1]
 
-const tags = Taxonomy.all.map((taxonomy, index) => (
-  <Taxonomy.Tag
+const tags = categories.map((taxonomy, index) => (
+  <TaxonomyTag
     key={ taxonomy.id }
     onClick={ action('clicked tag') }
     isActive={ selectedTaxonomies.includes(taxonomy.id) }
