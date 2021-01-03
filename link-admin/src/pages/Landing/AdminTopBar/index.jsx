@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { updateSearchFilter } from 'store/landing'
+
 import { Button } from '@zendeskgarden/react-buttons'
 import { useNavigation } from 'components/Routing'
 
@@ -13,21 +16,24 @@ import Row from 'components/layout/Row'
 import TaxonomyTags from '../Taxonomy'
 
 const AdminTopBar = () => {
-  const [orgsFilter, setOrgsFilter] = useState('')
+  const landing = useSelector(state => state.landing)
+  const dispatch = useDispatch()
+
   const navigate = useNavigation()
 
-  const handleSearchInput = e => {
-    setOrgsFilter(e.target.value)
-  }
-  
+
+
   return (
     <div>
       <Row className="flex flex-wrap w-full gap-2">
         <Field className="flex-grow">
           <MediaInput
-            onChange={ handleSearchInput }
-            end={ <SearchInputIcon value={ orgsFilter } onClick={ () => setOrgsFilter('') } /> }
-            value={ orgsFilter }
+            onChange={ e => dispatch(updateSearchFilter(e.target.value)) }
+            end={ <SearchInputIcon 
+              value={ landing.searchFilter } 
+              onClick={ () => dispatch(updateSearchFilter('')) } 
+            /> }
+            value={ landing.searchFilter }
             placeholder={ strings.AdminTopBar_SearchPlaceholder }
             aria-label={ strings.AdminTopBar_SearchPlaceholder }
           />

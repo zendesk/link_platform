@@ -5,16 +5,20 @@ const slice = createSlice({
   name: 'landing',
   initialState: {
     initStarted: false,
-    activeTaxonomyFilters: []
+    activeTaxonomyFilters: [],
+    searchFilter: ''
   },
   reducers: {
     updateTaxonomyFilters: (state, { payload }) => {
       state.activeTaxonomyFilters = xor(state.activeTaxonomyFilters, [
         payload
       ])
+    },
+    updateSearchFilter: (state, { payload }) => {
+      state.searchFilter = payload
     }
   }
 })
 
 export default slice.reducer
-export const { updateTaxonomyFilters } = slice.actions
+export const { updateTaxonomyFilters, updateSearchFilter } = slice.actions
