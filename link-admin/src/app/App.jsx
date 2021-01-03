@@ -1,25 +1,17 @@
 import React from 'react'
 
-import { Provider } from 'react-redux'
-import Router from 'app/router'
-import { ConnectedRouter } from 'connected-react-router'
-import store, { history } from 'state'
+import { Provider as ReduxProvider } from 'react-redux'
+import store from 'store'
 
-import 'app/index.css'
-import theme from 'app/theme/theme'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components'
-import { ThemeProvider as ZengardenThemeProvider } from '@zendeskgarden/react-theming'
+import StyleProviders from 'app/providers/style'
+import Router from 'app/router'
 
 const App = () => (
-  <Provider store={ store }>
-    <StyledThemeProvider theme={ theme }>
-      <ZengardenThemeProvider theme={ theme }>
-        <ConnectedRouter history={ history }>
-          <Router />
-        </ConnectedRouter>
-      </ZengardenThemeProvider>
-    </StyledThemeProvider>
-  </Provider>
+  <ReduxProvider store={ store }>
+    <StyleProviders>
+      <Router />
+    </StyleProviders>
+  </ReduxProvider>
 )
 
 export default App

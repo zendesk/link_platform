@@ -7,10 +7,10 @@ import MenuToggleButton from 'components/MenuToggleButton'
 
 const Topbar = () => {
   return (
-    <header id="topbar" className="flex-nowrap flex p-2 overflow-hidden bg-yellow-200">
+    <header id="topbar" className="flex-nowrap flex p-2 overflow-hidden bg-white shadow-sm">
       <div className="flex-0">
         <div className="sm:hidden inline-block">
-          <MenuToggleButton color="white" size="36" />
+          <MenuToggleButton color="black" size="36" />
         </div>
       </div>
       <Link to="/">

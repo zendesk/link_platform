@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
 
-const useNavigation = (path) => {
+const useNavigation = () => {
   const dispatch = useDispatch()
   return path => dispatch(push(path))
 }

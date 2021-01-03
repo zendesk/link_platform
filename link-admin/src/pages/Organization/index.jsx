@@ -8,7 +8,7 @@ import { Link, useNavigation } from 'components/Routing'
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { STATUS } from 'link-rest-client/api'
-import { fetchOrganization } from 'state/organizations'
+import { fetchOrganization } from 'store/organizations'
 
 import { Span } from '@zendeskgarden/react-typography'
 import DataDependentComponent from 'components/DataDependentComponent'
