@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import OrganizationDetails from './OrganizationForm'
 import LocationsTable from './OrganizationLocations'
@@ -10,9 +10,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { STATUS } from 'link-rest-client/api'
 import { fetchOrganization } from 'store/organizations'
 
-import { Span } from '@zendeskgarden/react-typography';
+import { Span } from '@zendeskgarden/react-typography'
 import DataDependentComponent from 'components/DataDependentComponent'
 import OrganizationTabs from './Tabs'
+import Container from 'components/layout/Container'
 
 
 const Organization = () => {
@@ -21,19 +22,21 @@ const Organization = () => {
   const organizations = useSelector(state => state.organizations)
   const navigate = useNavigation()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if(organizations.status === STATUS.IDLE) {
       dispatch(fetchOrganization(organizationId))
     }
   }, [organizations.status, dispatch, organizationId])
 
   return (
-    <OrganizationTabs>
-      <DataDependentComponent
-        status={ organizations.status } 
-        component={ <OrganizationDetails organization={ organizations.data.find(org => org.id === organizationId) } /> }
-      />
-    </OrganizationTabs>
+    <Container>
+      <OrganizationTabs>
+        <DataDependentComponent
+          status={ organizations.status } 
+          component={ <OrganizationDetails organization={ organizations.data.find(org => org.id === organizationId) } /> }
+        />
+      </OrganizationTabs>
+    </Container>
   )
 }
 

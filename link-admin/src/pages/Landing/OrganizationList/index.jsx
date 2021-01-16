@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { createComponent } from 'react-fela'
 import partial from 'lodash/partial'
 import {
   Table,
@@ -12,7 +11,6 @@ import {
   Cell
 } from '@zendeskgarden/react-tables'
 import OverflowMenu from './OverflowMenu'
-// import { Link } from 'react-router-dom'
 import Link from 'components/Routing/Link'
 import { Anchor } from '@zendeskgarden/react-buttons'
 import formatUrl from 'lib/formatUrl'
@@ -48,17 +46,15 @@ const OrganizationList = ({ organizations }) => {
               <Cell>
                 { organization.updatedAt }
               </Cell>
-              <Cell>
-                <OverflowMenuPadding>
-                  <OverflowMenu
-                    onSelectItem={ partial(
-                      onMenuChange,
-                      onEditOrganization,
-                      onDeleteOrganization
-                    ) }
-                    menuItems={ overflowItems() }
-                  />
-                </OverflowMenuPadding>
+              <Cell hasOverflow>
+                <OverflowMenu
+                  onSelectItem={ partial(
+                    onMenuChange,
+                    onEditOrganization,
+                    onDeleteOrganization
+                  ) }
+                  menuItems={ overflowItems() }
+                />
               </Cell>
             </Row>
           )
@@ -78,15 +74,15 @@ const overflowItems = () => [
     key: EDIT_ITEM,
     label: 'edit',
     isDisabled: false,
-    isDanger: false,
+    isDanger: false
   },
   {
     type: 'item',
     key: DELETE_ITEM,
     label: 'delete',
     isDisabled: false,
-    isDanger: false,
-  },
+    isDanger: false
+  }
 ]
 
 const onMenuChange = (onEdit, onDelete, selectedKey) => {
@@ -99,10 +95,6 @@ const onMenuChange = (onEdit, onDelete, selectedKey) => {
       return
   }
 }
-
-const OverflowMenuPadding = createComponent(() => ({
-  paddingEnd: '4px',
-}))
 
 OrganizationList.propTypes = {
   organizations: PropTypes.array.isRequired

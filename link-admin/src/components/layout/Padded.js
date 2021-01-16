@@ -1,8 +1,8 @@
-import { createComponent } from 'react-fela'
+import styled from 'styled-components'
 
-const Padded = createComponent(() => ({
-  padding: '1rem 0 1rem 0',
-  display: 'flex'
-}));
+const Padded = styled.div`
+  padding: 1rem 0 1rem 0;
+  display: flex;
+`
 
 export default Padded

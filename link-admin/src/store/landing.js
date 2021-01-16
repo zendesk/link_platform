@@ -1,18 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
-import xor from 'lodash/xor'
+import { xor } from 'lodash'
 
 const slice = createSlice({
-	name: 'landing',
-	initialState: {
-		initStarted: false,
-		activeTaxonomyFilters: []
-	},
-	reducers: {
-		updateTaxonomyFilters: (state, { payload }) => xor(state.activeTaxonomyFilters, [
-			payload.taxonomy,
-		]),
-	}
+  name: 'landing',
+  initialState: {
+    initStarted: false,
+    activeTaxonomyFilters: [],
+    searchFilter: ''
+  },
+  reducers: {
+    updateTaxonomyFilters: (state, { payload }) => {
+      state.activeTaxonomyFilters = xor(state.activeTaxonomyFilters, [
+        payload
+      ])
+    },
+    updateSearchFilter: (state, { payload }) => {
+      state.searchFilter = payload
+    }
+  }
 })
 
 export default slice.reducer
-export const { updateTaxonomyFilters } = slice.actions
+export const { updateTaxonomyFilters, updateSearchFilter } = slice.actions

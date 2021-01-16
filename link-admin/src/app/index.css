@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Something's wrong with the preflight setting for border values. https://github.com/tailwindlabs/tailwindcss/pull/116 */
+*,
+*:before,
+*:after {
+  border-width: 0;
+}
+
+html {
+  /* Unsetting this property set by zendeskgarden base theme */
+  overflow-y: unset;
+}

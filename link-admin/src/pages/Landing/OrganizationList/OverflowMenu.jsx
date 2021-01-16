@@ -5,10 +5,10 @@ import { OverflowButton } from '@zendeskgarden/react-tables'
 
 const menuPopperModifiers = {
   preventOverflow: {
-    boundariesElement: 'viewport',
+    boundariesElement: 'viewport'
   },
   flip: {
-    enabled: false,
+    enabled: false
   },
   offset: {
     fn: data => {
@@ -17,8 +17,8 @@ const menuPopperModifiers = {
        **/
       data.offsets.popper.top -= 2
       return data
-    },
-  },
+    }
+  }
 }
 
 const OverflowMenu = ({ onSelectItem, menuItems }) => {
@@ -33,7 +33,7 @@ const OverflowMenu = ({ onSelectItem, menuItems }) => {
       </Trigger>
       <Menu
         placement="bottom-end"
-        style={ { marginTop: 0 } }
+        style={{ marginTop: 0 }}
         popperModifiers={ menuPopperModifiers }
       >
         { menuItems.map(item => (
@@ -42,6 +42,11 @@ const OverflowMenu = ({ onSelectItem, menuItems }) => {
       </Menu>
     </Dropdown>
   )
+}
+
+OverflowMenu.propTypes = {
+  onSelectItem: PropTypes.func,
+  menuItems: PropTypes.array
 }
 
 export default OverflowMenu

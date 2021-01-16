@@ -5,7 +5,7 @@ import * as Client from 'link-rest-client'
 
 export const initialState = {
   initStarted: false,
-  activeTaxonomyFilters: [],
+  activeTaxonomyFilters: []
 }
 
 export const update = (state, action) => {
@@ -16,7 +16,7 @@ export const update = (state, action) => {
           { ...state, initStarted: true },
           Cmd.run(Client.organizations.fetch(state.cache), {
             successActionCreator: Client.organizations.fetchSuccess,
-            failActionCreator: Client.organizations.fetchFailed,
+            failActionCreator: Client.organizations.fetchFailed
           })
         )
       }
@@ -27,8 +27,8 @@ export const update = (state, action) => {
       return {
         ...state,
         activeTaxonomyFilters: xor(state.activeTaxonomyFilters, [
-          action.taxonomy,
-        ]),
+          action.taxonomy
+        ])
       }
 
     default:

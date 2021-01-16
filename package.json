@@ -26,5 +26,10 @@
   "homepage": "https://github.com/zendesk/link_platform#readme",
   "bugs": {
     "url": "https://github.com/zendesk/link_platform/issues"
+  },
+  "proxy": {
+    "/api/*":{
+      "target": "http://blomp.localhost:3000"
+    }
   }
 }

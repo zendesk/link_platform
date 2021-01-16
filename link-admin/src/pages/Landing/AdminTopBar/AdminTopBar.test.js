@@ -5,9 +5,9 @@ import { Provider } from 'react-redux'
 import store from 'store'
 
 const DUMMY_TAGS = [
-  <div id="1" key='1' class='data-test-tag'></div>,
-  <div id="2" key='2' class='data-test-tag'></div>,
-  <div id="3" key='3' class='data-test-tag'></div>
+  <div id="1" key='1' className='data-test-tag'></div>,
+  <div id="2" key='2' className='data-test-tag'></div>,
+  <div id="3" key='3' className='data-test-tag'></div>
 ]
 
 const setShallowWrapper = (props = {}) => shallow(

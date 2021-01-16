@@ -70,7 +70,7 @@ const OrganizationDetails = ({ organization = {} }) => {
           </Field>
         </Col>
       </Row>
-      <Row style={ { marginTop: 15 } }>
+      <Row style={{ marginTop: 15 }}>
         <Col>
           <Button danger>Delete Location</Button>
         </Col>
@@ -79,7 +79,7 @@ const OrganizationDetails = ({ organization = {} }) => {
   )
 }
 
-OrganizationDetails.argumentspropTypes = {
+OrganizationDetails.propTypes = {
   organization: PropTypes.object
 }
 
