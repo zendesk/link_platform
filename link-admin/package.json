@@ -27,7 +27,7 @@
     "fela": "^11.3.1",
     "global": "^4.3.2",
     "link-rest-client": "^1.0.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
