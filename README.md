@@ -19,3 +19,4 @@ But I installed it using brew:
 
 ### Public Comms
 [Slack](https://join.slack.com/t/zendesk-volunteer/shared_invite/enQtNDczNTM5MzEwNjQwLTJlNDJiZTc4OWM4ZDAzYTRiZTI2ODg1MzlmM2FlYjFjM2JjM2ZmYjIwMmFhOTNiYTZlODcwOWIzYjllMzZlMDc)
+test
