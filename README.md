@@ -1,3 +1,5 @@
+⚠️ This project is archived. Pull requests and issues are not actively monitored.
+
 # link_platform
 A SaaS application for linking community services to end users
 
